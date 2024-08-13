@@ -42,4 +42,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function Province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    public function District()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function SubDistrict()
+    {
+        return $this->belongsTo(SubDistrict::class);
+    }
+
+    public function Properties()
+    {
+        return $this->hasMany(Property::class);
+    }
 }
