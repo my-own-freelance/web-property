@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Mobile\MobAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// MOBILE API
+Route::group(["middleware" => "api", "prefix" => "auth"], function () {
+    Route::post('register', [MobAuthController::class, 'register']);
+    Route::post('login', [MobAuthController::class, 'login']);
+    Route::post('logout', [MobAuthController::class, 'logout']);
+    Route::post('refresh', [MobAuthController::class, 'refresh']);
+    Route::post('me', [MobAuthController::class, 'me']);
 });
+
