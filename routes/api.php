@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\Mobile\MobAuthController;
+use App\Http\Controllers\CustomTemplateController;
+use App\Http\Controllers\MobAuthController;
+use App\Http\Controllers\WebAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +26,12 @@ Route::group(["middleware" => "api", "prefix" => "auth"], function () {
     Route::post('me', [MobAuthController::class, 'me']);
 });
 
+
+
+// WEB API
+Route::post("/auth/login/validate", [WebAuthController::class, "validateLogin"]);
+
+Route::group(["middleware"=> "check.auth", "prefix"=> "admin"], function(){
+    Route::post("/custom_template/create_update", [CustomTemplateController::class, "saveUpdateData"]);
+
+});

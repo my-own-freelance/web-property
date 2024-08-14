@@ -42,7 +42,6 @@ class AuthService
                 return response()->json([
                     "status" => "error",
                     "message" => $validator->errors()->first(),
-                    "data" => $request->all()
                 ], 400);
             }
 

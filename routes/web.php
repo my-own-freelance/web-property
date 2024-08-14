@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\WebAuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/logout', [WebAuthController::class, 'logout'])->name('logout');
+// AUTH
+Route::group(["middleware" => "guest"], function () {
+    Route::get('/', [WebAuthController::class, 'login'])->name('login');
+});
+
+Route::group(["middleware" => "auth:web", "prefix" => "admin"], function () {
+    Route::get("/", [DashboardController::class, "index"])->name("dashboard");
 });
