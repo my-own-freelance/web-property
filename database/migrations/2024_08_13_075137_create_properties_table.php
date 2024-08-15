@@ -36,6 +36,7 @@ return new class extends Migration
             $table->boolean('admin_approval')->default(false);
             $table->boolean('is_sold')->default(false);
             $table->integer('views')->default(0);
+            $table->string('image');
             $table->unsignedBigInteger('agen_id');
             $table->unsignedBigInteger('property_transaction_id');
             $table->unsignedBigInteger('property_type_id');
