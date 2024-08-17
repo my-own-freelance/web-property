@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('image');
             $table->enum('is_publish', ['N', 'Y'])->default('N');
             $table->longText('description');
-            $table->integer('views');
+            $table->integer('views')->default(0);
             $table->timestamps();
         });
     }

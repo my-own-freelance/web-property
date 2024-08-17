@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CustomTemplateController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MobAuthController;
@@ -36,7 +37,17 @@ Route::group(["middleware" => "api", "prefix" => "auth"], function () {
     Route::post('me', [MobAuthController::class, 'me']);
 });
 
-
+Route::group(["middleware" => ["api", "auth:api"], "prefix" => "mobile"], function () {
+    // ARTICLE
+    Route::group(["prefix" => "article"], function () {
+        Route::get("datatable", [ArticleController::class, "dataTable"]);
+        Route::get("{id}/detail", [ArticleController::class, "getDetail"]);
+        Route::post("create", [ArticleController::class, "create"]);
+        Route::post("update", [ArticleController::class, "update"]);
+        Route::post("update-status", [ArticleController::class, "updateStatus"]);
+        Route::delete("/", [ArticleController::class, "destroy"]);
+    });
+});
 
 // WEB API
 Route::post("/auth/login/validate", [WebAuthController::class, "validateLogin"]);
@@ -46,8 +57,6 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
 
     // endpoint for role owner
     Route::group(["middleware" => "api.check.role:owner"], function () {
-        Route::get("/{role}/datatable", [UserController::class, "dataTable"]);
-
         Route::group(["prefix" => "agen"], function () {
             Route::get("/{id}/detail", [UserController::class, "getDetail"]);
             Route::post("/create", [UserController::class, "createAgen"]);
@@ -61,5 +70,17 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
             Route::post("/update-status", [UserController::class, "updateStatus"]);
             Route::delete("/delete", [UserController::class, "destroy"]);
         });
+
+        // ARTICLE
+        Route::group(["prefix" => "article"], function () {
+            Route::get("datatable", [ArticleController::class, "dataTable"]);
+            Route::get("{id}/detail", [ArticleController::class, "getDetail"]);
+            Route::post("create", [ArticleController::class, "create"]);
+            Route::post("update", [ArticleController::class, "update"]);
+            Route::post("update-status", [ArticleController::class, "updateStatus"]);
+            Route::delete("/", [ArticleController::class, "destroy"]);
+        });
+
+        Route::get("/{role}/datatable", [UserController::class, "dataTable"]);
     });
 });

@@ -19,13 +19,13 @@
                     </span>
                     <h4 class="text-section">Master</h4>
                 </li>
-                <li class="nav-item ml-3 {{ $routename == 'building' ? 'active' : '' }}">
-                    <a href="">
-                        <i class="fas fa-building"></i>
-                        <p>Gedung</p>
-                    </a>
-                </li>
                 @if ($user->role == 'owner')
+                    <li class="nav-item ml-3 {{ $routename == 'article' ? 'active' : '' }}">
+                        <a href="{{ route('article') }}">
+                            <i class="fas fa-newspaper"></i>
+                            <p>Artikel</p>
+                        </a>
+                    </li>
                     <li class="nav-item ml-3 {{ $routename == 'agen' ? 'active' : '' }}">
                         <a href="{{ route('agen') }}">
                             <i class="fas fa-users"></i>

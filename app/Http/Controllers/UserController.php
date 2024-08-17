@@ -219,6 +219,12 @@ class UserController extends Controller
                 "message" => "Berhasil menambahkan data pengguna"
             ]);
         } catch (\Exception $err) {
+            if ($request->file("image")) {
+                $uploadedImg = "public/assets/user" . $request->image->hashName();
+                if (Storage::exists($uploadedImg)) {
+                    Storage::delete($uploadedImg);
+                }
+            }
             return response()->json([
                 "status" => "error",
                 "message" => $err->getMessage()
@@ -362,7 +368,7 @@ class UserController extends Controller
                         "status" => "error",
                         "message" => "Nomor Telpon sudah digunakan"
                     ], 404);
-                }else {
+                } else {
                     $data['phone_number'] = preg_replace('/^08/', '628', $data['phone_number']);
                 }
             }
@@ -384,6 +390,12 @@ class UserController extends Controller
                 "message" => "Berhasil menambahkan data pengguna"
             ]);
         } catch (\Exception $err) {
+            if ($request->file("image")) {
+                $uploadedImg = "public/assets/user" . $request->image->hashName();
+                if (Storage::exists($uploadedImg)) {
+                    Storage::delete($uploadedImg);
+                }
+            }
             return response()->json([
                 "status" => "error",
                 "message" => $err->getMessage()
