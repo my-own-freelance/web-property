@@ -288,8 +288,9 @@
                         $("#caption").val(d.caption);
                         $("#city_of_birth").val(d.city_of_birth);
                         $("#date_of_birth").val(d.date_of_birth);
-                        $("#dender").val(d.dender).change();
+                        $("#gender").val(d.gender).change();
                         $("#is_active").val(d.is_active).change();
+                        $("#address").val(d.address)
 
                         if (d.province_id && d.district_id && d.sub_district_id) {
                             getProvinces(true, d.province_id);

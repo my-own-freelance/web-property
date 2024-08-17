@@ -50,9 +50,10 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
 
         Route::group(["prefix" => "agen"], function () {
             Route::get("/{id}/detail", [UserController::class, "getDetail"]);
+            Route::post("/create", [UserController::class, "createAgen"]);
+            Route::post("/update", [UserController::class, "updateAgen"]);
             Route::post("/update-status", [UserController::class, "updateStatus"]);
             Route::delete("/delete", [UserController::class, "destroy"]);
-            Route::post("/create", [UserController::class, "createAgen"]);
         });
 
         Route::group(["prefix" => "user"], function () {
