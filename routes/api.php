@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CustomTemplateController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MobAuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +19,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// PUBLIC API
+Route::group(["prefix" => "location"], function () {
+    Route::get("/provinces", [LocationController::class, "provinces"]);
+    Route::get("/districts/{provinceId}", [LocationController::class, "districts"]);
+    Route::get("/sub-districts/{districtId}", [LocationController::class, "subDistricts"]);
+});
+
+
 // MOBILE API
 Route::group(["middleware" => "api", "prefix" => "auth"], function () {
     Route::post('register', [MobAuthController::class, 'register']);
@@ -31,7 +41,24 @@ Route::group(["middleware" => "api", "prefix" => "auth"], function () {
 // WEB API
 Route::post("/auth/login/validate", [WebAuthController::class, "validateLogin"]);
 
-Route::group(["middleware"=> "check.auth", "prefix"=> "admin"], function(){
-    Route::post("/custom_template/create_update", [CustomTemplateController::class, "saveUpdateData"]);
+Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
+    Route::post("/custom_template/create-update", [CustomTemplateController::class, "saveUpdateData"]);
 
+    // endpoint for role owner
+    Route::group(["middleware" => "api.check.role:owner"], function () {
+        Route::get("/{role}/datatable", [UserController::class, "dataTable"]);
+
+        Route::group(["prefix" => "agen"], function () {
+            Route::get("/{id}/detail", [UserController::class, "getDetail"]);
+            Route::post("/update-status", [UserController::class, "updateStatus"]);
+            Route::delete("/delete", [UserController::class, "destroy"]);
+            Route::post("/create", [UserController::class, "createAgen"]);
+        });
+
+        Route::group(["prefix" => "user"], function () {
+            Route::get("/{id}/detail", [UserController::class, "getDetail"]);
+            Route::post("/update-status", [UserController::class, "updateStatus"]);
+            Route::delete("/delete", [UserController::class, "destroy"]);
+        });
+    });
 });

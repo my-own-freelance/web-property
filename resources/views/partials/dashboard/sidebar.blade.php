@@ -27,7 +27,7 @@
                 </li>
                 @if ($user->role == 'owner')
                     <li class="nav-item ml-3 {{ $routename == 'agen' ? 'active' : '' }}">
-                        <a href="">
+                        <a href="{{ route('agen') }}">
                             <i class="fas fa-users"></i>
                             <p>Agen</p>
                         </a>

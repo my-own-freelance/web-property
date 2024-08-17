@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebAuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,10 @@ Route::group(["middleware" => "guest"], function () {
 
 Route::group(["middleware" => "auth:web", "prefix" => "admin"], function () {
     Route::get("/", [DashboardController::class, "index"])->name("dashboard");
+
+    // pages for role owner
+    Route::group(["middleware" => "web.check.role:owner"], function () {
+        Route::get("/agen", [UserController::class, "indexAgen"])->name("agen");
+        Route::get("/owner", [UserController::class, "indexOwner"])->name("owner");
+    });
 });
