@@ -26,6 +26,12 @@
                             <p>Artikel</p>
                         </a>
                     </li>
+                    <li class="nav-item ml-3 {{ $routename == 'faq' ? 'active' : '' }}">
+                        <a href="{{ route('faq') }}">
+                            <i class="fas fa-life-ring"></i>
+                            <p>FAQ</p>
+                        </a>
+                    </li>
                     <li class="nav-item ml-3 {{ $routename == 'agen' ? 'active' : '' }}">
                         <a href="{{ route('agen') }}">
                             <i class="fas fa-users"></i>

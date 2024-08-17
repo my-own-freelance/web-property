@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebAuthController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,7 @@ Route::group(["middleware" => "auth:web", "prefix" => "admin"], function () {
     Route::group(["middleware" => "web.check.role:owner"], function () {
         Route::get("/agen", [UserController::class, "indexAgen"])->name("agen");
         Route::get("/owner", [UserController::class, "indexOwner"])->name("owner");
-        Route::get('article', [ArticleController::class, 'index'])->name("article");
+        Route::get('/article', [ArticleController::class, 'index'])->name("article");
+        Route::get('/faq', [FaqController::class, 'index'])->name("faq");
     });
 });

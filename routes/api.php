@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CustomTemplateController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MobAuthController;
 use App\Http\Controllers\UserController;
@@ -80,6 +81,16 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
             Route::post("update-status", [ArticleController::class, "updateStatus"]);
             Route::delete("/", [ArticleController::class, "destroy"]);
         });
+
+        // FAW
+        Route::group(["prefix" => "faq"], function () {
+            Route::get("datatable", [FaqController::class, "dataTable"]);
+            Route::get("{id}/detail", [FaqController::class, "getDetail"]);
+            Route::post("create", [FaqController::class, "create"]);
+            Route::post("update", [FaqController::class, "update"]);
+            Route::delete("/", [FaqController::class, "destroy"]);
+        });
+
 
         Route::get("/{role}/datatable", [UserController::class, "dataTable"]);
     });

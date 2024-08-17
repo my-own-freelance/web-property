@@ -2,6 +2,13 @@
 @section('title', $title)
 @push('styles')
     <link rel="stylesheet" href="{{ asset('/dashboard/css/toggle-status.css') }}">
+    <style>
+        .wrap-text {
+            max-width: 500px;
+            word-wrap: break-word;
+            white-space: normal;
+        }
+    </style>
 @endpush
 @section('content')
     <div class="row mb-5">
@@ -9,24 +16,21 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5 class="text-uppercase title">Artikel</h5>
+                        <h5 class="text-uppercase title">FAQ</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-mini btn-info mr-1" onclick="return refreshData();">Refresh</button>
-                        <button class="btn btn-mini btn-primary" onclick="return addData();">Tambah Artikel</button>
+                        <button class="btn btn-mini btn-primary" onclick="return addData();">Tambah</button>
                     </div>
                 </div>
                 <div class="card-block">
                     <div class="table-responsive mt-3">
-                        <table class="table table-striped table-bordered nowrap dataTable" id="articleTable">
+                        <table class="table table-striped table-bordered nowrap dataTable" id="faqTable">
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
-                                    <th class="all">Judul</th>
-                                    <th class="all">Code</th>
-                                    <th class="all">Status</th>
-                                    <th class="all">Views</th>
-                                    <th class="all">Gambar</th>
+                                    <th class="all">Pertanyaan</th>
+                                    <th class="all">Jawaban</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -39,11 +43,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-7 col-sm-12" style="display: none" data-action="update" id="formEditable">
+        <div class="col-md-4 col-sm-12" style="display: none" data-action="update" id="formEditable">
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5>Tambah / Edit Artikel</h5>
+                        <h5>Tambah / Edit Data</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-sm btn-warning" onclick="return closeForm(this)" id="btnCloseForm">
@@ -55,32 +59,14 @@
                     <form>
                         <input class="form-control" id="id" type="hidden" name="id" />
                         <div class="form-group">
-                            <label for="title">Judul</label>
-                            <input class="form-control" id="title" type="text" name="title"
-                                placeholder="masukkan judul" required />
+                            <label for="question">Pertanyaan</label>
+                            <input class="form-control" id="question" type="text" name="question"
+                                placeholder="masukkan petanyaan" required />
                         </div>
                         <div class="form-group">
-                            <label for="excerpt">Kutipan</label>
-                            <input class="form-control" id="excerpt" type="text" name="excerpt"
-                                placeholder="masukkan kutipan singkat mengenai artikel" />
-                        </div>
-                        <div class="form-group">
-                            <label for="is_publish">Status</label>
-                            <select class="form-control form-control" id="is_publish" name="is_publish" required>
-                                <option value= "">Pilih Status</option>
-                                <option value="Y">Publish</option>
-                                <option value="N">Draft</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="image">Gambar</label>
-                            <input class="form-control" id="image" type="file" name="image"
-                                placeholder="upload gambar" />
-                            <small class="text-danger">Max ukuran 1MB</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Dekripsi</label>
-                            <div id="summernote" name="description"></div>
+                            <label for="answer">Jawaban</label>
+                            <input class="form-control" id="answer" type="text" name="answer"
+                                placeholder="masukkan jawaban" required/>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-sm btn-primary" type="submit" id="submit">
@@ -98,15 +84,7 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('/dashboard/js/plugin/datatables/datatables.min.js') }}"></script>
-    <script src="{{ asset('/dashboard/js/plugin/summernote/summernote-bs4.min.js') }}"></script>
     <script>
-        $('#summernote').summernote({
-            placeholder: 'masukkan deskripsi',
-            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
-            tabsize: 2,
-            height: 300
-        });
-
         let dTable = null;
 
         $(function() {
@@ -114,8 +92,8 @@
         })
 
         function dataTable() {
-            const url = "/api/admin/article/datatable";
-            dTable = $("#articleTable").DataTable({
+            const url = "/api/admin/faq/datatable";
+            dTable = $("#faqTable").DataTable({
                 searching: true,
                 orderng: true,
                 lengthChange: true,
@@ -129,54 +107,50 @@
                 columns: [{
                     data: "action"
                 }, {
-                    data: "title"
+                    data: "question"
                 }, {
-                    data: "code"
-                },{
-                    data: "is_publish"
-                }, {
-                    data: "views"
-                }, {
-                    data: "image"
-                }],
+                    data: 'answer',
+                    "render": function(data, type, row, meta) {
+                        if (type === 'display') {
+                            return `<div class="wrap-text">${data}</div>`;
+                        }
+                        return data;
+                    }
+                }, ],
                 pageLength: 10,
             });
         }
 
         function refreshData() {
             dTable.ajax.reload(null, false);
-            $("#summernote").summernote('code', "");
         }
 
 
         function addData() {
             $("#formEditable").attr('data-action', 'add').fadeIn(200);
-            $("#boxTable").removeClass("col-md-12").addClass("col-md-5");
+            $("#boxTable").removeClass("col-md-12").addClass("col-md-8");
             $("#title").focus();
         }
 
         function closeForm() {
             $("#formEditable").slideUp(200, function() {
-                $("#boxTable").removeClass("col-md-5").addClass("col-md-12");
+                $("#boxTable").removeClass("col-md-8").addClass("col-md-12");
                 $("#reset").click();
-                $("#summernote").summernote('code', "");
             })
         }
 
         function getData(id) {
             $.ajax({
-                url: `/api/admin/article/${id}/detail`,
+                url: `/api/admin/faq/${id}/detail`,
                 method: "GET",
                 dataType: "json",
                 success: function(res) {
                     $("#formEditable").attr("data-action", "update").fadeIn(200, function() {
-                        $("#boxTable").removeClass("col-md-12").addClass("col-md-5");
+                        $("#boxTable").removeClass("col-md-12").addClass("col-md-8");
                         let d = res.data;
                         $("#id").val(d.id);
-                        $("#title").val(d.title);
-                        $("#excerpt").val(d.excerpt);
-                        $("#is_publish").val(d.is_publish);
-                        $("#summernote").summernote('code', d.description);
+                        $("#question").val(d.question);
+                        $("#answer").val(d.answer);
                     })
                 },
                 error: function(err) {
@@ -191,29 +165,16 @@
             e.preventDefault();
             let formData = new FormData();
             formData.append("id", parseInt($("#id").val()));
-            formData.append("title", $("#title").val());
-            formData.append('excerpt', $("#excerpt").val());
-            formData.append("description", $("#summernote").summernote('code'));
-            formData.append("is_publish", $("#is_publish").val());
-            formData.append("image", document.getElementById("image").files[0]);
+            formData.append("question", $("#question").val());
+            formData.append('answer', $("#answer").val());
 
             saveData(formData, $("#formEditable").attr("data-action"));
             return false;
         });
 
-        function updateStatus(id, status) {
-            let c = confirm(`Anda yakin ingin mengubah status ke ${status} ?`)
-            if (c) {
-                let dataToSend = new FormData();
-                dataToSend.append("is_publish", status == "Draft" ? "N" : "Y");
-                dataToSend.append("id", id);
-                updateStatusData(dataToSend);
-            }
-        }
-
         function saveData(data, action) {
             $.ajax({
-                url: action == "update" ? "/api/admin/article/update" : "/api/admin/article/create",
+                url: action == "update" ? "/api/admin/faq/update" : "/api/admin/faq/create",
                 contentType: false,
                 processData: false,
                 method: "POST",
@@ -238,7 +199,7 @@
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/article",
+                    url: "/api/admin/faq",
                     method: "DELETE",
                     data: {
                         id: id
@@ -257,28 +218,6 @@
                     }
                 })
             }
-        }
-
-        function updateStatusData(data) {
-            $.ajax({
-                url: "/api/admin/article/update-status",
-                contentType: false,
-                processData: false,
-                method: "POST",
-                data: data,
-                beforeSend: function() {
-                    console.log("Loading...")
-                },
-                success: function(res) {
-                    showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
-                    refreshData();
-                },
-                error: function(err) {
-                    console.log("error :", err);
-                    showMessage("danger", "flaticon-error", "Peringatan", err.message || err.responseJSON
-                        ?.message);
-                }
-            })
         }
     </script>
 @endpush

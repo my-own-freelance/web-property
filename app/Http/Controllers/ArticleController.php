@@ -76,6 +76,7 @@ class ArticleController extends Controller
             $item['action'] = $action;
             $item['status_publish'] = $item['is_publish'];
             $item['is_publish'] = $is_publish;
+            $item['image_url'] = url("/") . Storage::url($item->image);
             $item['image'] = $image;
             $item['title'] = $title;
             return $item;
@@ -169,7 +170,6 @@ class ArticleController extends Controller
             return response()->json([
                 "status" => "error",
                 "message" => $err->getMessage(),
-                "image" =>  $request->image->hashName()
             ], 500);
         }
     }
