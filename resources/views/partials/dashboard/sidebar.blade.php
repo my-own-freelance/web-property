@@ -56,10 +56,22 @@
                             <p>FAQ</p>
                         </a>
                     </li>
+                    <li class="nav-section">
+                        <span class="sidebar-mini-icon">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </span>
+                        <h4 class="text-section">Management</h4>
+                    </li>
                     <li class="nav-item ml-3 {{ $routename == 'agen' ? 'active' : '' }}">
                         <a href="{{ route('agen') }}">
                             <i class="fas fa-users"></i>
                             <p>Agen</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ml-3 {{ $routename == 'owner' ? 'active' : '' }}">
+                        <a href="{{ route('owner') }}">
+                            <i class="fas fa-users-cog"></i>
+                            <p>Owner</p>
                         </a>
                     </li>
                 @endif

@@ -18,7 +18,7 @@
                 </div>
                 <div class="card-block">
                     <div class="table-responsive mt-3">
-                        <table class="table table-striped table-bordered nowrap dataTable" id="userDataTable">
+                        <table class="table table-striped table-bordered nowrap dataTable" id="agenDataTable">
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
@@ -217,7 +217,7 @@
             let url = "/api/admin/agen/datatable";
             if (filter) url += '?' + filter;
 
-            dTable = $("#userDataTable").DataTable({
+            dTable = $("#agenDataTable").DataTable({
                 searching: true,
                 orderng: true,
                 lengthChange: true,
@@ -271,7 +271,7 @@
 
         function getData(id) {
             $.ajax({
-                url: `/api/admin/user/${id}/detail`,
+                url: `/api/admin/agen/${id}/detail`,
                 method: "GET",
                 dataType: "json",
                 success: function(res) {

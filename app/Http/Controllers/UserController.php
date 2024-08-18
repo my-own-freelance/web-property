@@ -19,20 +19,13 @@ class UserController extends Controller
     {
         $title = "Data Agen";
         $user = Auth()->user();
-        if ($user->role == "agen") {
-            return redirect()->route("dashboard");
-        }
-        return view("pages.admin.agen", compact('title', 'user'));
+        return view("pages.admin.agen", compact('title'));
     }
 
     public function indexOwner()
     {
         $title = "Data Owner";
-        $user = Auth()->user();
-        if ($user->role == "agen") {
-            return redirect()->route("dashboard");
-        }
-        return view("pages.admin.owner", compact('title', 'user'));
+        return view("pages.admin.owner", compact('title'));
     }
 
     // HANDLER API
@@ -59,13 +52,16 @@ class UserController extends Controller
             ->get();
 
         $output = $data->map(function ($item) {
+            $user = auth()->user();
+            $action_delete = $user->id != $item->id ? "<a class='dropdown-item' onclick='return removeData(\"{$item->id}\");' href='javascript:void(0)' title='Hapus'>Hapus</a>" : "";
+
             $action = "<div class='dropdown-primary dropdown open'>
                             <button class='btn btn-sm btn-primary dropdown-toggle waves-effect waves-light' id='dropdown-{$item->id}' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
                                 Aksi
                             </button>
                             <div class='dropdown-menu' aria-labelledby='dropdown-{$item->id}' data-dropdown-out='fadeOut'>
                                 <a class='dropdown-item' onclick='return getData(\"{$item->id}\");' href='javascript:void(0);' title='Edit'>Edit</a>
-                                <a class='dropdown-item' onclick='return removeData(\"{$item->id}\");' href='javascript:void(0)' title='Hapus'>Hapus</a>
+                                " . $action_delete . "
                             </div>
                         </div>";
             $role = "";
@@ -268,10 +264,8 @@ class UserController extends Controller
                 "id.integer" => "Type ID tidak sesuai",
                 "name.required" => "Nama harus diisi",
                 "email.required" => "Email harus diisi",
-                "email.unique" => "Email sudah digunakan",
                 "email.email" => "Email tidak valid",
                 "phone_number.required" => "Nomor telepon harus diisi",
-                "phone_number.unique" => "Nomor telepon sudah digunakan",
                 "phone_number.digits_between" => "Nomor telepon harus memiliki panjang antara 10 hingga 15 karakter",
                 "password.min" => "Password minimal 5 karakter",
                 "position.required" => "Jabatan harus diisi",
@@ -303,7 +297,7 @@ class UserController extends Controller
                 ], 400);
             }
 
-            $user = User::find($data['id']);
+            $user = User::where('role', 'agen')->where('id', $data['id'])->first();
             if (!$user) {
                 return response()->json([
                     "status" => "error",
@@ -396,6 +390,136 @@ class UserController extends Controller
                     Storage::delete($uploadedImg);
                 }
             }
+            return response()->json([
+                "status" => "error",
+                "message" => $err->getMessage()
+            ], 500);
+        }
+    }
+
+    public function createUser(Request $request)
+    {
+        try {
+            $rules = [
+                "name" => "required|string",
+                "username" => "required|string|unique:users",
+                "email" => "required|email|unique:users",
+                "phone_number" => "required|string|unique:users|digits_between:10,15",
+                "password" => "required|string|min:5",
+                "gender" => "required|string|in:L,P",
+                "is_active" => "required|string|in:Y,N",
+            ];
+
+
+            $messages = [
+                "name.required" => "Nama harus diisi",
+                "username.required" => "Username harus diisi",
+                "username.unique" => "Username sudah digunakan",
+                "email.required" => "Email harus diisi",
+                "email.unique" => "Email sudah digunakan",
+                "email.email" => "Email tidak valid",
+                "phone_number.required" => "Nomor telepon harus diisi",
+                "phone_number.unique" => "Nomor telepon sudah digunakan",
+                "phone_number.digits_between" => "Nomor telepon harus memiliki panjang antara 10 hingga 15 karakter",
+                "password.required" => "Password harus diisi",
+                "password.min" => "Password minimal 5 karakter",
+                "gender" => "Gender harus diisi",
+                "gender.in" => "Gender tidak sesuai",
+                "is_active" => "Status harus diisi",
+                "is_active.in" => "Status tidak sesuai",
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $messages);
+            if ($validator->fails()) {
+                return response()->json([
+                    "status" => "error",
+                    "message" => $validator->errors()->first(),
+                ], 400);
+            }
+
+            $data = $request->all();
+            $data["password"] = Hash::make($request->password);
+            $data["role"] = "owner";
+            $data["phone_number"] = preg_replace('/^08/', '628', $data['phone_number']);
+            User::create($data);
+
+            return response()->json([
+                "status" => "success",
+                "message" => "Berhasil menambahkan data pengguna"
+            ]);
+        } catch (\Exception $err) {
+            return response()->json([
+                "status" => "error",
+                "message" => $err->getMessage()
+            ], 500);
+        }
+    }
+
+    public function updateUser(Request $request)
+    {
+        try {
+            $data = $request->all();
+            $rules = [
+                "id" => "required|integer",
+                "name" => "required|string",
+                "email" => "required|string|email",
+                "phone_number" => "required|string|digits_between:10,15",
+                "password" => "nullable",
+                "gender" => "required|string|in:L,P",
+                "is_active" => "required|string|in:Y,N",
+            ];
+            if ($data['password'] != "") {
+                $rules['password'] .= "|string|min:5";
+            }
+
+            $messages = [
+                "id.required" => "Data ID harus diisi",
+                "id.integer" => "Type ID tidak sesuai",
+                "name.required" => "Nama harus diisi",
+                "email.required" => "Email harus diisi",
+                "email.email" => "Email tidak valid",
+                "phone_number.required" => "Nomor telepon harus diisi",
+                "phone_number.digits_between" => "Nomor telepon harus memiliki panjang antara 10 hingga 15 karakter",
+                "password.min" => "Password minimal 5 karakter",
+                "gender" => "Gender harus diisi",
+                "gender.in" => "Gender tidak sesuai",
+                "is_active" => "Status harus diisi",
+                "is_active.in" => "Status tidak sesuai",
+            ];
+
+            $validator = Validator::make($data, $rules, $messages);
+            if ($validator->fails()) {
+                return response()->json([
+                    "status" => "error",
+                    "message" => $validator->errors()->first(),
+                ], 400);
+            }
+            $user = User::where('role', 'owner')->where('id', $data['id'])->first();
+
+            if (!$user) {
+                return response()->json([
+                    "status" => "error",
+                    "message" => "Data pengguna tidak ditemukan"
+                ], 404);
+            }
+
+            if ($data['password'] && $data['password'] != "") {
+                $data['password'] = Hash::make($data['password']);
+            } else {
+                unset($data['password']);
+            }
+
+            // agar username tidak bisa diganti
+            if ($data['username']) {
+                unset($data['username']);
+            }
+
+            $user->update($data);
+            return response()->json([
+                "status" => "success",
+                "message" => "Berhasil update data pengguna"
+            ]);
+        } catch (\Exception $err) {
             return response()->json([
                 "status" => "error",
                 "message" => $err->getMessage()

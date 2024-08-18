@@ -96,8 +96,10 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
             Route::delete("/delete", [UserController::class, "destroy"]);
         });
 
-        Route::group(["prefix" => "user"], function () {
+        Route::group(["prefix" => "owner"], function () {
             Route::get("/{id}/detail", [UserController::class, "getDetail"]);
+            Route::post("/create", [UserController::class, "createUser"]);
+            Route::post("/update", [UserController::class, "updateUser"]);
             Route::post("/update-status", [UserController::class, "updateStatus"]);
             Route::delete("/delete", [UserController::class, "destroy"]);
         });
