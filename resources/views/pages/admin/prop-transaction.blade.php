@@ -24,7 +24,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td colspan="6" class="text-center"><small>Tidak Ada Data</small></td>
+                                    <td colspan="2" class="text-center"><small>Tidak Ada Data</small></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -50,7 +50,7 @@
                         <div class="form-group">
                             <label for="name">Nama Transaksi</label>
                             <input class="form-control" id="name" type="text" name="name"
-                                placeholder="masukkan petanyaan" required />
+                                placeholder="masukkan tipe transaksi" required />
                         </div>
                         <div class="form-group">
                             <button class="btn btn-sm btn-primary" type="submit" id="submit">

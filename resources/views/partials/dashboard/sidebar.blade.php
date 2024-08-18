@@ -26,6 +26,12 @@
                             <p>Tipe Transaksi</p>
                         </a>
                     </li>
+                    <li class="nav-item ml-3 {{ $routename == 'prop-type' ? 'active' : '' }}">
+                        <a href="{{ route('prop-type') }}">
+                            <i class="fas fa fa-building"></i>
+                            <p>Tipe Properti</p>
+                        </a>
+                    </li>
 
                     <li class="nav-item ml-3 {{ $routename == 'article' ? 'active' : '' }}">
                         <a href="{{ route('article') }}">

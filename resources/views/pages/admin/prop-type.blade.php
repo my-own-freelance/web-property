@@ -1,22 +1,12 @@
 @extends('layouts.dashboard')
 @section('title', $title)
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('/dashboard/css/toggle-status.css') }}">
-    <style>
-        .wrap-text {
-            max-width: 500px;
-            word-wrap: break-word;
-            white-space: normal;
-        }
-    </style>
-@endpush
 @section('content')
     <div class="row mb-5">
         <div class="col-md-12" id="boxTable">
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5 class="text-uppercase title">FAQ</h5>
+                        <h5 class="text-uppercase title">Tipe Properti</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-mini btn-info mr-1" onclick="return refreshData();">Refresh</button>
@@ -25,17 +15,16 @@
                 </div>
                 <div class="card-block">
                     <div class="table-responsive mt-3">
-                        <table class="table table-striped table-bordered nowrap dataTable" id="faqTable">
+                        <table class="table table-striped table-bordered nowrap dataTable" id="propTypeTable">
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
-                                    <th class="all">Pertanyaan</th>
-                                    <th class="all">Jawaban</th>
+                                    <th class="all">Nama Tipe</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td colspan="" class="text-center"><small>Tidak Ada Data</small></td>
+                                    <td colspan="2" class="text-center"><small>Tidak Ada Data</small></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -59,14 +48,9 @@
                     <form>
                         <input class="form-control" id="id" type="hidden" name="id" />
                         <div class="form-group">
-                            <label for="question">Pertanyaan</label>
-                            <input class="form-control" id="question" type="text" name="question"
-                                placeholder="masukkan petanyaan" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="answer">Jawaban</label>
-                            <input class="form-control" id="answer" type="text" name="answer"
-                                placeholder="masukkan jawaban" required/>
+                            <label for="name">Tipe Properti</label>
+                            <input class="form-control" id="name" type="text" name="name"
+                                placeholder="masukkan tipe properti" required />
                         </div>
                         <div class="form-group">
                             <button class="btn btn-sm btn-primary" type="submit" id="submit">
@@ -92,8 +76,8 @@
         })
 
         function dataTable() {
-            const url = "/api/admin/faq/datatable";
-            dTable = $("#faqTable").DataTable({
+            const url = "/api/admin/prop-type/datatable";
+            dTable = $("#propTypeTable").DataTable({
                 searching: true,
                 orderng: true,
                 lengthChange: true,
@@ -107,16 +91,8 @@
                 columns: [{
                     data: "action"
                 }, {
-                    data: "question"
-                }, {
-                    data: 'answer',
-                    "render": function(data, type, row, meta) {
-                        if (type === 'display') {
-                            return `<div class="wrap-text">${data}</div>`;
-                        }
-                        return data;
-                    }
-                }, ],
+                    data: "name"
+                }],
                 pageLength: 10,
             });
         }
@@ -129,7 +105,7 @@
         function addData() {
             $("#formEditable").attr('data-action', 'add').fadeIn(200);
             $("#boxTable").removeClass("col-md-12").addClass("col-md-8");
-            $("#question").focus();
+            $("#name").focus();
         }
 
         function closeForm() {
@@ -141,7 +117,7 @@
 
         function getData(id) {
             $.ajax({
-                url: `/api/admin/faq/${id}/detail`,
+                url: `/api/admin/prop-type/${id}/detail`,
                 method: "GET",
                 dataType: "json",
                 success: function(res) {
@@ -149,8 +125,7 @@
                         $("#boxTable").removeClass("col-md-12").addClass("col-md-8");
                         let d = res.data;
                         $("#id").val(d.id);
-                        $("#question").val(d.question);
-                        $("#answer").val(d.answer);
+                        $("#name").val(d.name);
                     })
                 },
                 error: function(err) {
@@ -165,8 +140,7 @@
             e.preventDefault();
             let formData = new FormData();
             formData.append("id", parseInt($("#id").val()));
-            formData.append("question", $("#question").val());
-            formData.append('answer', $("#answer").val());
+            formData.append("name", $("#name").val());
 
             saveData(formData, $("#formEditable").attr("data-action"));
             return false;
@@ -174,7 +148,8 @@
 
         function saveData(data, action) {
             $.ajax({
-                url: action == "update" ? "/api/admin/faq/update" : "/api/admin/faq/create",
+                url: action == "update" ? "/api/admin/prop-type/update" :
+                    "/api/admin/prop-type/create",
                 contentType: false,
                 processData: false,
                 method: "POST",
@@ -199,7 +174,7 @@
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/faq",
+                    url: "/api/admin/prop-type",
                     method: "DELETE",
                     data: {
                         id: id

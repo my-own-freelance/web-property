@@ -3,22 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Property;
-use App\Models\PropertyTransaction;
+use App\Models\PropertyType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PropertyTranscationController extends Controller
+class PropertyTypeController extends Controller
 {
     public function index()
     {
-        $title = "Transaksi Properti";
-        return view("pages.admin.prop-transaction", compact("title"));
+        $title = "Tipe Properti";
+        return view("pages.admin.prop-type", compact("title"));
     }
 
     // HANDLER API
     public function dataTable(Request $request)
     {
-        $query = PropertyTransaction::query();
+        $query = PropertyType::query();
 
         if ($request->query("search")) {
             $searchValue = $request->query("search")['value'];
@@ -49,7 +49,7 @@ class PropertyTranscationController extends Controller
             return $item;
         });
 
-        $total = PropertyTransaction::count();
+        $total = PropertyType::count();
         return response()->json([
             'draw' => $request->query('draw'),
             'recordsFiltered' => $recordsFiltered,
@@ -61,9 +61,9 @@ class PropertyTranscationController extends Controller
     public function getDetail($id)
     {
         try {
-            $propTransaction = PropertyTransaction::find($id);
+            $propType = PropertyType::find($id);
 
-            if (!$propTransaction) {
+            if (!$propType) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan",
@@ -72,7 +72,7 @@ class PropertyTranscationController extends Controller
 
             return response()->json([
                 "status" => "success",
-                "data" => $propTransaction
+                "data" => $propType
             ]);
         } catch (\Exception $err) {
             return response()->json([
@@ -103,7 +103,7 @@ class PropertyTranscationController extends Controller
             }
 
             unset($data['id']);
-            PropertyTransaction::create($data);
+            PropertyType::create($data);
             return response()->json([
                 "status" => "success",
                 "message" => "Data berhasil dibuat"
@@ -139,15 +139,15 @@ class PropertyTranscationController extends Controller
                 ], 400);
             }
 
-            $propTransaction = PropertyTransaction::find($data['id']);
-            if (!$propTransaction) {
+            $propType = PropertyType::find($data['id']);
+            if (!$propType) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
                 ], 404);
             }
 
-            $propTransaction->update($data);
+            $propType->update($data);
             return response()->json([
                 "status" => "success",
                 "message" => "Data berhasil diperbarui"
@@ -176,8 +176,8 @@ class PropertyTranscationController extends Controller
             }
 
             $id = $request->id;
-            $propTransaction = PropertyTransaction::find($id);
-            if (!$propTransaction) {
+            $propType = PropertyType::find($id);
+            if (!$propType) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
@@ -185,7 +185,7 @@ class PropertyTranscationController extends Controller
             }
 
             // cek apakah ada relasi atau tidak
-            $checkRelation = Property::where('property_transaction_id', $id)->count();
+            $checkRelation = Property::where('property_type_id', $id)->count();
             if ($checkRelation > 0) {
                 return response()->json([
                     "status" => "error",
@@ -193,7 +193,7 @@ class PropertyTranscationController extends Controller
                 ], 404);
             }
 
-            $propTransaction->delete();
+            $propType->delete();
             return response()->json([
                 "status" => "success",
                 "message" => "Data berhasil dihapus"
