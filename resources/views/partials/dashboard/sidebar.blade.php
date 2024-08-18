@@ -13,13 +13,13 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-section">
-                    <span class="sidebar-mini-icon">
-                        <i class="fa fa-ellipsis-h"></i>
-                    </span>
-                    <h4 class="text-section">Master</h4>
-                </li>
                 @if ($user->role == 'owner')
+                    <li class="nav-section">
+                        <span class="sidebar-mini-icon">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </span>
+                        <h4 class="text-section">Properti</h4>
+                    </li>
                     <li class="nav-item ml-3 {{ $routename == 'prop-transaction' ? 'active' : '' }}">
                         <a href="{{ route('prop-transaction') }}">
                             <i class="fas fa-exchange-alt"></i>
@@ -28,11 +28,22 @@
                     </li>
                     <li class="nav-item ml-3 {{ $routename == 'prop-type' ? 'active' : '' }}">
                         <a href="{{ route('prop-type') }}">
-                            <i class="fas fa fa-building"></i>
+                            <i class="fas fa-building"></i>
                             <p>Tipe Properti</p>
                         </a>
                     </li>
-
+                    <li class="nav-item ml-3 {{ $routename == 'prop-certificate' ? 'active' : '' }}">
+                        <a href="{{ route('prop-certificate') }}">
+                            <i class="fas fa-file-contract"></i>
+                            <p>Sertifikat Properti</p>
+                        </a>
+                    </li>
+                    <li class="nav-section">
+                        <span class="sidebar-mini-icon">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </span>
+                        <h4 class="text-section">Master</h4>
+                    </li>
                     <li class="nav-item ml-3 {{ $routename == 'article' ? 'active' : '' }}">
                         <a href="{{ route('article') }}">
                             <i class="fas fa-newspaper"></i>

@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5 class="text-uppercase title">Tipe Properti</h5>
+                        <h5 class="text-uppercase title">Sertifikat Properti</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-mini btn-info mr-1" onclick="return refreshData();">Refresh</button>
@@ -15,11 +15,11 @@
                 </div>
                 <div class="card-block">
                     <div class="table-responsive mt-3">
-                        <table class="table table-striped table-bordered nowrap dataTable" id="propTypeTable">
+                        <table class="table table-striped table-bordered nowrap dataTable" id="propCertificateTable">
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
-                                    <th class="all">Tipe Properti</th>
+                                    <th class="all">Tipe Sertifikat</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,9 +48,9 @@
                     <form>
                         <input class="form-control" id="id" type="hidden" name="id" />
                         <div class="form-group">
-                            <label for="name">Tipe Properti</label>
+                            <label for="name">Sertifikat Properti</label>
                             <input class="form-control" id="name" type="text" name="name"
-                                placeholder="masukkan tipe properti" required />
+                                placeholder="masukkan sertifikat properti" required />
                         </div>
                         <div class="form-group">
                             <button class="btn btn-sm btn-primary" type="submit" id="submit">
@@ -76,8 +76,8 @@
         })
 
         function dataTable() {
-            const url = "/api/admin/prop-type/datatable";
-            dTable = $("#propTypeTable").DataTable({
+            const url = "/api/admin/prop-certificate/datatable";
+            dTable = $("#propCertificateTable").DataTable({
                 searching: true,
                 orderng: true,
                 lengthChange: true,
@@ -117,7 +117,7 @@
 
         function getData(id) {
             $.ajax({
-                url: `/api/admin/prop-type/${id}/detail`,
+                url: `/api/admin/prop-certificate/${id}/detail`,
                 method: "GET",
                 dataType: "json",
                 success: function(res) {
@@ -148,8 +148,8 @@
 
         function saveData(data, action) {
             $.ajax({
-                url: action == "update" ? "/api/admin/prop-type/update" :
-                    "/api/admin/prop-type/create",
+                url: action == "update" ? "/api/admin/prop-certificate/update" :
+                    "/api/admin/prop-certificate/create",
                 contentType: false,
                 processData: false,
                 method: "POST",
@@ -174,7 +174,7 @@
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/prop-type",
+                    url: "/api/admin/prop-certificate",
                     method: "DELETE",
                     data: {
                         id: id
