@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomTemplateController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MobAuthController;
+use App\Http\Controllers\PropertyTranscationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebAuthController;
 use Illuminate\Http\Request;
@@ -58,6 +59,15 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
 
     // endpoint for role owner
     Route::group(["middleware" => "api.check.role:owner"], function () {
+        // PROPERTY TRANSACTION
+        Route::group(["prefix" => "prop-transaction"], function () {
+            Route::get("datatable", [PropertyTranscationController::class, "dataTable"]);
+            Route::get("{id}/detail", [PropertyTranscationController::class, "getDetail"]);
+            Route::post("create", [PropertyTranscationController::class, "create"]);
+            Route::post("update", [PropertyTranscationController::class, "update"]);
+            Route::delete("/", [PropertyTranscationController::class, "destroy"]);
+        });
+
         Route::group(["prefix" => "agen"], function () {
             Route::get("/{id}/detail", [UserController::class, "getDetail"]);
             Route::post("/create", [UserController::class, "createAgen"]);
@@ -82,7 +92,7 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
             Route::delete("/", [ArticleController::class, "destroy"]);
         });
 
-        // FAW
+        // FAQ
         Route::group(["prefix" => "faq"], function () {
             Route::get("datatable", [FaqController::class, "dataTable"]);
             Route::get("{id}/detail", [FaqController::class, "getDetail"]);

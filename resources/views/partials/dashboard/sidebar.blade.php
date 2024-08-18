@@ -20,6 +20,13 @@
                     <h4 class="text-section">Master</h4>
                 </li>
                 @if ($user->role == 'owner')
+                    <li class="nav-item ml-3 {{ $routename == 'prop-transaction' ? 'active' : '' }}">
+                        <a href="{{ route('prop-transaction') }}">
+                            <i class="fas fa-exchange-alt"></i>
+                            <p>Tipe Transaksi</p>
+                        </a>
+                    </li>
+
                     <li class="nav-item ml-3 {{ $routename == 'article' ? 'active' : '' }}">
                         <a href="{{ route('article') }}">
                             <i class="fas fa-newspaper"></i>
