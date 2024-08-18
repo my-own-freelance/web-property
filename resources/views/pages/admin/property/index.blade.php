@@ -56,7 +56,6 @@
         let approvedTable = null;
         let rejectedTable = null;
 
-
         $(function() {
             $("#pending").load("/admin/property/pending", function() {
                 pendingDataTable()
