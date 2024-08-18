@@ -33,7 +33,7 @@ return new class extends Migration
             $table->date('listed_on')->nullable();
             $table->longText('description')->nullable();
             $table->enum('is_publish', ['N', 'Y'])->default('N');
-            $table->boolean('admin_approval')->default(false);
+            $table->enum('admin_approval', ['PENDING', 'APPROVED', 'REJECTED'])->default('PENDING');
             $table->boolean('is_sold')->default(false);
             $table->integer('views')->default(0);
             $table->string('image');

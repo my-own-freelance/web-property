@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\PropertyCertificateController;
+use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyTranscationController;
 use App\Http\Controllers\PropertyTypeController;
 use App\Http\Controllers\UserController;
@@ -32,12 +33,19 @@ Route::group(["middleware" => "auth:web", "prefix" => "admin"], function () {
 
     // pages for role owner
     Route::group(["middleware" => "web.check.role:owner"], function () {
-        Route::get('/prop-transaction', [PropertyTranscationController::class, "index"])->name("prop-transaction");
-        Route::get('/prop-type', [PropertyTypeController::class, "index"])->name("prop-type");
-        Route::get('/prop-certificate', [PropertyCertificateController::class, "index"])->name("prop-certificate");
+        Route::get('/property-transaction', [PropertyTranscationController::class, "index"])->name("property-transaction");
+        Route::get('/property-type', [PropertyTypeController::class, "index"])->name("property-type");
+        Route::get('/property-certificate', [PropertyCertificateController::class, "index"])->name("property-certificate");
         Route::get("/agen", [UserController::class, "indexAgen"])->name("agen");
         Route::get("/owner", [UserController::class, "indexOwner"])->name("owner");
         Route::get('/article', [ArticleController::class, 'index'])->name("article");
         Route::get('/faq', [FaqController::class, 'index'])->name("faq");
+    });
+
+    Route::group(["prefix" => "property"], function () {
+        Route::get('/', [PropertyController::class, 'index'])->name("property");
+        Route::get('/pending', [PropertyController::class, 'pending'])->name("property.pending");
+        Route::get('/approved', [PropertyController::class, 'approved'])->name("property.approved");
+        Route::get('/rejected', [PropertyController::class, 'rejected'])->name("property.rejected");
     });
 });

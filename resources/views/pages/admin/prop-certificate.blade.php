@@ -76,7 +76,7 @@
         })
 
         function dataTable() {
-            const url = "/api/admin/prop-certificate/datatable";
+            const url = "/api/admin/property-certificate/datatable";
             dTable = $("#propCertificateTable").DataTable({
                 searching: true,
                 orderng: true,
@@ -117,7 +117,7 @@
 
         function getData(id) {
             $.ajax({
-                url: `/api/admin/prop-certificate/${id}/detail`,
+                url: `/api/admin/property-certificate/${id}/detail`,
                 method: "GET",
                 dataType: "json",
                 success: function(res) {
@@ -148,8 +148,8 @@
 
         function saveData(data, action) {
             $.ajax({
-                url: action == "update" ? "/api/admin/prop-certificate/update" :
-                    "/api/admin/prop-certificate/create",
+                url: action == "update" ? "/api/admin/property-certificate/update" :
+                    "/api/admin/property-certificate/create",
                 contentType: false,
                 processData: false,
                 method: "POST",
@@ -174,7 +174,7 @@
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/prop-certificate",
+                    url: "/api/admin/property-certificate",
                     method: "DELETE",
                     data: {
                         id: id

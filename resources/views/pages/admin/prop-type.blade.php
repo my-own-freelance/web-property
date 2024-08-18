@@ -76,7 +76,7 @@
         })
 
         function dataTable() {
-            const url = "/api/admin/prop-type/datatable";
+            const url = "/api/admin/property-type/datatable";
             dTable = $("#propTypeTable").DataTable({
                 searching: true,
                 orderng: true,
@@ -117,7 +117,7 @@
 
         function getData(id) {
             $.ajax({
-                url: `/api/admin/prop-type/${id}/detail`,
+                url: `/api/admin/property-type/${id}/detail`,
                 method: "GET",
                 dataType: "json",
                 success: function(res) {
@@ -148,8 +148,8 @@
 
         function saveData(data, action) {
             $.ajax({
-                url: action == "update" ? "/api/admin/prop-type/update" :
-                    "/api/admin/prop-type/create",
+                url: action == "update" ? "/api/admin/property-type/update" :
+                    "/api/admin/property-type/create",
                 contentType: false,
                 processData: false,
                 method: "POST",
@@ -174,7 +174,7 @@
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/prop-type",
+                    url: "/api/admin/property-type",
                     method: "DELETE",
                     data: {
                         id: id

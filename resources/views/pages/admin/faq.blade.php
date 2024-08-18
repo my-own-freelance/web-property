@@ -35,7 +35,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td colspan="" class="text-center"><small>Tidak Ada Data</small></td>
+                                    <td colspan="3" class="text-center"><small>Tidak Ada Data</small></td>
                                 </tr>
                             </tbody>
                         </table>

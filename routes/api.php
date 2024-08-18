@@ -6,6 +6,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MobAuthController;
 use App\Http\Controllers\PropertyCertificateController;
+use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyTranscationController;
 use App\Http\Controllers\PropertyTypeController;
 use App\Http\Controllers\UserController;
@@ -62,7 +63,7 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
     // endpoint for role owner
     Route::group(["middleware" => "api.check.role:owner"], function () {
         // PROPERTY TRANSACTION
-        Route::group(["prefix" => "prop-transaction"], function () {
+        Route::group(["prefix" => "property-transaction"], function () {
             Route::get("datatable", [PropertyTranscationController::class, "dataTable"]);
             Route::get("{id}/detail", [PropertyTranscationController::class, "getDetail"]);
             Route::post("create", [PropertyTranscationController::class, "create"]);
@@ -71,7 +72,7 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
         });
 
         // PROPERTY TYPE
-        Route::group(["prefix" => "prop-type"], function () {
+        Route::group(["prefix" => "property-type"], function () {
             Route::get("datatable", [PropertyTypeController::class, "dataTable"]);
             Route::get("{id}/detail", [PropertyTypeController::class, "getDetail"]);
             Route::post("create", [PropertyTypeController::class, "create"]);
@@ -80,12 +81,23 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
         });
 
         // PROPERTY CERTIFICATE
-        Route::group(["prefix" => "prop-certificate"], function () {
+        Route::group(["prefix" => "property-certificate"], function () {
             Route::get("datatable", [PropertyCertificateController::class, "dataTable"]);
             Route::get("{id}/detail", [PropertyCertificateController::class, "getDetail"]);
             Route::post("create", [PropertyCertificateController::class, "create"]);
             Route::post("update", [PropertyCertificateController::class, "update"]);
             Route::delete("/", [PropertyCertificateController::class, "destroy"]);
+        });
+
+        // PROPERTY
+        Route::group(["prefix" => "property"], function () {
+            Route::get("datatable", [PropertyController::class, "dataTable"]);
+            Route::get("{id}/detail", [PropertyController::class, "getDetail"]);
+            Route::post("create", [PropertyController::class, "create"]);
+            Route::post("update", [PropertyController::class, "update"]);
+            Route::post("update-status", [PropertyController::class, "updateStatus"]);
+            Route::post("approve-status", [PropertyController::class, "approveStatus"]);
+            Route::delete("/", [PropertyController::class, "destroy"]);
         });
 
         Route::group(["prefix" => "agen"], function () {

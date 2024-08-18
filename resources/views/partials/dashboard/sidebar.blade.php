@@ -20,22 +20,28 @@
                         </span>
                         <h4 class="text-section">Properti</h4>
                     </li>
-                    <li class="nav-item ml-3 {{ $routename == 'prop-transaction' ? 'active' : '' }}">
-                        <a href="{{ route('prop-transaction') }}">
+                    <li class="nav-item ml-3 {{ $routename == 'property-transaction' ? 'active' : '' }}">
+                        <a href="{{ route('property-transaction') }}">
                             <i class="fas fa-exchange-alt"></i>
                             <p>Tipe Transaksi</p>
                         </a>
                     </li>
-                    <li class="nav-item ml-3 {{ $routename == 'prop-type' ? 'active' : '' }}">
-                        <a href="{{ route('prop-type') }}">
+                    <li class="nav-item ml-3 {{ $routename == 'property-type' ? 'active' : '' }}">
+                        <a href="{{ route('property-type') }}">
                             <i class="fas fa-building"></i>
                             <p>Tipe Properti</p>
                         </a>
                     </li>
-                    <li class="nav-item ml-3 {{ $routename == 'prop-certificate' ? 'active' : '' }}">
-                        <a href="{{ route('prop-certificate') }}">
+                    <li class="nav-item ml-3 {{ $routename == 'property-certificate' ? 'active' : '' }}">
+                        <a href="{{ route('property-certificate') }}">
                             <i class="fas fa-file-contract"></i>
                             <p>Sertifikat Properti</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ml-3 {{ $routename == 'property' ? 'active' : '' }}">
+                        <a href="{{ route('property') }}">
+                            <i class="fas fa-home"></i>
+                            <p>Properti</p>
                         </a>
                     </li>
                     <li class="nav-section">
