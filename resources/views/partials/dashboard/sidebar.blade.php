@@ -72,13 +72,13 @@
                     </span>
                     <h4 class="text-section">Management</h4>
                 </li>
-                <li class="nav-item ml-3">
-                    <a href="{{ route('account') }}">
-                        <i class="fas fa-user-cog"></i>
-                        <p>Setting Account</p>
-                    </a>
-                </li>
                 @if ($user->role == 'owner')
+                    <li class="nav-item ml-3">
+                        <a href="{{ route('account') }}">
+                            <i class="fas fa-user-cog"></i>
+                            <p>Setting Account</p>
+                        </a>
+                    </li>
                     <li class="nav-item ml-3 {{ $routename == 'setting' ? 'active' : '' }}">
                         <a href="{{ route('setting') }}">
                             <i class="fas fa-cogs"></i>
