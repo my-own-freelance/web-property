@@ -13,13 +13,14 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
+
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                    <h4 class="text-section">Properti</h4>
+                </li>
                 @if ($user->role == 'owner')
-                    <li class="nav-section">
-                        <span class="sidebar-mini-icon">
-                            <i class="fa fa-ellipsis-h"></i>
-                        </span>
-                        <h4 class="text-section">Properti</h4>
-                    </li>
                     <li class="nav-item ml-3 {{ $routename == 'property-transaction' ? 'active' : '' }}">
                         <a href="{{ route('property-transaction') }}">
                             <i class="fas fa-exchange-alt"></i>
@@ -38,12 +39,14 @@
                             <p>Sertifikat Properti</p>
                         </a>
                     </li>
-                    <li class="nav-item ml-3 {{ $routename == 'property' ? 'active' : '' }}">
-                        <a href="{{ route('property') }}">
-                            <i class="fas fa-home"></i>
-                            <p>Properti</p>
-                        </a>
-                    </li>
+                @endif
+                <li class="nav-item ml-3 {{ $routename == 'property' ? 'active' : '' }}">
+                    <a href="{{ route('property') }}">
+                        <i class="fas fa-home"></i>
+                        <p>Properti</p>
+                    </a>
+                </li>
+                @if ($user->role == 'owner')
                     <li class="nav-section">
                         <span class="sidebar-mini-icon">
                             <i class="fa fa-ellipsis-h"></i>

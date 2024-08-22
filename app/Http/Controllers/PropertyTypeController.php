@@ -205,4 +205,13 @@ class PropertyTypeController extends Controller
             ], 500);
         }
     }
+
+    public function dropdown()
+    {
+        $propType = PropertyType::all();
+        return response()->json([
+            "status" => "success",
+            "data" => $propType
+        ]);
+    }
 }

@@ -14,7 +14,7 @@
                     <tr>
                         <th class="all">#</th>
                         <th class="all">Gambar</th>
-                        <th class="all">Judul</th>
+                        <th class="all">Information</th>
                         <th class="all">Harga</th>
                         <th class="all">Spesifikasi</th>
                         <th class="all">Approval</th>

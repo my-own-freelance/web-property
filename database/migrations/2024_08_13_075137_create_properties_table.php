@@ -24,9 +24,9 @@ return new class extends Migration
             $table->integer('land_sale_area')->nullable();
             $table->integer('building_sale_area')->nullable();
             $table->text('facilities')->nullable();
-            $table->enum('water', ['PDAM', 'SUMUR', 'SUMUR BOR'])->nullable();
+            $table->enum('water', ['PDAM', 'SUMUR', 'SUMUR BOR', 'OTHER'])->nullable();
             $table->integer('electricity')->nullable();
-            $table->boolean('warranty')->nullable();
+            $table->enum('warranty', ['Y', 'N'])->nullable();
             $table->string('floor_material')->nullable();
             $table->string('building_material')->nullable();
             $table->string('orientation')->nullable();
@@ -34,7 +34,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->enum('is_publish', ['N', 'Y'])->default('N');
             $table->enum('admin_approval', ['PENDING', 'APPROVED', 'REJECTED'])->default('PENDING');
-            $table->boolean('is_sold')->default(false);
+            $table->enum('is_available', ['N', 'Y'])->default('Y');
             $table->integer('views')->default(0);
             $table->string('image');
             $table->unsignedBigInteger('agen_id');

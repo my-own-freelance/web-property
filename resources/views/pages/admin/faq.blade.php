@@ -199,7 +199,7 @@
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/faq",
+                    url: "/api/admin/faq/delete",
                     method: "DELETE",
                     data: {
                         id: id

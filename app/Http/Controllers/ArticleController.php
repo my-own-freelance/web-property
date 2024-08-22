@@ -153,7 +153,7 @@ class ArticleController extends Controller
             }
             unset($data['id']);
             $data["slug"] = Str::slug($data["title"]);
-            $data["code"] = Str::random(10);
+            $data["code"] = strtoupper(Str::random(10));
 
             Article::create($data);
             return response()->json([

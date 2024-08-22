@@ -205,4 +205,13 @@ class PropertyTranscationController extends Controller
             ], 500);
         }
     }
+
+    public function dropdown()
+    {
+        $propTransaction = PropertyTransaction::all();
+        return response()->json([
+            "status" => "success",
+            "data" => $propTransaction
+        ]);
+    }
 }

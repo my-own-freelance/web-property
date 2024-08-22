@@ -152,6 +152,7 @@
         function addData() {
             $("#formEditable").attr('data-action', 'add').fadeIn(200);
             $("#boxTable").removeClass("col-md-12").addClass("col-md-5");
+            $("#image").attr("required", true);
             $("#title").focus();
         }
 
@@ -177,6 +178,7 @@
                         $("#excerpt").val(d.excerpt);
                         $("#is_publish").val(d.is_publish);
                         $("#summernote").summernote('code', d.description);
+                        $("#image").attr("required", false);
                     })
                 },
                 error: function(err) {
@@ -238,7 +240,7 @@
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/article",
+                    url: "/api/admin/article/delete",
                     method: "DELETE",
                     data: {
                         id: id

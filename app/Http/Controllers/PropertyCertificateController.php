@@ -205,4 +205,13 @@ class PropertyCertificateController extends Controller
             ], 500);
         }
     }
+
+    public function dropdown()
+    {
+        $propCertificate = PropertyCertificate::all();
+        return response()->json([
+            "status" => "success",
+            "data" => $propCertificate
+        ]);
+    }
 }

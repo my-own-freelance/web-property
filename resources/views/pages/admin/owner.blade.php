@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5 class="text-uppercase title">Pengguna</h5>
+                        <h5 class="text-uppercase title">DATA OWNER</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-mini btn-info mr-1" onclick="return refreshData();">Refresh</button>
@@ -22,7 +22,7 @@
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
-                                    <th class="all">Nama Pengguna</th>
+                                    <th class="all">Nama Owner</th>
                                     <th class="all">Username</th>
                                     <th class="all">Email</th>
                                     <th class="all">Level</th>
@@ -58,27 +58,27 @@
                         <div class="form-group">
                             <label for="name">Nama</label>
                             <input class="form-control" id="name" type="text" name="name"
-                                placeholder="masukkan nama pengguna" required />
+                                placeholder="masukkan nama owner" required />
                         </div>
                         <div class="form-group">
                             <label for="username">Username</label>
                             <input class="form-control" id="username" type="text" name="username"
-                                placeholder="masukkan username pengguna" required />
+                                placeholder="masukkan username owner" required />
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input class="form-control" id="email" type="email" name="email"
-                                placeholder="masukkan email pengguna" required />
+                                placeholder="masukkan email owner" required />
                         </div>
                         <div class="form-group">
                             <label for="phone_number">Nomor Telpon</label>
                             <input class="form-control" id="phone_number" type="text" name="phone_number"
-                                placeholder="masukkan nomor telpon pengguna" required />
+                                placeholder="masukkan nomor telpon owner" required />
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input class="form-control" id="password" type="password" name="password"
-                                placeholder="masukkan password pengguna" />
+                                placeholder="masukkan password owner" />
                             <small class="text-warning">Min 5 Karakter</small>
                         </div>
                         <div class="form-group">

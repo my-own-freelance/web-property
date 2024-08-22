@@ -174,7 +174,7 @@
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/property-type",
+                    url: "/api/admin/property-type/delete",
                     method: "DELETE",
                     data: {
                         id: id

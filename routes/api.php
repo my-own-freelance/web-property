@@ -7,6 +7,7 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MobAuthController;
 use App\Http\Controllers\PropertyCertificateController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\PropertyImageController;
 use App\Http\Controllers\PropertyTranscationController;
 use App\Http\Controllers\PropertyTypeController;
 use App\Http\Controllers\UserController;
@@ -26,10 +27,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 // PUBLIC API
-Route::group(["prefix" => "location"], function () {
-    Route::get("/provinces", [LocationController::class, "provinces"]);
-    Route::get("/districts/{provinceId}", [LocationController::class, "districts"]);
-    Route::get("/sub-districts/{districtId}", [LocationController::class, "subDistricts"]);
+Route::group(["prefix" => "dropdown"], function () {
+    Route::get("/property-transaction", [PropertyTranscationController::class, 'dropdown']);
+    Route::get("/property-type", [PropertyTypeController::class, 'dropdown']);
+    Route::get("/property-certificate", [PropertyCertificateController::class, 'dropdown']);
+
+    Route::group(["prefix" => "location"], function () {
+        Route::get("/provinces", [LocationController::class, "provinces"]);
+        Route::get("/districts/{provinceId}", [LocationController::class, "districts"]);
+        Route::get("/sub-districts/{districtId}", [LocationController::class, "subDistricts"]);
+    });
 });
 
 
@@ -60,6 +67,24 @@ Route::post("/auth/login/validate", [WebAuthController::class, "validateLogin"])
 Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
     Route::post("/custom_template/create-update", [CustomTemplateController::class, "saveUpdateData"]);
 
+    // OWNER AND AGEN ACCESS
+    // PROPERTY
+    Route::group(["prefix" => "property"], function () {
+        Route::get("datatable", [PropertyController::class, "dataTable"]);
+        Route::get("{id}/detail", [PropertyController::class, "getDetail"]);
+        Route::post("create", [PropertyController::class, "create"]);
+        Route::post("update", [PropertyController::class, "update"]);
+        Route::post("update-status", [PropertyController::class, "updateStatus"]);
+        Route::delete("delete", [PropertyController::class, "destroy"]);
+    });
+
+    // PROPERTY IMAGES
+    Route::group(["prefix" => "property-image"], function () {
+        Route::get("{property_id}/list", [PropertyImageController::class, 'list']);
+        Route::post("create", [PropertyImageController::class, "create"]);
+        Route::delete('delete', [PropertyImageController::class, 'destroy']);
+    });
+
     // endpoint for role owner
     Route::group(["middleware" => "api.check.role:owner"], function () {
         // PROPERTY TRANSACTION
@@ -68,7 +93,7 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
             Route::get("{id}/detail", [PropertyTranscationController::class, "getDetail"]);
             Route::post("create", [PropertyTranscationController::class, "create"]);
             Route::post("update", [PropertyTranscationController::class, "update"]);
-            Route::delete("/", [PropertyTranscationController::class, "destroy"]);
+            Route::delete("delete", [PropertyTranscationController::class, "destroy"]);
         });
 
         // PROPERTY TYPE
@@ -77,7 +102,7 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
             Route::get("{id}/detail", [PropertyTypeController::class, "getDetail"]);
             Route::post("create", [PropertyTypeController::class, "create"]);
             Route::post("update", [PropertyTypeController::class, "update"]);
-            Route::delete("/", [PropertyTypeController::class, "destroy"]);
+            Route::delete("delete", [PropertyTypeController::class, "destroy"]);
         });
 
         // PROPERTY CERTIFICATE
@@ -86,18 +111,12 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
             Route::get("{id}/detail", [PropertyCertificateController::class, "getDetail"]);
             Route::post("create", [PropertyCertificateController::class, "create"]);
             Route::post("update", [PropertyCertificateController::class, "update"]);
-            Route::delete("/", [PropertyCertificateController::class, "destroy"]);
+            Route::delete("delete", [PropertyCertificateController::class, "destroy"]);
         });
 
-        // PROPERTY
+        // PROPERTY - ONLY OWNER CAN APPROVE
         Route::group(["prefix" => "property"], function () {
-            Route::get("datatable", [PropertyController::class, "dataTable"]);
-            Route::get("{id}/detail", [PropertyController::class, "getDetail"]);
-            Route::post("create", [PropertyController::class, "create"]);
-            Route::post("update", [PropertyController::class, "update"]);
-            Route::post("update-status", [PropertyController::class, "updateStatus"]);
             Route::post("approve-status", [PropertyController::class, "approveStatus"]);
-            Route::delete("/", [PropertyController::class, "destroy"]);
         });
 
         Route::group(["prefix" => "agen"], function () {
@@ -123,7 +142,7 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
             Route::post("create", [ArticleController::class, "create"]);
             Route::post("update", [ArticleController::class, "update"]);
             Route::post("update-status", [ArticleController::class, "updateStatus"]);
-            Route::delete("/", [ArticleController::class, "destroy"]);
+            Route::delete("delete", [ArticleController::class, "destroy"]);
         });
 
         // FAQ
@@ -132,9 +151,8 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
             Route::get("{id}/detail", [FaqController::class, "getDetail"]);
             Route::post("create", [FaqController::class, "create"]);
             Route::post("update", [FaqController::class, "update"]);
-            Route::delete("/", [FaqController::class, "destroy"]);
+            Route::delete("delete", [FaqController::class, "destroy"]);
         });
-
 
         Route::get("/{role}/datatable", [UserController::class, "dataTable"]);
     });

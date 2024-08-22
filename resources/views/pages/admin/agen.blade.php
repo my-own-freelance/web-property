@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5 class="text-uppercase title">Pengguna</h5>
+                        <h5 class="text-uppercase title">DATA AGEN</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-mini btn-info mr-1" onclick="return refreshData();">Refresh</button>
@@ -22,7 +22,7 @@
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
-                                    <th class="all">Nama Pengguna</th>
+                                    <th class="all">Nama Agen</th>
                                     <th class="all">Username</th>
                                     <th class="all">Email</th>
                                     <th class="all">Level</th>
@@ -46,7 +46,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5>TAMBAH DATA AGEN</h5>
+                        <h5 id="form-title">TAMBAH DATA AGEN</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-sm btn-warning" onclick="return closeForm(this)" id="btnCloseForm">
@@ -253,6 +253,7 @@
 
         function addData() {
             $("#formEditable").attr('data-action', 'add').fadeIn(200, function() {
+                $("#form-title").html("TAMBAH DATA AGEN")
                 $("#boxTable").slideUp(200)
                 $("#username").removeAttr("readonly");
                 $("#image").attr("required", true);
@@ -276,6 +277,7 @@
                 dataType: "json",
                 success: function(res) {
                     $("#formEditable").attr("data-action", "update").fadeIn(200, function() {
+                        $("#form-title").html("EDIT DATA AGEN")
                         $("#boxTable").slideUp(200)
                         let d = res.data;
                         $("#id").val(d.id);
@@ -299,7 +301,6 @@
                         } else {
                             getProvinces();
                         }
-                        $("#device_token").val(d.device_token);
                         $("#image").attr("required", false);
 
                     })
@@ -420,7 +421,7 @@
 
         function getProvinces(onDetail = false, province_id = null) {
             $.ajax({
-                url: `/api/location/provinces`,
+                url: `/api/dropdown/location/provinces`,
                 method: "GET",
                 header: {
                     "Content-Type": "application/json"
@@ -460,7 +461,7 @@
 
         function getDistricts(province_id, onDetail = false, district_id = null) {
             $.ajax({
-                url: `/api/location/districts/${province_id}`,
+                url: `/api/dropdown/location/districts/${province_id}`,
                 method: "GET",
                 header: {
                     "Content-Type": "application/json"
@@ -497,7 +498,7 @@
 
         function getSubDistricts(district_id, onDetail = false, sub_district_id = null) {
             $.ajax({
-                url: `/api/location/sub-districts/${district_id}`,
+                url: `/api/dropdown/location/sub-districts/${district_id}`,
                 method: "GET",
                 header: {
                     "Content-Type": "application/json"

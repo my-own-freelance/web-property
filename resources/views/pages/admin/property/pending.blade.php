@@ -5,6 +5,9 @@
         </div>
         <div class="card-header-right">
             <button class="btn btn-mini btn-info mr-1" onclick="return refreshData('pending');">Refresh</button>
+            @if ($user->role == 'agen')
+                <button class="btn btn-mini btn-primary" onclick="return addData();">Tambah</button>
+            @endif
         </div>
     </div>
     <div class="card-block">
@@ -14,7 +17,7 @@
                     <tr>
                         <th class="all">#</th>
                         <th class="all">Gambar</th>
-                        <th class="all">Judul</th>
+                        <th class="all">Information</th>
                         <th class="all">Harga</th>
                         <th class="all">Spesifikasi</th>
                         <th class="all">Approval</th>
