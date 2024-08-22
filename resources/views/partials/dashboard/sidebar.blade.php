@@ -36,7 +36,7 @@
                     <li class="nav-item ml-3 {{ $routename == 'property-certificate' ? 'active' : '' }}">
                         <a href="{{ route('property-certificate') }}">
                             <i class="fas fa-file-contract"></i>
-                            <p>Sertifikat Properti</p>
+                            <p>Tipe Sertifikat</p>
                         </a>
                     </li>
                 @endif
