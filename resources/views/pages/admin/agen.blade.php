@@ -203,7 +203,6 @@
     <script src="{{ asset('dashboard/js/plugin/select2/select2.full.min.js') }}"></script>
     <script>
         let dTable = null;
-        let dTableUserCctv = null;
 
         $('#province_id,#district_id,#sub_district_id').select2({
             theme: "bootstrap"

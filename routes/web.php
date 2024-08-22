@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CustomTemplateController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\PropertyCertificateController;
@@ -36,6 +37,7 @@ Route::group(["middleware" => "auth:web", "prefix" => "admin"], function () {
         Route::get('/property-transaction', [PropertyTranscationController::class, "index"])->name("property-transaction");
         Route::get('/property-type', [PropertyTypeController::class, "index"])->name("property-type");
         Route::get('/property-certificate', [PropertyCertificateController::class, "index"])->name("property-certificate");
+        Route::get("/setting", [CustomTemplateController::class, "index"])->name("setting");
         Route::get("/agen", [UserController::class, "indexAgen"])->name("agen");
         Route::get("/owner", [UserController::class, "indexOwner"])->name("owner");
         Route::get('/article', [ArticleController::class, 'index'])->name("article");

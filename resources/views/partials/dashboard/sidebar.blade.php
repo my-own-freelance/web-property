@@ -71,6 +71,12 @@
                         </span>
                         <h4 class="text-section">Management</h4>
                     </li>
+                    <li class="nav-item ml-3 {{ $routename == 'setting' ? 'active' : '' }}">
+                        <a href="{{ route('setting') }}">
+                            <i class="fas fa-cogs"></i>
+                            <p>Setting Web</p>
+                        </a>
+                    </li>
                     <li class="nav-item ml-3 {{ $routename == 'agen' ? 'active' : '' }}">
                         <a href="{{ route('agen') }}">
                             <i class="fas fa-users"></i>

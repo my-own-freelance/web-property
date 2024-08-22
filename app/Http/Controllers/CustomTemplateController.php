@@ -28,11 +28,11 @@ class CustomTemplateController extends Controller
             }
 
             if (!$customTemplate->web_title) {
-                $customTemplate["web_title"] = "CCTV";
+                $customTemplate["web_title"] = "Web Properti";
             }
 
             if (!$customTemplate->web_description) {
-                $customTemplate["web_description"] = "Dashboard pengelolaan data monitoring CCTV bangunan, lantai untuk monitoring CCTV real-time di mobile apps";
+                $customTemplate["web_description"] = "Situs Jual Beli Properti Terbaik";
             }
 
             if ($customTemplate->web_logo) {
@@ -56,16 +56,21 @@ class CustomTemplateController extends Controller
     public function saveUpdateData(Request $request)
     {
         $data = $request->all();
+        unset($data['id']);
+        unset($data["web_logo"]);
         $existCustomData = CustomTemplate::find(1);
         if (!$existCustomData) {
+            if ($request->file("web_logo")) {
+                $data["web_logo"] = $request->file("web_logo")->store("assets/setting", "public");
+            }
+
             CustomTemplate::create($data);
             return response()->json([
                 "status" => 200,
-                "message" => "Warna template berhasil diubah"
+                "message" => "Setting Web berhasil diubah"
             ]);
         }
 
-        unset($data["web_logo"]);
         if ($request->file("web_logo")) {
             $oldImagePath = "public/" . $existCustomData->web_logo;
             if (Storage::exists($oldImagePath)) {
@@ -77,7 +82,7 @@ class CustomTemplateController extends Controller
         $existCustomData->update($data);
         return response()->json([
             "status" => 200,
-            "message" => "Warna template berhasil diubah"
+            "message" => "Settin Web berhasil diubah"
         ]);
     }
 }

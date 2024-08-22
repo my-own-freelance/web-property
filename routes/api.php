@@ -63,9 +63,10 @@ Route::group(["middleware" => ["api", "auth:api"], "prefix" => "mobile"], functi
 
 // WEB API
 Route::post("/auth/login/validate", [WebAuthController::class, "validateLogin"]);
+Route::get("/custom-template/detail", [CustomTemplateController::class, "detail"]);
 
 Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
-    Route::post("/custom_template/create-update", [CustomTemplateController::class, "saveUpdateData"]);
+    Route::post("/custom-template/create-update", [CustomTemplateController::class, "saveUpdateData"]);
 
     // OWNER AND AGEN ACCESS
     // PROPERTY
