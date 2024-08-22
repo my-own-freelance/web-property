@@ -339,9 +339,7 @@ class UserController extends Controller
             }
 
             // agar username tidak bisa diganti
-            if ($data['username']) {
-                unset($data['username']);
-            }
+            unset($data['username']);
 
             // jika email di update
             if ($data['email'] != $user->email) {
@@ -510,8 +508,41 @@ class UserController extends Controller
             }
 
             // agar username tidak bisa diganti
-            if ($data['username']) {
-                unset($data['username']);
+            unset($data['username']);
+
+
+            // jika email di update
+            if ($data['email'] != $user->email) {
+                $existingEmail = User::where("email", $data['email'])->where('id', '!=', $user->id)->first();
+                if ($existingEmail) {
+                    return response()->json([
+                        "status" => "error",
+                        "message" => "Email sudah digunakan"
+                    ], 404);
+                }
+            }
+
+            // jika nomor telpon di update
+            if ($data['phone_number'] != $user->phone_number) {
+                $existingPhoneNumber = User::where("phone_number", preg_replace('/^08/', '628', $data['phone_number']))->where('id', '!=', $user->id)->first();
+                if ($existingPhoneNumber) {
+                    return response()->json([
+                        "status" => "error",
+                        "message" => "Nomor Telpon sudah digunakan"
+                    ], 404);
+                } else {
+                    $data['phone_number'] = preg_replace('/^08/', '628', $data['phone_number']);
+                }
+            }
+
+            // delete undefined data image
+            unset($data["image"]);
+            if ($request->file("image")) {
+                $oldImagePath = "public/" . $user->image;
+                if (Storage::exists($oldImagePath)) {
+                    Storage::delete($oldImagePath);
+                }
+                $data["image"] = $request->file("image")->store("assets/user", "public");
             }
 
             $user->update($data);

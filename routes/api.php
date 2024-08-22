@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CustomTemplateController;
 use App\Http\Controllers\FaqController;
@@ -85,6 +86,13 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
         Route::post("create", [PropertyImageController::class, "create"]);
         Route::delete('delete', [PropertyImageController::class, 'destroy']);
     });
+
+    // ACCOUNT
+    Route::group(["prefix" => "account"], function () {
+        Route::get("/detail", [AccountController::class, "detail"]);
+        Route::post("/update-owner", [AccountController::class, "updateOwner"]);
+    });
+
 
     // endpoint for role owner
     Route::group(["middleware" => "api.check.role:owner"], function () {

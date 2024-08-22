@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CustomTemplateController;
 use App\Http\Controllers\DashboardController;
@@ -31,6 +32,7 @@ Route::group(["middleware" => "guest"], function () {
 
 Route::group(["middleware" => "auth:web", "prefix" => "admin"], function () {
     Route::get("/", [DashboardController::class, "index"])->name("dashboard");
+    Route::get('/account', [AccountController::class, 'index'])->name('account');
 
     // pages for role owner
     Route::group(["middleware" => "web.check.role:owner"], function () {
