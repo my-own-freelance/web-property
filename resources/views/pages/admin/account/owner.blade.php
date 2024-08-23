@@ -17,52 +17,32 @@
                         </div>
                         <input type="hidden" name="id" id="id">
                         <div class="tab-pane active" id="countinformation" (role="tabpanel")>
-                            <div class="row mt-3">
-                                <div class="col-md-12">
-                                    <div class="form-group form-group-default">
-                                        <label>Nama</label>
-                                        <input type="text" class="form-control" id="name" name="name"
-                                            placeholder="nama">
-                                    </div>
-                                </div>
+
+                            <div class="form-group form-group-default">
+                                <label>Nama</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="nama">
                             </div>
-                            <div class="row mt-3">
-                                <div class="col-md-12">
-                                    <div class="form-group form-group-default">
-                                        <label>Username</label>
-                                        <input type="text" class="form-control" id="username" name="username" disabled
-                                            placeholder="username">
-                                    </div>
-                                </div>
+                            <div class="form-group form-group-default">
+                                <label>Username</label>
+                                <input type="text" class="form-control" id="username" name="username" disabled
+                                    placeholder="username">
                             </div>
-                            <div class="row mt-3">
-                                <div class="col-md-12">
-                                    <div class="form-group form-group-default">
-                                        <label>Email</label>
-                                        <input type="email" class="form-control" id="email" name="email"
-                                            placeholder="email">
-                                    </div>
-                                </div>
+                            <div class="form-group form-group-default">
+                                <label>Email</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="email">
                             </div>
-                            <div class="row mt-3">
-                                <div class="col-md-12">
-                                    <div class="form-group form-group-default">
-                                        <label>Password</label>
-                                        <input type="text" class="form-control" id="password" name="password"
-                                            placeholder="ubah password">
-                                    </div>
-                                </div>
+                            <div class="form-group form-group-default">
+                                <label>Password</label>
+                                <input type="text" class="form-control" id="password" name="password"
+                                    placeholder="ubah password">
                             </div>
-                            <div class="row mt-3">
-                                <div class="col-md-12">
-                                    <div class="form-group form-group-default">
-                                        <label>Nomor Telpon</label>
-                                        <input type="text" class="form-control" id="phone_number" name="phone_number"
-                                            placeholder="nama">
-                                    </div>
-                                </div>
+                            <div class="form-group form-group-default">
+                                <label>Nomor Telpon</label>
+                                <input type="text" class="form-control" id="phone_number" name="phone_number"
+                                    placeholder="nomor telpon">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group form-group-default">
                                 <label for="gender">Gender</label>
                                 <select class="form-control form-control" id="gender" name="gender" required>
                                     <option value = "">Pilih Gender</option>
@@ -70,15 +50,11 @@
                                     <option value="P">Perempuan</option>
                                 </select>
                             </div>
-                            <div class="row mt-3">
-                                <div class="col-md-12">
-                                    <div class="form-group form-group-default">
-                                        <label>Foto Pengguna</label>
-                                        <input class="form-control" id="image" type="file" name="image"
-                                            placeholder="upload gambar" />
-                                        <small class="text-danger">Max ukuran 1MB</small>
-                                    </div>
-                                </div>
+                            <div class="form-group form-group-default">
+                                <label>Foto Pengguna</label>
+                                <input class="form-control" id="image" type="file" name="image"
+                                    placeholder="upload gambar" />
+                                <small class="text-danger">Max ukuran 1MB</small>
                             </div>
                         </div>
                         <div class="text-right mt-3 mb-3">
@@ -92,10 +68,16 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('dashboard/js/plugin/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('dashboard/js/plugin/select2/select2.full.min.js') }}"></script>
+
     <script>
         $(function() {
             getData()
         })
+
+        $('#gender').select2({
+            theme: "bootstrap"
+        });
 
         $("#formCountInformation").submit(function(e) {
             e.preventDefault()

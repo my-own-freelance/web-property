@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header">
         <div class="card-header-left">
-            <h5 class="text-uppercase title">Data Pengajuan Properti</h5>
+            <h5 class="text-uppercase title">Data Properti Diajukan</h5>
         </div>
         <div class="card-header-right">
             <button class="btn btn-mini btn-info mr-1" onclick="return refreshData('pending');">Refresh</button>

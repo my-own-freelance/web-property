@@ -443,7 +443,7 @@ class UserController extends Controller
 
             return response()->json([
                 "status" => "success",
-                "message" => "Berhasil menambahkan data pengguna"
+                "message" => "Berhasil update data pengguna"
             ]);
         } catch (\Exception $err) {
             return response()->json([

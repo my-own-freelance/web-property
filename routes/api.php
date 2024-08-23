@@ -91,6 +91,7 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
     Route::group(["prefix" => "account"], function () {
         Route::get("/detail", [AccountController::class, "detail"]);
         Route::post("/update-owner", [AccountController::class, "updateOwner"]);
+        Route::post("/update-agen", [AccountController::class, "updateAgen"]);
     });
 
 

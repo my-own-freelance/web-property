@@ -98,7 +98,7 @@
                                 <div class="form-group">
                                     <label for="position">Jabatan</label>
                                     <input class="form-control" id="position" type="text" name="position"
-                                        placeholder="masukan posisi/jabatan" />
+                                        placeholder="masukan posisi/jabatan" required />
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-6 col-12">
@@ -120,14 +120,14 @@
                                 <div class="form-group">
                                     <label for="city_of_birth">Kota Kelahiran</label>
                                     <input class="form-control" id="city_of_birth" type="text" name="city_of_birth"
-                                        placeholder="masukan kota kelahiran" />
+                                        placeholder="masukan kota kelahiran" required />
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="date_of_birth">Tanggal Lahir</label>
                                     <input class="form-control" id="date_of_birth" type="date" name="date_of_birth"
-                                        placeholder="masukan tanggal lahir" />
+                                        placeholder="masukan tanggal lahir" required />
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-6 col-12">
@@ -153,7 +153,7 @@
                             <div class="col-md-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="province_id">Provinsi</label>
-                                    <select class="form-control form-control" id="province_id" name="province_id">
+                                    <select class="form-control form-control" id="province_id" name="province_id" required>
                                         <option value = "">Pilih Provinsi</option>
                                     </select>
                                 </div>
@@ -161,7 +161,7 @@
                             <div class="col-md-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="district_id">Kabupaten</label>
-                                    <select class="form-control form-control" id="district_id" name="district_id">
+                                    <select class="form-control form-control" id="district_id" name="district_id" required>
                                         <option value = "">Pilih Kabupaten</option>
                                     </select>
                                 </div>
@@ -170,7 +170,7 @@
                                 <div class="form-group">
                                     <label for="sub_district_id">Kecamatan</label>
                                     <select class="form-control form-control" id="sub_district_id"
-                                        name="sub_district_id">
+                                        name="sub_district_id" required>
                                         <option value = "">Pilih Kecamatan</option>
                                     </select>
                                 </div>
@@ -179,7 +179,7 @@
                                 <div class="form-group">
                                     <label for="address">Alamat</label>
                                     <input class="form-control" id="address" type="text" name="address"
-                                        placeholder="masukan alamat" />
+                                        placeholder="masukan alamat" required />
                                 </div>
                             </div>
                         </div>
