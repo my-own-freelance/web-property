@@ -548,11 +548,11 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row-mt-3">
+                    <div class="row mt-3">
                         <div class="col-md-12">
                             <div class="card card-agen">
-                                <div class="card-body d-flex align-items-center">
-                                    <div class="d-flex align-items-center">
+                                <div class="card-body d-flex flex-column flex-md-row align-items-center">
+                                    <div class="d-flex align-items-center mb-3 mb-md-0">
                                         <img src="{{ asset('/dashboard/img/jm_denis.jpg') }}" alt="Agen Image"
                                             class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;"
                                             id="agen-image">
@@ -563,7 +563,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="ml-auto">
+                                    <div class="ml-md-auto">
                                         <a href="https://wa.me/NOMOR_WA_AGEN" id="agen-contact" target="_blank"
                                             class="btn btn-success">
                                             <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp
@@ -572,7 +572,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
