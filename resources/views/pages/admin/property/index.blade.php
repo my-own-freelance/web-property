@@ -297,11 +297,24 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-9 col-lg-6">
+                            <div class="col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <label for="facilities">Fasilitas</label>
                                     <input class="form-control" id="facilities" type="text" name="facilities"
                                         placeholder="masukan fasilitas" />
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="youtube">Link Video</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"
+                                                id="link-addon">https://www.youtube.com/watch?v=</span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="kode" aria-label="link"
+                                            aria-describedby="link-addon" id="youtube_code" name="youtube_code">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -538,12 +551,16 @@
                             </div>
                         </div>
                     </div>
+                    {{-- youtube optional view --}}
+                    <div class="wrapper-youtube">
+
+                    </div>
                     <hr>
-                    <div class="row-mt-3">
+                    <div class="row mt-3">
                         <div class="col-md-12">
                             <h4 class="font-weight-bold">Deskripsi</h4>
                             <div class="description-wrapper">
-
+                                {{-- rendered description --}}
                             </div>
                         </div>
                     </div>
@@ -880,6 +897,7 @@
                 $("#water").val(d.water).change();
                 $("#warranty").val(d.warranty).change();
                 $("#facilities").val(d.facilities);
+                $("#youtube_code").val(d.youtube_code);
                 $("#floor_material").val(d.floor_material);
                 $("#building_material").val(d.building_material);
                 $("#orientation").val(d.orientation);
@@ -908,6 +926,7 @@
                 // reset rendered element
                 $(".info-wrapper").empty();
                 $(".info-detail-wrapper").empty();
+                $(".wrapper-youtube").empty();
                 $(".description-wrapper").empty();
                 // end reset
 
@@ -1027,6 +1046,28 @@
                     $(".info-detail-wrapper").append(generateInfoDetail("Kode Property", `${data.code}`));
                 }
 
+                // VIDEO YOUTUBE VIEW
+                if (data.youtube_code && data.youtube_code != "") {
+                    $(".wrapper-youtube").append(`
+                    <hr>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <h4 class="font-weight-bold">Video Properti</h4>
+                            <div style="max-width: 560px;">
+                                <iframe 
+                                    width="560" 
+                                    height="315" 
+                                    src="https://www.youtube.com/embed/${data.youtube_code}" 
+                                    title="YouTube video player" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                    `)
+                }
                 // DESCRIPTION PROPERTY
                 $(".description-wrapper").append(data.description);
 
@@ -1087,6 +1128,7 @@
             formData.append("water", $("#water").val());
             formData.append("warranty", $("#warranty").val());
             formData.append("facilities", $("#facilities").val());
+            formData.append("youtube_code", $("#youtube_code").val());
             formData.append("floor_material", $("#floor_material").val());
             formData.append("building_material", $("#building_material").val());
             formData.append("orientation", $("#orientation").val());

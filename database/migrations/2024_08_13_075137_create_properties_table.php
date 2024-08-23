@@ -35,6 +35,7 @@ return new class extends Migration
             $table->enum('is_publish', ['N', 'Y'])->default('N');
             $table->enum('admin_approval', ['PENDING', 'APPROVED', 'REJECTED'])->default('PENDING');
             $table->enum('is_available', ['N', 'Y'])->default('Y');
+            $table->string('youtube_code')->nullable();
             $table->integer('views')->default(0);
             $table->string('image');
             $table->unsignedBigInteger('agen_id');

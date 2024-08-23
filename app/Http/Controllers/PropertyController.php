@@ -277,7 +277,7 @@ class PropertyController extends Controller
                 ->where('id', $id);
 
             if ($user->role == "agen") {
-                $query->where("agen_id", $user->id)->first();
+                $query->where("agen_id", $user->id);
             }
 
             $property = $query->first();
@@ -350,6 +350,7 @@ class PropertyController extends Controller
                 "water" => "nullable|in:PDAM,SUMUR,SUMUR BOR,OTHER",
                 "warranty" => "nullable|in:Y,N",
                 "facilities" => "nullable|string",
+                "youtube_code" => "nullable|string",
                 "floor_material" => "nullable|string",
                 "building_material" => "nullable|string",
                 "orientation" => "nullable|string",
@@ -504,6 +505,7 @@ class PropertyController extends Controller
                 "water" => "nullable|in:PDAM,SUMUR,SUMUR BOR,OTHER",
                 "warranty" => "nullable|in:Y,N",
                 "facilities" => "nullable|string",
+                "youtube_code" => "nullable|string",
                 "floor_material" => "nullable|string",
                 "building_material" => "nullable|string",
                 "orientation" => "nullable|string",
@@ -567,13 +569,12 @@ class PropertyController extends Controller
                 ], 400);
             }
 
-            $property = null;
+            $query = Property::where("id", $data["id"]);
             $user = auth()->user();
             if ($user->role == "agen") {
-                $property = Property::where("agen_id", $user->id)->first();
-            } else if ($user->role == "owner") {
-                $property = Property::find($data['id']);
+                $query->where("agen_id", $user->id);
             }
+            $property = $query->first();
 
             if (!$property) {
                 return response()->json([
