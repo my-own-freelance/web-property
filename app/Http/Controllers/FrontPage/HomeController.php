@@ -45,7 +45,7 @@ class HomeController extends Controller
                     . preg_replace('/^08/', '628', $property->Agen->phone_number)
                     . '&text='
                     . 'Halo, saya ingin menanyakan info/data mengenai properti ini : %0A%0A'
-                    . url('/') . '/cari-property/view/'
+                    . url('/') . '/cari-properti/view/'
                     . $property['code']
                     . '/'
                     . $property['slug']
@@ -56,7 +56,7 @@ class HomeController extends Controller
                     'type' => $property->PropertyType ? $property->PropertyType->name : null,
                     'transaction' => $property->PropertyTransaction ? $property->PropertyTransaction->name : null,
                     'image' => url("/") . Storage::url($property->image),
-                    'url' => url('/') . '/cari-property/view/' . $property['code'] . '/' . $property['slug'],
+                    'url' => url('/') . '/cari-properti/view/' . $property['code'] . '/' . $property['slug'],
                     'youtube' => $property->youtube_code && $property->youtube_code != "" ? ("https://www.youtube.com/watch?v=" . $property->youtube_code) : null,
                     'short_title' => $property->short_title,
                     'price' => $property->price,
@@ -66,6 +66,7 @@ class HomeController extends Controller
                     'land_sale_area' => $property->land_sale_area,
                     'building_sale_area' => $property->building_sale_area,
                     'agen' => $property->Agen->name,
+                    'agen_image' => url("/") . Storage::url($property->Agen->image),
                     'whatsapp' => $whatsapp,
                 ];
             });
@@ -98,7 +99,7 @@ class HomeController extends Controller
                             . preg_replace('/^08/', '628', $property->Agen->phone_number)
                             . '&text='
                             . 'Halo, saya ingin menanyakan info/data mengenai properti ini : %0A%0A'
-                            . url('/') . '/cari-property/view/'
+                            . url('/') . '/cari-properti/view/'
                             . $property['code']
                             . '/'
                             . $property['slug']
@@ -108,7 +109,7 @@ class HomeController extends Controller
                             'id' => $property->id,
                             'type' => $property->PropertyType ? $property->PropertyType->name : null,
                             'image' =>  url("/") . Storage::url($property->image),
-                            'url' => url('/') . '/cari-property/view/' . $property['code'] . '/' . $property['slug'],
+                            'url' => url('/') . '/cari-properti/view/' . $property['code'] . '/' . $property['slug'],
                             'youtube' => $property->youtube_code && $property->youtube_code != "" ? ("https://www.youtube.com/watch?v=" . $property->youtube_code) : null,
                             'short_title' => $property->short_title,
                             'price' => $property->price,
@@ -118,6 +119,7 @@ class HomeController extends Controller
                             'land_sale_area' => $property->land_sale_area,
                             'building_sale_area' => $property->building_sale_area,
                             'agen' => $property->Agen->name,
+                            'agen_image' => url("/") . Storage::url($property->Agen->image),
                             'whatsapp' => $whatsapp,
                         ];
                     }),

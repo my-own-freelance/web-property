@@ -29,7 +29,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/logout', [WebAuthController::class, 'logout'])->name('logout');
 Route::get('/', [HomeController::class, 'index'])->name("home");
-Route::get('/cari-property/view/{code}/{slug}', [HomePropertyController::class, 'detail'])->name('property.detail');
+Route::get('/list-properti', [HomePropertyController::class, 'list'])->name('property.list');
+Route::get('/cari-properti/view/{code}/{slug}', [HomePropertyController::class, 'detail'])->name('property.detail');
 
 // AUTH
 Route::group(["middleware" => "guest"], function () {

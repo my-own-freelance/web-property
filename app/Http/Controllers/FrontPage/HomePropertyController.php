@@ -10,16 +10,117 @@ use Illuminate\Support\Facades\Storage;
 
 class HomePropertyController extends Controller
 {
-    public function detail($code, $slug)
+    public function list(Request $request)
     {
-        $property = Property::with("PropertyTransaction")
+        $title = 'List Properti';
+        $query = Property::with("PropertyTransaction")
             ->with("PropertyType")
             ->with('PropertyType')
-            ->with("PropertyImages")
-            ->with("Province")
             ->with('District')
             ->with('SubDistrict')
             ->with('Agen')
+            ->orderBy("id", "desc")
+            ->limit(8)
+            ->where("is_publish", "Y")
+            ->where("admin_approval", "APPROVED")
+            ->where("is_available", "Y");
+
+        // filter search
+        if ($request->query("search") && $request->query('search') != "") {
+            $query->where('short_title', 'like', '%' . $request->query('search') . '%')
+                ->Orwhere('long_title', 'like', '%' . $request->query('search') . '%')
+                ->Orwhere('code', 'like', '%' . $request->query('search') . '%');
+        }
+
+        // filter properti transaction
+        if ($request->query("trx_id") && $request->query('trx_id') != "") {
+            $query->where('property_transaction_id', $request->query('trx_id'));
+        }
+
+        // filter property type
+        if ($request->query("type_id") && $request->query('type_id') != "") {
+            $query->where('property_type_id', $request->query('type_id'));
+        }
+
+        // filter property certificate
+        if ($request->query("crt_id") && $request->query('crt_id') != "") {
+            $query->where('property_certificate_id', $request->query('crt_id'));
+        }
+
+        // filter province
+        if ($request->query("province_id") && $request->query('province_id') != "") {
+            $query->where('province_id', $request->query('province_id'));
+        }
+
+        // filter district
+        if ($request->query("district_id") && $request->query('district_id') != "") {
+            $query->where('district_id', $request->query('district_id'));
+        }
+
+        // filter sub district
+        if ($request->query("sub_district_id") && $request->query('sub_district_id') != "") {
+            $query->where('sub_district_id', $request->query('sub_district_id'));
+        }
+
+        // filter bedrooms
+        if ($request->query("bedrooms") && $request->query('bedrooms') != "") {
+            $query->where('bedrooms', $request->query('bedrooms'));
+        }
+
+        // filter bathrooms
+        if ($request->query("bathrooms") && $request->query('bathrooms') != "") {
+            $query->where('bathrooms', $request->query('bathrooms'));
+        }
+
+        $properties = $query->paginate(1)->appends($request->query())->through(function ($property) {
+            $district = $property->District ? $property->District->name : "";
+            $subDistrict = $property->SubDistrict ? $property->SubDistrict->name : "";
+            $location = $subDistrict . ', ' . $district;
+            $whatsapp = 'https://api.whatsapp.com/send/?phone='
+                . preg_replace('/^08/', '628', $property->Agen->phone_number)
+                . '&text='
+                . 'Halo, saya ingin menanyakan info/data mengenai properti ini : %0A%0A'
+                . url('/') . '/cari-properti/view/'
+                . $property['code']
+                . '/'
+                . $property['slug']
+                . '%0A%0AApakah masih ada? Apa ada update terbaru? %0A%0ATerima kasih';
+
+            return (object) [
+                'id' => $property->id,
+                'type' => $property->PropertyType ? $property->PropertyType->name : null,
+                'transaction' => $property->PropertyTransaction ? $property->PropertyTransaction->name : null,
+                'image' => url("/") . Storage::url($property->image),
+                'url' => url('/') . '/cari-properti/view/' . $property['code'] . '/' . $property['slug'],
+                'youtube' => $property->youtube_code && $property->youtube_code != "" ? ("https://www.youtube.com/watch?v=" . $property->youtube_code) : null,
+                'short_title' => $property->short_title,
+                'price' => $property->price,
+                'location' => $location,
+                'bedrooms' => $property->bedrooms,
+                'bathrooms' => $property->bathrooms,
+                'land_sale_area' => $property->land_sale_area,
+                'building_sale_area' => $property->building_sale_area,
+                'agen' => $property->Agen->name,
+                'agen_image' => url("/") . Storage::url($property->Agen->image),
+                'whatsapp' => $whatsapp,
+            ];
+        });
+
+        return view('pages.frontpage.list-properti', compact('title', 'properties'));
+    }
+
+    public function detail($code, $slug)
+    {
+        $property = Property::with([
+            'PropertyTransaction',
+            'PropertyType',
+            'PropertyImages',
+            'Province',
+            'District',
+            'SubDistrict',
+            'Agen.SubDistrict', // Load relasi SubDistrict pada Agen
+            'Agen.District',    // Load relasi District pada Agen
+        ])
             ->where("is_publish", "Y")
             ->where("admin_approval", "APPROVED")
             // ->where("is_available", "Y") // kalau detail boleh menampilkan yg available nya sudah no
@@ -50,12 +151,13 @@ class HomePropertyController extends Controller
             . preg_replace('/^08/', '628', $property->Agen->phone_number)
             . '&text='
             . 'Halo, saya ingin menanyakan info/data mengenai properti ini : %0A%0A'
-            . url('/') . '/cari-property/view/'
+            . url('/') . '/cari-properti/view/'
             . $property['code']
             . '/'
             . $property['slug']
             . '%0A%0AApakah masih ada? Apa ada update terbaru? %0A%0ATerima kasih';
 
+        $property['agen_location'] = $property->Agen->SubDistrict->name . ', ' . $property->Agen->District->name;
         $property['property_transaction'] = $property->PropertyTransaction ? $property->PropertyTransaction->name : "";
         $property['property_type'] = $property->PropertyType ? $property->PropertyType->name : "";
         $property['property_certificate'] = $property->PropertyCertificate ? $property->PropertyCertificate->name : "";
@@ -75,17 +177,22 @@ class HomePropertyController extends Controller
         $data["views"] = $property->views + 1;
         Property::where("code", $code)->where("slug", $slug)->update($data);
 
-        $similarProperties = Property::where("is_publish", "Y")
+        $similarProperties = Property::with([
+                'PropertyTransaction',
+                'PropertyType',
+                'PropertyImages',
+                'Province',
+                'District',
+                'SubDistrict',
+                'Agen',
+            ])
+            ->limit(3)
+            ->where("is_publish", "Y")
             ->where("admin_approval", "APPROVED")
             ->where("is_available", "Y")
+            ->where('code', '!=', $code)
             ->where('property_transaction_id', $property->property_transaction_id)
-            ->orWhere('district_id', $property->district_id)
-            ->with("PropertyType")
-            ->with('PropertyType')
-            ->with('District')
-            ->with('SubDistrict')
-            ->with('Agen')
-            ->limit(3)
+            ->where('property_type_id', $property->property_type_id)
             ->get()
             ->map(function ($similarProp) {
                 $district = $similarProp->District ? $similarProp->District->name : "";
@@ -95,7 +202,7 @@ class HomePropertyController extends Controller
                     . preg_replace('/^08/', '628', $similarProp->Agen->phone_number)
                     . '&text='
                     . 'Halo, saya ingin menanyakan info/data mengenai properti ini : %0A%0A'
-                    . url('/') . '/cari-property/view/'
+                    . url('/') . '/cari-properti/view/'
                     . $similarProp['code']
                     . '/'
                     . $similarProp['slug']
@@ -106,7 +213,7 @@ class HomePropertyController extends Controller
                     'type' => $similarProp->PropertyType ? $similarProp->PropertyType->name : null,
                     'transaction' => $similarProp->PropertyTransaction ? $similarProp->PropertyTransaction->name : null,
                     'image' =>  url("/") . Storage::url($similarProp->image),
-                    'url' => url('/') . '/cari-property/view/' . $similarProp['code'] . '/' . $similarProp['slug'],
+                    'url' => url('/') . '/cari-properti/view/' . $similarProp['code'] . '/' . $similarProp['slug'],
                     'youtube' => $similarProp->youtube_code && $similarProp->youtube_code != "" ? ("https://www.youtube.com/watch?v=" . $similarProp->youtube_code) : null,
                     'short_title' => $similarProp->short_title,
                     'price' => $similarProp->price,
@@ -116,6 +223,7 @@ class HomePropertyController extends Controller
                     'land_sale_area' => $similarProp->land_sale_area,
                     'building_sale_area' => $similarProp->building_sale_area,
                     'agen' => $similarProp->Agen->name,
+                    'agen_image' => url("/") . Storage::url($similarProp->Agen->image),
                     'whatsapp' => $whatsapp,
                 ];
             });
@@ -131,7 +239,7 @@ class HomePropertyController extends Controller
                 return (object) [
                     'id' => $similarProp->id,
                     'image' =>  url("/") . Storage::url($similarProp->image),
-                    'url' => url('/') . '/cari-property/view/' . $similarProp['code'] . '/' . $similarProp['slug'],
+                    'url' => url('/') . '/cari-properti/view/' . $similarProp['code'] . '/' . $similarProp['slug'],
                     'short_title' => $similarProp->short_title,
                     'price' => $similarProp->price,
                 ];

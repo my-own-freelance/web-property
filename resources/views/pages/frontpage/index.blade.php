@@ -299,9 +299,10 @@
                                             </div>
                                             <div class="footer" style="display: flex; justify-content: space-between;">
                                                 <a href="#">
-                                                    <i class="fa fa-user"></i> {{ $popProp->agen }}
+                                                    <img src="{{ $popProp->agen_image }}" alt="" class="mr-2">
+                                                    {{ $popProp->agen }}
                                                 </a>
-                                                <a href="{{ $popProp->whatsapp }}" target="__blank">
+                                                <a href="{{ $popProp->whatsapp }}" class="mt-2" target="__blank">
                                                     <i class="fa fa-whatsapp"></i> Hubungi Saya
                                                 </a>
                                             </div>
@@ -454,9 +455,10 @@
                                                 <div class="footer"
                                                     style="display: flex; justify-content: space-between;">
                                                     <a href="#">
-                                                        <i class="fa fa-user"></i> {{ $propData->agen }}
+                                                        <img src="{{ $propData->agen_image }}" alt="" class="mr-2">
+                                                        {{ $propData->agen }}
                                                     </a>
-                                                    <a href="{{ $propData->whatsapp }}"  target="__blank">
+                                                    <a href="{{ $propData->whatsapp }}" class="mt-2" target="__blank">
                                                         <i class="fa fa-whatsapp"></i> Hubungi Saya
                                                     </a>
                                                 </div>

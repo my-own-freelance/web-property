@@ -60,7 +60,7 @@
                                     @forelse ($property->PropertyImages as $propImg)
                                         <div class="{{ $loop->index == 0 ? 'active' : '' }} item carousel-item"
                                             data-slide-number="{{ $loop->index }}">
-                                            <img src="{{ $propImg->image }}" class="img-fluid" alt="slider-listing">
+                                            <img src="{{ $propImg->image }}" class="img-fluid" style="width: 100%; max-height: 400px; object-fit:cover" alt="slider-listing">
                                         </div>
                                     @empty
                                     @endforelse
@@ -215,7 +215,7 @@
                         <div class="sidebar">
                             <div class="widget-boxed">
                                 <div class="widget-boxed-header">
-                                    <h4>Agent Information</h4>
+                                    <h4>Informasi Agen</h4>
                                 </div>
                                 <div class="widget-boxed-body">
                                     <div class="sidebar-widget author-widget2">
@@ -230,8 +230,7 @@
                                                 <span class="la la-map-marker">
                                                     <i class="fa fa-map-marker"></i>
                                                 </span>
-                                                {{ $property->sub_district }},
-                                                {{ $property->district }}
+                                                {{ $property->agen_location }},
                                             </li>
                                             <li>
                                                 <span class="la la-phone">
@@ -362,9 +361,10 @@
                                         </div>
                                         <div class="footer" style="display: flex; justify-content: space-between;">
                                             <a href="#">
-                                                <i class="fa fa-user"></i> {{ $simProp->agen }}
+                                                <img src="{{ $simProp->agen_image }}" alt="" class="mr-2">
+                                                {{ $simProp->agen }}
                                             </a>
-                                            <a href="{{ $simProp->whatsapp }}" target="__blank">
+                                            <a href="{{ $simProp->whatsapp }}" class="mt-2" target="__blank">
                                                 <i class="fa fa-whatsapp"></i> Hubungi Saya
                                             </a>
                                         </div>

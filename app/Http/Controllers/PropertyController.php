@@ -302,7 +302,7 @@ class PropertyController extends Controller
                 . preg_replace('/^08/', '628', $property->Agen->phone_number)
                 . '&text='
                 . 'Halo, saya ingin menanyakan info/data mengenai properti ini : %0A%0A'
-                . url('/') . '/cari-property/view/'
+                . url('/') . '/cari-properti/view/'
                 . $property['code']
                 . '/'
                 . $property['slug']

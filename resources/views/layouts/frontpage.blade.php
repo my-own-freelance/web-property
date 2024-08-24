@@ -1,4 +1,5 @@
 @php
+    $routename = request()->route()->getName();
     $template = \App\Models\CustomTemplate::find(1);
     $webTitle = $template && $template->web_title ? $template->web_title : 'Web Properti';
     $webLogo =
@@ -38,7 +39,7 @@
     @stack('styles')
 </head>
 
-<body class="inner-pages homepage-3 the-search">
+<body class="inner-pages homepage-3 {{ $routename != 'home' ? 'agents  hp-6 full hd-white' : 'the-search' }} ">
     <!-- Wrapper -->
     <div id="wrapper">
         <!-- START SECTION HEADINGS -->
@@ -124,6 +125,7 @@
         <!-- END PRELOADER -->
 
         @include('partials.frontpage.scripts')
+        @stack('scripts')
 
     </div>
     <!-- Wrapper / End -->
