@@ -72,7 +72,7 @@ class HomePropertyController extends Controller
             $query->where('bathrooms', $request->query('bathrooms'));
         }
 
-        $properties = $query->paginate(1)->appends($request->query())->through(function ($property) {
+        $properties = $query->paginate(9)->appends($request->query())->through(function ($property) {
             $district = $property->District ? $property->District->name : "";
             $subDistrict = $property->SubDistrict ? $property->SubDistrict->name : "";
             $location = $subDistrict . ', ' . $district;
