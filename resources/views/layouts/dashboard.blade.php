@@ -1,12 +1,15 @@
 @php
-    $color = \App\Models\CustomTemplate::find(1);
-    $logoColor = $color && $color->logo_header_color ? $color->logo_header_color : 'blue';
-    $topbarColor = $color && $color->topbar_color ? $color->topbar_color : 'blue2';
-    $sidebarColor = $color && $color->sidebar_color ? $color->sidebar_color : 'white';
-    $bgColor = $color && $color->bd_color ? $color->bd_color : 'bg1';
-    $webTitle = $color && $color->web_title ? $color->web_title : 'Web Properti';
-    $webLogo = $color && $color->web_logo ? url("/") . Storage::url($color->web_logo) : asset('dashboard/icon/icon.png');
-    $webDesciption = $color && $color->web_description ? $color->web_description : '';
+    $template = \App\Models\CustomTemplate::find(1);
+    $logoColor = $template && $template->logo_header_color ? $template->logo_header_color : 'blue';
+    $topbarColor = $template && $template->topbar_color ? $template->topbar_color : 'blue2';
+    $sidebarColor = $template && $template->sidebar_color ? $template->sidebar_color : 'white';
+    $bgColor = $template && $template->bd_color ? $template->bd_color : 'bg1';
+    $webTitle = $template && $template->web_title ? $template->web_title : 'Web Properti';
+    $webLogo =
+        $template && $template->web_logo
+            ? url('/') . Storage::url($template->web_logo)
+            : asset('dashboard/icon/icon.png');
+    $webDesciption = $template && $template->web_description ? $template->web_description : '';
 @endphp
 <!DOCTYPE html>
 <html lang="en">
