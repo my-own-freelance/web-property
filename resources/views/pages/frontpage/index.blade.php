@@ -253,7 +253,8 @@
                                     <!-- homes content -->
                                     <div class="homes-content">
                                         <!-- homes address -->
-                                        <h3><a href="{{ $popProp->url }}">{{ $popProp->short_title }}</a></h4>
+                                        <h3>
+                                            <a href="{{ $popProp->url }}">{{ $popProp->short_title }}</a></h4>
                                             <p class="homes-address">
                                                 <i
                                                     class="fa fa-map-marker"></i><span>&nbsp;&nbsp;{{ $popProp->location }}</span>
@@ -300,7 +301,7 @@
                                                 <a href="#">
                                                     <i class="fa fa-user"></i> {{ $popProp->agen }}
                                                 </a>
-                                                <a href="{{ $popProp->whatsapp }}">
+                                                <a href="{{ $popProp->whatsapp }}" target="__blank">
                                                     <i class="fa fa-whatsapp"></i> Hubungi Saya
                                                 </a>
                                             </div>
@@ -455,7 +456,7 @@
                                                     <a href="#">
                                                         <i class="fa fa-user"></i> {{ $propData->agen }}
                                                     </a>
-                                                    <a href="{{ $propData->whatsapp }}">
+                                                    <a href="{{ $propData->whatsapp }}"  target="__blank">
                                                         <i class="fa fa-whatsapp"></i> Hubungi Saya
                                                     </a>
                                                 </div>

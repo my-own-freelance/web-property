@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\FrontPage;
 
+use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\District;
 use App\Models\Property;

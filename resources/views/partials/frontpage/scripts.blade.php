@@ -28,6 +28,12 @@
 <script src="{{ asset('frontpage/js/forms-2.js') }}"></script>
 <script src="{{ asset('frontpage/js/range.js') }}"></script>
 <script src="{{ asset('frontpage/js/color-switcher.js') }}"></script>
+<script src="{{ asset('frontpage/js/leaflet.js') }}"></script>
+<script src="{{ asset('frontpage/js/leaflet-gesture-handling.min.js') }}"></script>
+<script src="{{ asset('frontpage/js/leaflet-providers.js') }}"></script>
+<script src="{{ asset('frontpage/js/leaflet.markercluster.js') }}"></script>
+<script src="{{ asset('frontpage/js/map-single.js') }}"></script>
+
 <script>
     $(window).on('scroll load', function() {
         $("#header.cloned #logo img").attr("src", $('#header #logo img').attr('data-sticky-logo'));
@@ -37,6 +43,20 @@
 <!-- Slider Revolution scripts -->
 <script src="{{ asset('frontpage/revolution/js/jquery.themepunch.tools.min.js') }}"></script>
 <script src="{{ asset('frontpage/revolution/js/jquery.themepunch.revolution.min.js') }}"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
+            disableOn: 700,
+            type: 'iframe',
+            mainClass: 'mfp-fade',
+            removalDelay: 160,
+            preloader: false,
+            fixedContentPos: false
+        });
+    });
+
+</script>
 
 <script>
     $('.slick-lancers').slick({

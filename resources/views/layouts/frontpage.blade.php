@@ -17,14 +17,28 @@
     <meta name="description" content="{{ $webDesciption }}" />
     <meta name="author" content="">
     <title>@yield('title')</title>
+    {{-- metadata --}}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="title" content="" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="keywords" content="" />
+    <meta property="og:image" content="{{ $webLogo }}" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta property="og:url" content="{{ request()->url() }}">
+    <meta property="og:site_name" content="">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
     <!-- FAVICON -->
     <link rel="shortcut icon" href="{{ $webLogo }}" type="image/x-icon" />
     <link rel="stylesheet" href="{{ asset('frontpage/css/jquery-ui.css') }}">
+    @stack('metadata')
+
     @include('partials.frontpage.styles')
     @stack('styles')
 </head>
 
-<body class="homepage-3 the-search">
+<body class="inner-pages homepage-3 the-search">
     <!-- Wrapper -->
     <div id="wrapper">
         <!-- START SECTION HEADINGS -->
@@ -88,7 +102,8 @@
                                             <label>Password *</label>
                                             <input name="password" type="password" onClick="this.select()"
                                                 value="">
-                                            <button type="submit" class="log-submit-btn"><span>Register</span></button>
+                                            <button type="submit"
+                                                class="log-submit-btn"><span>Register</span></button>
                                         </form>
                                     </div>
                                 </div>

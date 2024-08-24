@@ -5,6 +5,11 @@
 <link rel="stylesheet" href="{{ asset('frontpage/css/fontawesome-all.min.css') }}">
 <link rel="stylesheet" href="{{ asset('frontpage/css/fontawesome-5-all.min.css') }}">
 <link rel="stylesheet" href="{{ asset('frontpage/css/font-awesome.min.css') }}">
+<!-- LEAFLET MAP -->
+<link rel="stylesheet" href="{{ asset('frontpage/css/leaflet.css') }}">
+<link rel="stylesheet" href="{{ asset('frontpage/css/leaflet-gesture-handling.min.css') }}">
+<link rel="stylesheet" href="{{ asset('frontpage/css/leaflet.markercluster.css') }}">
+<link rel="stylesheet" href="{{ asset('frontpage/css/leaflet.markercluster.default.css') }}">
 <!-- ARCHIVES CSS -->
 <link rel="stylesheet" href="{{ asset('frontpage/css/search-form.css') }}">
 <link rel="stylesheet" href="{{ asset('frontpage/css/search.css') }}">

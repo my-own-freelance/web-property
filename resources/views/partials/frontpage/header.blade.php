@@ -1,8 +1,11 @@
+<?php
+$routename = request()->route()->getName();
+?>
 <!-- Header Container
         ================================================== -->
-<header id="header-container" class="header head-tr">
+<header id="header-container" class="header {{ $routename == 'home' ? 'head-tr' : '' }}">
     <!-- Header -->
-    <div id="header" class="head-tr bottom">
+    <div id="header" class="{{ $routename == 'home' ? 'head-tr' : '' }} bottom">
         <div class="container container-header">
             <!-- Left Side Content -->
             <div class="left-side">
@@ -20,7 +23,7 @@
                     </button>
                 </div>
                 <!-- Main Navigation -->
-                <nav id="navigation" class="style-1 head-tr">
+                <nav id="navigation" class="style-1 {{ $routename == 'home' ? 'head-tr' : '' }}">
                     <ul id="responsive">
                         <li><a href="#">Home</a>
                             <ul>
