@@ -10,6 +10,7 @@ use App\Http\Controllers\PropertyCertificateController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyTranscationController;
 use App\Http\Controllers\PropertyTypeController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebAuthController;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,7 @@ Route::group(["middleware" => "auth:web", "prefix" => "admin"], function () {
         Route::get("/owner", [UserController::class, "indexOwner"])->name("owner");
         Route::get('/article', [ArticleController::class, 'index'])->name("article");
         Route::get('/faq', [FaqController::class, 'index'])->name("faq");
+        Route::get('review', [ReviewController::class, 'index'])->name('review');
     });
 
     Route::group(["prefix" => "property"], function () {

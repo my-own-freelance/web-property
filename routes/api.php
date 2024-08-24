@@ -11,6 +11,7 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyImageController;
 use App\Http\Controllers\PropertyTranscationController;
 use App\Http\Controllers\PropertyTypeController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebAuthController;
 use Illuminate\Http\Request;
@@ -163,6 +164,16 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
             Route::post("update", [FaqController::class, "update"]);
             Route::delete("delete", [FaqController::class, "destroy"]);
         });
+
+        // REVIEW
+        Route::group(["prefix" => "review"], function () {
+            Route::get("datatable", [ReviewController::class, "dataTable"]);
+            Route::get("{id}/detail", [ReviewController::class, "getDetail"]);
+            Route::post("create", [ReviewController::class, "create"]);
+            Route::post("update", [ReviewController::class, "update"]);
+            Route::delete("/", [ReviewController::class, "destroy"]);
+        });
+
 
         Route::get("/{role}/datatable", [UserController::class, "dataTable"]);
     });
