@@ -258,7 +258,7 @@
                                             @forelse ($recentProperties as $recentProp)
                                                 <div class="recent-main">
                                                     <div class="recent-img">
-                                                        <a href="blog-details.html">
+                                                        <a href="{{ $recentProp->url }}">
                                                             <img src="{{ $recentProp->image }}"
                                                                 style="max-width: 300px!important;height: auto"
                                                                 alt="{{ $recentProp->short_title }}">
