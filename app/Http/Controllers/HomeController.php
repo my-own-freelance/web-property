@@ -29,6 +29,7 @@ class HomeController extends Controller
             ->with('PropertyType')
             ->with('District')
             ->with('SubDistrict')
+            ->with('Agen')
             ->orderBy("views", "desc")
             ->limit(8)
             ->where("is_publish", "Y")
@@ -39,6 +40,15 @@ class HomeController extends Controller
                 $district = $property->District ? $property->District->name : "";
                 $subDistrict = $property->SubDistrict ? $property->SubDistrict->name : "";
                 $location = $subDistrict . ', ' . $district;
+                $whatsapp = 'https://api.whatsapp.com/send/?phone='
+                    . preg_replace('/^08/', '628', $property->Agen->phone_number)
+                    . '&text='
+                    . 'Halo, saya ingin menanyakan info/data mengenai properti ini : %0A%0A'
+                    . url('/') . '/cari-property/view/'
+                    . $property['code']
+                    . '/'
+                    . $property['slug']
+                    . '%0A%0AApakah masih ada? Apa ada update terbaru? %0A%0ATerima kasih';
 
                 return (object) [
                     'id' => $property->id,
@@ -54,6 +64,8 @@ class HomeController extends Controller
                     'bathrooms' => $property->bathrooms,
                     'land_sale_area' => $property->land_sale_area,
                     'building_sale_area' => $property->building_sale_area,
+                    'agen' => $property->Agen->name,
+                    'whatsapp' => $whatsapp,
                 ];
             });
 
@@ -66,7 +78,8 @@ class HomeController extends Controller
                 ->with('PropertyType')
                 ->with('Province')
                 ->with('District')
-                ->with('SubDistrict');
+                ->with('SubDistrict')
+                ->with('Agen');
         }])
             ->get()
             ->filter(function ($propByTrx) {
@@ -80,6 +93,16 @@ class HomeController extends Controller
                         $district = $property->District ? $property->District->name : "";
                         $subDistrict = $property->SubDistrict ? $property->SubDistrict->name : "";
                         $location = $subDistrict . ', ' . $district;
+                        $whatsapp = 'https://api.whatsapp.com/send/?phone='
+                            . preg_replace('/^08/', '628', $property->Agen->phone_number)
+                            . '&text='
+                            . 'Halo, saya ingin menanyakan info/data mengenai properti ini : %0A%0A'
+                            . url('/') . '/cari-property/view/'
+                            . $property['code']
+                            . '/'
+                            . $property['slug']
+                            . '%0A%0AApakah masih ada? Apa ada update terbaru? %0A%0ATerima kasih';
+
                         return (object) [
                             'id' => $property->id,
                             'type' => $property->PropertyType ? $property->PropertyType->name : null,
@@ -93,12 +116,14 @@ class HomeController extends Controller
                             'bathrooms' => $property->bathrooms,
                             'land_sale_area' => $property->land_sale_area,
                             'building_sale_area' => $property->building_sale_area,
+                            'agen' => $property->Agen->name,
+                            'whatsapp' => $whatsapp,
                         ];
                     }),
                 ];
             });
 
-
+        // dd($propertiesByTrx);
         $topDistricts = DB::table('districts')
             ->leftJoin('properties', 'districts.id', '=', 'properties.district_id')
             ->select('districts.id', 'districts.name', DB::raw('COUNT(properties.id) as total_property'))

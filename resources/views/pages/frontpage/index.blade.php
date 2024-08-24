@@ -276,17 +276,33 @@
 
                                                 @if ($popProp->land_sale_area)
                                                     <li class="the-icons">
-                                                        <i class="flaticon-square" aria-hidden="true"></i>
+                                                        <i class="fas fa-object-group " style="color: #c4c4c4;"
+                                                            aria-hidden="true"></i>
                                                         <span>{{ $popProp->land_sale_area }}m<sup>2</sup></span>
                                                     </li>
                                                 @endif
+
+                                                @if ($popProp->building_sale_area)
+                                                    <li class="the-icons">
+                                                        <i class="fas fa-home" style="color: #c4c4c4;"
+                                                            aria-hidden="true"></i>
+                                                        <span>{{ $popProp->building_sale_area }}m<sup>2</sup></span>
+                                                    </li>
+                                                @endif
                                             </ul>
-                                            <div class="price-properties footer pb-0"
-                                                style="padding-top: 0px !important;">
+                                            <div class="price-properties footer" style="padding-top: 0px !important;">
                                                 <h3 class="title mt-3">
                                                     <a href="{{ $popProp->url }}">Rp.
                                                         {{ number_format($popProp->price, 0, ',', '.') }}</a>
                                                 </h3>
+                                            </div>
+                                            <div class="footer" style="display: flex; justify-content: space-between;">
+                                                <a href="#">
+                                                    <i class="fa fa-user"></i> {{ $popProp->agen }}
+                                                </a>
+                                                <a href="{{ $popProp->whatsapp }}">
+                                                    <i class="fa fa-whatsapp"></i> Hubungi Saya
+                                                </a>
                                             </div>
                                     </div>
                                 </div>
@@ -414,17 +430,34 @@
 
                                                     @if ($propData->land_sale_area)
                                                         <li class="the-icons">
-                                                            <i class="flaticon-square" aria-hidden="true"></i>
+                                                            <i class="fas fa-object-group " style="color: #c4c4c4;"
+                                                                aria-hidden="true"></i>
                                                             <span>{{ $propData->land_sale_area }}m<sup>2</sup></span>
                                                         </li>
                                                     @endif
+
+                                                    @if ($propData->building_sale_area)
+                                                        <li class="the-icons">
+                                                            <i class="fas fa-home" style="color: #c4c4c4;"
+                                                                aria-hidden="true"></i>
+                                                            <span>{{ $propData->building_sale_area }}m<sup>2</sup></span>
+                                                        </li>
+                                                    @endif
                                                 </ul>
-                                                <div class="price-properties footer pb-0"
-                                                    style="padding-top: 0px !important;">
+                                                <div class="price-properties footer" style="padding-top: 0px !important;">
                                                     <h3 class="title mt-3">
                                                         <a href="{{ $propData->url }}">Rp.
                                                             {{ number_format($propData->price, 0, ',', '.') }}</a>
                                                     </h3>
+                                                </div>
+                                                <div class="footer"
+                                                    style="display: flex; justify-content: space-between;">
+                                                    <a href="#">
+                                                        <i class="fa fa-user"></i> {{ $propData->agen }}
+                                                    </a>
+                                                    <a href="{{ $propData->whatsapp }}">
+                                                        <i class="fa fa-whatsapp"></i> Hubungi Saya
+                                                    </a>
                                                 </div>
                                         </div>
                                     </div>
@@ -519,8 +552,7 @@
                                         <span class="date">{{ $article->date }} &nbsp;/</span>
                                         <ul class="action-list pl-0">
                                             <li class="action-item pl-2">
-                                                <i class="fa fa-eye"></i>
-                                                <span>{{ $article->views }} dilihat</span>
+                                                <span>{{ $article->views }}x dilihat</span>
                                             </li>
                                         </ul>
                                     </div>
