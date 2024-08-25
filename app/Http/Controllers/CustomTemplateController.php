@@ -18,7 +18,7 @@ class CustomTemplateController extends Controller
     public function detail()
     {
         try {
-            $customTemplate = CustomTemplate::find(1);
+            $customTemplate = CustomTemplate::first();
 
             if (!$customTemplate) {
                 return response()->json([
@@ -41,6 +41,10 @@ class CustomTemplateController extends Controller
                 $customTemplate['web_logo'] = url("/") . "/dashboard/icon/icon.png";
             }
 
+            if ($customTemplate['maps_location'] && $customTemplate['maps_location'] != "") {
+                $customTemplate['maps_preview'] = "<iframe src='" . $customTemplate["maps_location"] . "' allowfullscreen class='w-100' height='500'></iframe>";
+            }
+
             return response()->json([
                 "status" => "success",
                 "data" => $customTemplate
@@ -58,7 +62,7 @@ class CustomTemplateController extends Controller
         $data = $request->all();
         unset($data['id']);
         unset($data["web_logo"]);
-        $existCustomData = CustomTemplate::find(1);
+        $existCustomData = CustomTemplate::first();
         if (!$existCustomData) {
             if ($request->file("web_logo")) {
                 $data["web_logo"] = $request->file("web_logo")->store("assets/setting", "public");

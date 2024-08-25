@@ -82,7 +82,7 @@ $propCertificates = \App\Models\PropertyCertificate::all();
                             </ul>
                         </li>
 
-                        <li><a href="contact-us.html">Contact</a></li>
+                        <li><a href="{{ route('contact.view') }}">Contact</a></li>
                         <li class="d-none d-xl-none d-block d-lg-block"><a href="{{ route('login') }}">Login</a></li>
                         </li>
                     </ul>

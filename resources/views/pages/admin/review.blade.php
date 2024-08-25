@@ -227,7 +227,7 @@
             let c = confirm("Anda yakin ingin menghapus data ini ?")
             if (c) {
                 $.ajax({
-                    url: '/api/admin/review',
+                    url: '/api/admin/review/delete',
                     data: {
                         id: id,
                     },

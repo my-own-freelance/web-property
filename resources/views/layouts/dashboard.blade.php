@@ -1,5 +1,5 @@
 @php
-    $template = \App\Models\CustomTemplate::find(1);
+    $template = \App\Models\CustomTemplate::first();
     $logoColor = $template && $template->logo_header_color ? $template->logo_header_color : 'blue';
     $topbarColor = $template && $template->topbar_color ? $template->topbar_color : 'blue2';
     $sidebarColor = $template && $template->sidebar_color ? $template->sidebar_color : 'white';

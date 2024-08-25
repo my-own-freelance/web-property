@@ -195,7 +195,7 @@
 
                     @if ($property->youtube_code && $property->youtube_code != '')
                         <div class="floor-plan property wprt-image-video w50 pro">
-                            <h5>Properti Video</h5>
+                            <h5>Video Properti</h5>
                             <iframe width="100%" height="400"
                                 src="https://www.youtube.com/embed/{{ $property->youtube_code }}"
                                 title="YouTube video player" frameborder="0"
@@ -204,11 +204,15 @@
                             </iframe>
                         </div>
                     @endif
-                    {{-- <div class="property-location map">
-                        <h5>Location</h5>
-                        <div class="divider-fade"></div>
-                        <div id="map-contact" class="contact-map"></div>
-                    </div> --}}
+                    @if ($property->maps_location && $property->maps_preview)
+                        <div class="property-location map">
+                            <h5>Lokasi Properti</h5>
+                            <div class="divider-fade"></div>
+                            <div>
+                                {!! $property->maps_preview !!}
+                            </div>
+                        </div>
+                    @endif
                 </div>
                 <aside class="col-lg-4 col-md-12 car">
                     <div class="single widget">

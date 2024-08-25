@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomTemplateController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\LocationController;
@@ -40,7 +41,7 @@ Route::group(["prefix" => "dropdown"], function () {
         Route::get("/sub-districts/{districtId}", [LocationController::class, "subDistricts"]);
     });
 });
-
+Route::post("/contact/send-message", [ContactController::class, "create"]);
 
 // MOBILE API
 Route::group(["middleware" => "api", "prefix" => "auth"], function () {
@@ -171,9 +172,15 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
             Route::get("{id}/detail", [ReviewController::class, "getDetail"]);
             Route::post("create", [ReviewController::class, "create"]);
             Route::post("update", [ReviewController::class, "update"]);
-            Route::delete("/", [ReviewController::class, "destroy"]);
+            Route::delete("delete", [ReviewController::class, "destroy"]);
         });
 
+        // CONTACT
+        Route::group(["prefix" => "contact"], function () {
+            Route::get("datatable", [ContactController::class, "dataTable"]);
+            Route::get("{id}/detail", [ContactController::class, "getDetail"]);
+            Route::delete("delete", [ContactController::class, "destroy"]);
+        });
 
         Route::get("/{role}/datatable", [UserController::class, "dataTable"]);
     });

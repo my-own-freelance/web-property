@@ -1,6 +1,6 @@
 @php
     $routename = request()->route()->getName();
-    $template = \App\Models\CustomTemplate::find(1);
+    $template = \App\Models\CustomTemplate::first();
     $webTitle = $template && $template->web_title ? $template->web_title : 'Web Properti';
     $webLogo =
         $template && $template->web_logo
@@ -39,7 +39,8 @@
     @stack('styles')
 </head>
 
-<body class="inner-pages homepage-3 ui-elements {{ $routename != 'home' ? 'agents  hp-6 full hd-white' : 'the-search' }} ">
+<body
+    class="inner-pages homepage-3 ui-elements {{ $routename != 'home' ? 'agents  hp-6 full hd-white' : 'the-search' }} ">
     <!-- Wrapper -->
     <div id="wrapper">
         <!-- START SECTION HEADINGS -->

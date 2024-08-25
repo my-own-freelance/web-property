@@ -22,7 +22,7 @@ class WebAuthController extends Controller
     public function login(Request $request)
     {
         $title = "Kelola Akses";
-        $setting = CustomTemplate::find(1);
+        $setting = CustomTemplate::first();
         $description = "Situs Jual Beli Properti Terbaik";
         if ($setting && $setting->web_description) {
             $description = $setting->web_description;

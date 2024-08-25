@@ -1,5 +1,5 @@
 @php
-    $template = \App\Models\CustomTemplate::find(1);
+    $template = \App\Models\CustomTemplate::first();
     $webLogo =
         $template && $template->web_logo
             ? url('/') . Storage::url($template->web_logo)

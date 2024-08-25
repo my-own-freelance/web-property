@@ -71,6 +71,12 @@
                             <p>Review</p>
                         </a>
                     </li>
+                    <li class="nav-item ml-3 {{ $routename == 'contact' ? 'active' : '' }}">
+                        <a href="{{ route('contact') }}">
+                            <i class="fas fa-envelope"></i>
+                            <p>Pesan Masuk</p>
+                        </a>
+                    </li>
                 @endif
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">

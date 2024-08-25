@@ -429,6 +429,22 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group form-group-default">
+                                    <label for="location">Link Embed Google Maps (hanya masukan link https saja)</label>
+                                    <textarea class="form-control" id="maps_location" name="maps_location"
+                                        placeholder="https://www.google.com/maps/embed?" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-md-9">
+                                <div class="form-group form-group-default" id="maps_preview">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="description">Dekripsi</label>
@@ -551,6 +567,11 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- maps optional view --}}
+                    <div class="wrapper-maps">
+                    </div>
+
                     {{-- youtube optional view --}}
                     <div class="wrapper-youtube">
 
@@ -903,6 +924,10 @@
                 $("#orientation").val(d.orientation);
                 $("#address").val(d.address);
                 $("#summernote").summernote('code', d.description);
+                $("#maps_location").val(d.maps_location);
+                if (d.maps_location && d.maps_preview) {
+                    $("#maps_preview").empty().append(d.maps_preview);
+                }
 
                 getPropTransaction(true, d.property_transaction_id)
                 getPropType(true, d.property_type_id)
@@ -926,6 +951,7 @@
                 // reset rendered element
                 $(".info-wrapper").empty();
                 $(".info-detail-wrapper").empty();
+                $(".wrapper-maps").empty()
                 $(".wrapper-youtube").empty();
                 $(".description-wrapper").empty();
                 // end reset
@@ -1046,6 +1072,19 @@
                     $(".info-detail-wrapper").append(generateInfoDetail("Kode Property", `${data.code}`));
                 }
 
+                // MAPS PROPERTY
+                if (data.maps_location && data.maps_preview ) {
+                    console.log("ada nih")
+                        $(".wrapper-maps").append(`
+                            <hr>
+                            <div class="col-md-6">
+                                <h4 class="font-weight-bold">Maps Properti</h4>
+                                <div class="form-group form-group-default" id="maps_preview">
+                                    ${data.maps_preview}
+                                </div>
+                            </div>
+                        `);
+                    }
                 // VIDEO YOUTUBE VIEW
                 if (data.youtube_code && data.youtube_code != "") {
                     $(".wrapper-youtube").append(`
@@ -1142,6 +1181,7 @@
             formData.append("sub_district_id", parseInt($("#sub_district_id").val()));
             formData.append("address", $("#address").val());
             formData.append("image", document.getElementById("uploadImg2").files[0]);
+            formData.append("maps_location", $("#maps_location").val());
 
             formData.append("description", $("#summernote").summernote('code'));
 

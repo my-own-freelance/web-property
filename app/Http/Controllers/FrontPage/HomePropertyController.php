@@ -158,6 +158,10 @@ class HomePropertyController extends Controller
         $propertyImage->image = $property->image;
         $property->PropertyImages->prepend($propertyImage);
 
+        if ($property['maps_location'] && $property['maps_location'] != "") {
+            $property['maps_preview'] = "<iframe src='" . $property["maps_location"] . "' allowfullscreen class='w-100' height='500'></iframe>";
+        }
+
         $property['contact_agen'] = 'https://api.whatsapp.com/send/?phone='
             . preg_replace('/^08/', '628', $property->Agen->phone_number)
             . '&text='

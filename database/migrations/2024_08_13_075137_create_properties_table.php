@@ -37,6 +37,7 @@ return new class extends Migration
             $table->enum('is_available', ['N', 'Y'])->default('Y');
             $table->string('youtube_code')->nullable();
             $table->integer('views')->default(0);
+            $table->longText('maps_location')->nullable();
             $table->string('image');
             $table->unsignedBigInteger('agen_id');
             $table->unsignedBigInteger('property_transaction_id');

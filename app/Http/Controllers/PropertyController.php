@@ -298,6 +298,10 @@ class PropertyController extends Controller
                 $image->image = url('/') . Storage::url($image->image);
             }
 
+            if ($property['maps_location'] && $property['maps_location'] != "") {
+                $property['maps_preview'] = "<iframe src='" . $property["maps_location"] . "' allowfullscreen class='w-100' height='500'></iframe>";
+            }
+
             $property['contact_agen'] = 'https://api.whatsapp.com/send/?phone='
                 . preg_replace('/^08/', '628', $property->Agen->phone_number)
                 . '&text='
@@ -362,6 +366,7 @@ class PropertyController extends Controller
                 "sub_district_id" => "required|integer",
                 "address" => "nullable|string",
                 "image" => "required|image|max:1024|mimes:giv,svg,jpeg,png,jpg",
+                "map_location" => "nullable|string",
                 "description" => "required|string",
             ];
 
@@ -517,6 +522,7 @@ class PropertyController extends Controller
                 "sub_district_id" => "required|integer",
                 "address" => "nullable|string",
                 "description" => "required|string",
+                "map_location" => "nullable|string",
                 "image" => "nullable"
             ];
 
