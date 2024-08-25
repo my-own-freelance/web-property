@@ -128,7 +128,8 @@ class UserController extends Controller
                 "province_id" => "required|integer",
                 "district_id" => "required|integer",
                 "sub_district_id" => "required|integer",
-                "address" => "required|string"
+                "address" => "required|string",
+                "description" => "required|string"
             ];
 
             $messages = [
@@ -162,7 +163,8 @@ class UserController extends Controller
                 "district_id.integer" => "Kabupaten tidak valid",
                 "sub_district_id.required" => "Kecamatan harus diisi",
                 "sub_district_id.integer" => "Kecamatan tidak valid",
-                "address.required" => "Alamat harus diisi"
+                "address.required" => "Alamat harus diisi",
+                "description.required" => "Deskripsi harus diisi"
             ];
 
             $validator = Validator::make($request->all(), $rules, $messages);
@@ -250,7 +252,8 @@ class UserController extends Controller
                 "province_id" => "required|integer",
                 "district_id" => "required|integer",
                 "sub_district_id" => "required|integer",
-                "address" => "required|string"
+                "address" => "required|string",
+                "description" => "required|string"
             ];
 
             if ($data && $data['password'] != "") {
@@ -288,7 +291,8 @@ class UserController extends Controller
                 "district_id.integer" => "Kabupaten tidak valid",
                 "sub_district_id.required" => "Kecamatan harus diisi",
                 "sub_district_id.integer" => "Kecamatan tidak valid",
-                "address.required" => "Alamat harus diisi"
+                "address.required" => "Alamat harus diisi",
+                "description.required" => "Deskripsi harus diisi",
             ];
 
             $validator = Validator::make($request->all(), $rules, $messages);

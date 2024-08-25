@@ -99,6 +99,10 @@
                                 <input class="form-control" id="address" type="text" name="address"
                                     placeholder="masukan alamat" required />
                             </div>
+                            <div class="form-group form-group-default">
+                                <label for="description">Dekripsi</label>
+                                <div id="summernote" name="description"></div>
+                            </div>
                         </div>
                         <div class="text-right mt-3 mb-3">
                             <button class="btn btn-success" type="submit">Save</button>
@@ -112,7 +116,16 @@
 @push('scripts')
     <script src="{{ asset('dashboard/js/plugin/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/plugin/select2/select2.full.min.js') }}"></script>
+    <script src="{{ asset('/dashboard/js/plugin/summernote/summernote-bs4.min.js') }}"></script>
+
     <script>
+        $('#summernote').summernote({
+            placeholder: 'masukkan deskripsi',
+            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
+            tabsize: 2,
+            height: 300
+        });
+
         $('#gender,#province_id,#district_id,#sub_district_id').select2({
             theme: "bootstrap"
         });
@@ -141,6 +154,7 @@
             formData.append("district_id", parseInt($("#district_id").val()));
             formData.append("sub_district_id", parseInt($("#sub_district_id").val()));
             formData.append("address", $("#address").val());
+            formData.append("description", $("#summernote").summernote('code'));
 
             update(formData);
             return false;
@@ -164,6 +178,7 @@
                     $("#gender").val(d.gender).change();
 
                     $("#address").val(d.address);
+                    $("#summernote").summernote('code', d.description);
 
                     if (d.image) {
                         $('#imageProfile img').attr('src', d.image);

@@ -153,7 +153,8 @@
                             <div class="col-md-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="province_id">Provinsi</label>
-                                    <select class="form-control form-control" id="province_id" name="province_id" required>
+                                    <select class="form-control form-control" id="province_id" name="province_id"
+                                        required>
                                         <option value = "">Pilih Provinsi</option>
                                     </select>
                                 </div>
@@ -161,7 +162,8 @@
                             <div class="col-md-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="district_id">Kabupaten</label>
-                                    <select class="form-control form-control" id="district_id" name="district_id" required>
+                                    <select class="form-control form-control" id="district_id" name="district_id"
+                                        required>
                                         <option value = "">Pilih Kabupaten</option>
                                     </select>
                                 </div>
@@ -169,8 +171,8 @@
                             <div class="col-md-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="sub_district_id">Kecamatan</label>
-                                    <select class="form-control form-control" id="sub_district_id"
-                                        name="sub_district_id" required>
+                                    <select class="form-control form-control" id="sub_district_id" name="sub_district_id"
+                                        required>
                                         <option value = "">Pilih Kecamatan</option>
                                     </select>
                                 </div>
@@ -180,6 +182,12 @@
                                     <label for="address">Alamat</label>
                                     <input class="form-control" id="address" type="text" name="address"
                                         placeholder="masukan alamat" required />
+                                </div>
+                            </div>
+                            <div class="col-md-9 col-sm-12 col-12">
+                                <div class="form-group">
+                                    <label for="description">Dekripsi</label>
+                                    <div id="summernote" name="description"></div>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +209,15 @@
 @push('scripts')
     <script src="{{ asset('dashboard/js/plugin/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/plugin/select2/select2.full.min.js') }}"></script>
+    <script src="{{ asset('/dashboard/js/plugin/summernote/summernote-bs4.min.js') }}"></script>
     <script>
+         $('#summernote').summernote({
+            placeholder: 'masukkan deskripsi',
+            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
+            tabsize: 2,
+            height: 300
+        });
+
         let dTable = null;
 
         $('#province_id,#district_id,#sub_district_id').select2({
@@ -266,6 +282,7 @@
             $("#formEditable").slideUp(200, function() {
                 $("#boxTable").removeClass("col-md-8").addClass("col-md-12").fadeIn(200)
                 $("#reset").click();
+                $("#summernote").summernote('code', "");
             })
         }
 
@@ -292,6 +309,7 @@
                         $("#gender").val(d.gender).change();
                         $("#is_active").val(d.is_active).change();
                         $("#address").val(d.address)
+                        $("#summernote").summernote('code', d.description);
 
                         if (d.province_id && d.district_id && d.sub_district_id) {
                             getProvinces(true, d.province_id);
@@ -332,6 +350,7 @@
             formData.append("district_id", parseInt($("#district_id").val()));
             formData.append("sub_district_id", parseInt($("#sub_district_id").val()));
             formData.append("address", $("#address").val());
+            formData.append("description", $("#summernote").summernote('code'));
 
             saveData(formData, $("#formEditable").attr("data-action"));
             return false;

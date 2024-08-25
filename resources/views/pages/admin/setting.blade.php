@@ -74,7 +74,7 @@
                             <div class="row mt-3">
                                 <div class="col-md-12">
                                     <div class="form-group form-group-default">
-                                        <label for="location">Link Embed Google Maps</label>
+                                        <label for="location">Link Embed Google Maps (hanya masukan link https saja)</label>
                                         <textarea class="form-control" id="maps_location" name="maps_location" placeholder="https://www.google.com/maps/embed?"
                                             rows="3"></textarea>
                                     </div>

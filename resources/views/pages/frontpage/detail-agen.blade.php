@@ -74,7 +74,7 @@
                     <div class="blog-pots py-0">
                         <div class="blog-info details mb-30">
                             <h5 class="mb-4">Deskripsi</h5>
-                            {!! $agen->desctiption !!}
+                            {!! $agen->description !!}
                         </div>
                         <!-- START SIMILAR PROPERTIES -->
                         <section class="similar-property featured portfolio bshd p-0 bg-white">
