@@ -1,3 +1,10 @@
+@php
+    $template = \App\Models\CustomTemplate::find(1);
+    $webLogo =
+        $template && $template->web_logo
+            ? url('/') . Storage::url($template->web_logo)
+            : asset('dashboard/icon/icon.png');
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>@yield('title')</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-    <link rel="icon" href="{{ asset('dashboard/icon/icon.png') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ $webLogo }}" type="image/x-icon" />
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
     <!-- Fonts and icons -->

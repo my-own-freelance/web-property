@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/logout', [WebAuthController::class, 'logout'])->name('logout');
 Route::get('/', [HomeController::class, 'index'])->name("home");
 Route::get('/list-properti', [HomePropertyController::class, 'list'])->name('property.list');
-Route::get('/list-artikel', [HomeArticleController::class, 'list'])->name('artikel.list');
+Route::get('/list-artikel', [HomeArticleController::class, 'list'])->name('article.list');
 Route::get('/list-agen', [HomeAgenController::class, 'list'])->name('agen.list');
 Route::get('/cari-properti/view/{code}/{slug}', [HomePropertyController::class, 'detail'])->name('property.detail');
 Route::get('/cari-artikel/view/{code}/{slug}', [HomeArticleController::class, 'detail'])->name('article.detail');

@@ -100,7 +100,7 @@ class WebAuthController extends Controller
         Auth::logout();
         Cookie::queue(Cookie::forget("user"));
 
-        return redirect()->route('login');
+        return redirect()->route('home');
     }
 
     public function detail()
