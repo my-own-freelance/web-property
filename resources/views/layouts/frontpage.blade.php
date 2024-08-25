@@ -127,6 +127,18 @@
         @include('partials.frontpage.scripts')
         @stack('scripts')
 
+        <script>
+            // SEARCH ARTICLE
+            $(document).ready(function() {
+                $('#search-article').on('click', function() {
+                    var searchValue = $('#input-search-article').val();
+                    if (searchValue) {
+                        window.location.href = window.location.origin + '/list-artikel?search=' +
+                            encodeURIComponent(searchValue);
+                    }
+                });
+            });
+        </script>
     </div>
     <!-- Wrapper / End -->
 </body>

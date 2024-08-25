@@ -5,6 +5,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CustomTemplateController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\FrontPage\HomeArticleController;
 use App\Http\Controllers\FrontPage\HomeController;
 use App\Http\Controllers\FrontPage\HomePropertyController;
 use App\Http\Controllers\PropertyCertificateController;
@@ -30,7 +31,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/logout', [WebAuthController::class, 'logout'])->name('logout');
 Route::get('/', [HomeController::class, 'index'])->name("home");
 Route::get('/list-properti', [HomePropertyController::class, 'list'])->name('property.list');
+Route::get('/list-artikel', [HomeArticleController::class, 'list'])->name('artikel.list');
 Route::get('/cari-properti/view/{code}/{slug}', [HomePropertyController::class, 'detail'])->name('property.detail');
+Route::get('/cari-artikel/view/{code}/{slug}', [HomeArticleController::class, 'detail'])->name('article.detail');
 
 // AUTH
 Route::group(["middleware" => "guest"], function () {

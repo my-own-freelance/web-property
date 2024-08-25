@@ -20,7 +20,6 @@ class HomePropertyController extends Controller
             ->with('SubDistrict')
             ->with('Agen')
             ->orderBy("id", "desc")
-            ->limit(8)
             ->where("is_publish", "Y")
             ->where("admin_approval", "APPROVED")
             ->where("is_available", "Y");
@@ -165,7 +164,7 @@ class HomePropertyController extends Controller
         $property['district'] = $property->District ? $property->District->name : "";
         $property['sub_district'] = $property->SubDistrict ? $property->SubDistrict->name : "";
         $property['location'] = $property['sub_district'] . ', ' . $property['district'];
-        $property['listed_on'] = Carbon::parse($property->listed_on)->format('F j, Y');
+        $property['listed_on'] = Carbon::parse($property->listed_on)->format('d F, Y');
         unset($property->PropertyTransaction);
         unset($property->PropertyType);
         unset($property->PropertyCertificate);

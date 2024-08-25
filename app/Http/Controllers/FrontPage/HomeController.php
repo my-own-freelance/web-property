@@ -9,6 +9,7 @@ use App\Models\Property;
 use App\Models\PropertyCertificate;
 use App\Models\PropertyTransaction;
 use App\Models\PropertyType;
+use App\Models\Province;
 use App\Models\Review;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -161,11 +162,13 @@ class HomeController extends Controller
                 'excerpt' => $article->excerpt,
                 'image' => url("/") . Storage::url($article->image),
                 'views' => $article->views,
-                'url' => url('/') . '/artikel/view/' . $article['code'] . '/' . $article['slug'],
-                'date' => Carbon::parse($article->created_at)->format('F j, Y'),
+                'url' => url('/') . '/cari-artikel/view/' . $article['code'] . '/' . $article['slug'],
+                'date' => Carbon::parse($article->created_at)->format('d F, Y'),
             ];
         });
+
+        $provinces = Province::all();
         // dd($propertiesByTrx);
-        return view("pages.frontpage.index", compact("title", "types", "transactions", "certificates", "propertiesByTrx", "popularProperties", "topDistricts", "reviews", "articles"));
+        return view("pages.frontpage.index", compact("title", "types", "transactions", "certificates", "propertiesByTrx", "popularProperties", "topDistricts", "reviews", "articles", "provinces"));
     }
 }

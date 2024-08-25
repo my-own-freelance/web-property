@@ -9,7 +9,7 @@
                     <div class="detail-wrapper-body">
                         <div class="listing-title-bar">
                             <div class="text-heading text-left">
-                                <p><a href="index.html">Home </a> &nbsp;/&nbsp; <span>Listings</span></p>
+                                <p><a href="{{ route('home') }}">Home </a> &nbsp;/&nbsp; <span>List Properti</span></p>
                             </div>
                             <h3>Grid View</h3>
                         </div>
@@ -264,21 +264,6 @@
 
             </div>
             <nav aria-label="..." class="pt-3">
-                {{-- <ul class="pagination mt-0">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul> --}}
                 {{ $properties->links() }}
             </nav>
         </div>

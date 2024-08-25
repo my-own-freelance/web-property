@@ -60,7 +60,9 @@
                                     @forelse ($property->PropertyImages as $propImg)
                                         <div class="{{ $loop->index == 0 ? 'active' : '' }} item carousel-item"
                                             data-slide-number="{{ $loop->index }}">
-                                            <img src="{{ $propImg->image }}" class="img-fluid" style="width: 100%; max-height: 400px; object-fit:cover" alt="slider-listing">
+                                            <img src="{{ $propImg->image }}" class="img-fluid"
+                                                style="width: 100%; max-height: 400px; object-fit:cover"
+                                                alt="slider-listing">
                                         </div>
                                     @empty
                                     @endforelse
@@ -260,7 +262,7 @@
                                                     <div class="recent-img">
                                                         <a href="{{ $recentProp->url }}">
                                                             <img src="{{ $recentProp->image }}"
-                                                                style="max-width: 300px!important;height: auto"
+                                                                style="max-width: 90px!important;max-height: 50px!important; object-fit:cover"
                                                                 alt="{{ $recentProp->short_title }}">
                                                         </a>
                                                     </div>
