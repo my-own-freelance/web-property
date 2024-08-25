@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class MobAuthController extends Controller
 {

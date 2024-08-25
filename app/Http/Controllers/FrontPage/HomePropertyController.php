@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FrontPage;
 
 use App\Http\Controllers\Controller;
 use App\Models\Property;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -26,9 +27,20 @@ class HomePropertyController extends Controller
 
         // filter search
         if ($request->query("search") && $request->query('search') != "") {
-            $query->where('short_title', 'like', '%' . $request->query('search') . '%')
-                ->Orwhere('long_title', 'like', '%' . $request->query('search') . '%')
-                ->Orwhere('code', 'like', '%' . $request->query('search') . '%');
+            $searchValue = $request->query("search");
+            $query->where(function ($query) use ($searchValue) {
+                $query->where('short_title', 'like', '%' . $searchValue . '%')
+                    ->Orwhere('long_title', 'like', '%' . $searchValue . '%')
+                    ->Orwhere('code', 'like', '%' . $searchValue . '%');
+            });
+        }
+
+        // filter property by agen
+        if ($request->query('agen_code') && $request->query('agen_code') != "") {
+            $agen = User::where("role", "agen")->where("code", $request->query("agen_code"))->first();
+            if ($agen) {
+                $query->where("agen_id", $agen->id);
+            }
         }
 
         // filter properti transaction
@@ -177,14 +189,14 @@ class HomePropertyController extends Controller
         Property::where("code", $code)->where("slug", $slug)->update($data);
 
         $similarProperties = Property::with([
-                'PropertyTransaction',
-                'PropertyType',
-                'PropertyImages',
-                'Province',
-                'District',
-                'SubDistrict',
-                'Agen',
-            ])
+            'PropertyTransaction',
+            'PropertyType',
+            'PropertyImages',
+            'Province',
+            'District',
+            'SubDistrict',
+            'Agen',
+        ])
             ->limit(3)
             ->where("is_publish", "Y")
             ->where("admin_approval", "APPROVED")
@@ -233,14 +245,14 @@ class HomePropertyController extends Controller
             ->orderBy('id', 'desc')
             ->limit(3)
             ->get()
-            ->map(function ($similarProp) {
+            ->map(function ($property) {
 
                 return (object) [
-                    'id' => $similarProp->id,
-                    'image' =>  url("/") . Storage::url($similarProp->image),
-                    'url' => url('/') . '/cari-properti/view/' . $similarProp['code'] . '/' . $similarProp['slug'],
-                    'short_title' => $similarProp->short_title,
-                    'price' => $similarProp->price,
+                    'id' => $property->id,
+                    'image' =>  url("/") . Storage::url($property->image),
+                    'url' => url('/') . '/cari-properti/view/' . $property['code'] . '/' . $property['slug'],
+                    'short_title' => $property->short_title,
+                    'price' => $property->price,
                 ];
             });
 

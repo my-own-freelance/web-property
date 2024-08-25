@@ -67,7 +67,7 @@
                         </div>
                         <div class="recent-post pt-5">
                             <h5 class="font-weight-bold mb-4">Artikel Terbaru</h5>
-                            @forelse ($recentPosts as $recent)
+                            @forelse ($recentArticles as $recent)
                                 <div class="recent-main">
                                     <div class="recent-img">
                                         <a href="{{ $recent->url }}">

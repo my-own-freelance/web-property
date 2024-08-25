@@ -132,10 +132,14 @@
             $(document).ready(function() {
                 $('#search-article').on('click', function() {
                     var searchValue = $('#input-search-article').val();
-                    if (searchValue) {
-                        window.location.href = window.location.origin + '/list-artikel?search=' +
-                            encodeURIComponent(searchValue);
-                    }
+                    window.location.href = window.location.origin + '/list-artikel?search=' +
+                        encodeURIComponent(searchValue);
+                });
+
+                $('#search-agen').on('click', function() {
+                    var searchValue = $('#input-search-agen').val();
+                    window.location.href = window.location.origin + '/list-agen?search=' +
+                        encodeURIComponent(searchValue);
                 });
             });
         </script>

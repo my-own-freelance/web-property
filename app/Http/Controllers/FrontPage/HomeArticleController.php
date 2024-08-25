@@ -17,10 +17,12 @@ class HomeArticleController extends Controller
 
         if ($request->query("search") && $request->query("search") != "") {
             $searchValue = $request->query("search");
-            $query->where('title', 'like', '%' . $searchValue . '%')
-                ->orWhere('excerpt', 'like', '%' . $searchValue . '%')
-                ->orWhere('code', 'like', '%' . $searchValue . '%')
-                ->orWhere('description', 'like', '%' . $searchValue . '%');
+            $query->where(function ($query) use ($searchValue) {
+                $query->where('title', 'like', '%' . $searchValue . '%')
+                    ->orWhere('excerpt', 'like', '%' . $searchValue . '%')
+                    ->orWhere('code', 'like', '%' . $searchValue . '%')
+                    ->orWhere('description', 'like', '%' . $searchValue . '%');
+            });
         }
 
         $articles = $query->orderBy('id', 'desc')
@@ -76,7 +78,7 @@ class HomeArticleController extends Controller
         $article['image'] = url("/") . Storage::url($article->image);
         $article['date'] = Carbon::parse($article->created_at)->format('d F, Y');
 
-        $recentPosts = Article::orderBy("id", "desc")
+        $recentArticles = Article::orderBy("id", "desc")
             ->limit(3)
             ->where("is_publish", "Y")
             ->where("code", "!=", $code)
@@ -91,6 +93,6 @@ class HomeArticleController extends Controller
                 ];
             });
 
-        return view("pages.frontpage.detail-article", compact("title", "article", "recentPosts"));
+        return view("pages.frontpage.detail-article", compact("title", "article", "recentArticles"));
     }
 }

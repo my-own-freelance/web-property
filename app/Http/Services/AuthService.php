@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class AuthService
 {
@@ -53,6 +54,7 @@ class AuthService
             $user->role = "agen";
             $user->phone_number = $request->phone_number;
             $user->is_active = "Y";
+            $user->code = strtoupper(Str::random(10));
             $user->save();
 
             return response()->json([

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('phone_number')->unique();
+            $table->string('code')->unique();
             $table->string('password');
             $table->enum('role', ['owner', 'agen'])->default('agen');
             $table->enum('gender', ['L', 'P'])->nullable();
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->string('position')->nullable();
             $table->string('caption')->nullable();
             $table->string('image')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

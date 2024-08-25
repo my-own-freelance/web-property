@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -203,6 +204,7 @@ class UserController extends Controller
             $data["password"] = Hash::make($request->password);
             $data["role"] = "agen";
             $data["phone_number"] = preg_replace('/^08/', '628', $data['phone_number']);
+            $data["code"] = strtoupper(Str::random(10));
 
             if ($request->file('image')) {
                 $data['image'] = $request->file('image')->store('assets/user', 'public');
@@ -439,6 +441,7 @@ class UserController extends Controller
             $data["password"] = Hash::make($request->password);
             $data["role"] = "owner";
             $data["phone_number"] = preg_replace('/^08/', '628', $data['phone_number']);
+            $data["code"] = strtoupper(Str::random(10));
             User::create($data);
 
             return response()->json([

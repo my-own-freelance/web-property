@@ -133,6 +133,57 @@
                                                         <!--/ End Form Bathrooms -->
                                                     </div>
 
+                                                    <div class="col-lg-3 col-md-6 py-1 pr-30 pl-0">
+                                                        <!-- Form Property Warranry -->
+                                                        <div class="form-group warranty" id="province_id"
+                                                            style="margin-bottom: 0px !important;">
+                                                            <div class="nice-select form-control wide" tabindex="0">
+                                                                <span class="current">
+                                                                    <i class="fas fa-shield-alt"></i>Provinsi
+                                                                </span>
+                                                                <ul class="list">
+                                                                    @forelse ($provinces as $provinsi)
+                                                                        <li data-value="{{ $provinsi->id }}"
+                                                                            class="option">{{ $provinsi->name }}</li>
+                                                                    @empty
+                                                                    @endforelse
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <!--/ End Form Property Warranty -->
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-6 py-1 pr-30 pl-0">
+                                                        <!-- Form Property Warranry -->
+                                                        <div class="form-group warranty" id="fWarranty"
+                                                            style="margin-bottom: 0px !important;">
+                                                            <div class="nice-select form-control wide" tabindex="0">
+                                                                <span class="current">
+                                                                    <i class="fas fa-shield-alt"></i>Garansi
+                                                                </span>
+                                                                <ul class="list">
+                                                                    <li data-value="Y" class="option">Ya</li>
+                                                                    <li data-value="N" class="option">Tidak</li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <!--/ End Form Property Warranty -->
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-6 py-1 pr-30 pl-0">
+                                                        <!-- Form Property Warranry -->
+                                                        <div class="form-group warranty" id="fWarranty"
+                                                            style="margin-bottom: 0px !important;">
+                                                            <div class="nice-select form-control wide" tabindex="0">
+                                                                <span class="current">
+                                                                    <i class="fas fa-shield-alt"></i>Garansi
+                                                                </span>
+                                                                <ul class="list">
+                                                                    <li data-value="Y" class="option">Ya</li>
+                                                                    <li data-value="N" class="option">Tidak</li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <!--/ End Form Property Warranty -->
+                                                    </div>
 
                                                     {{--   VIEW DI HIDDEN KARENA TIDAK BISA DI HAPUS --}}
                                                     <div class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld d-xl-flex "
@@ -455,7 +506,8 @@
                                                 <div class="footer"
                                                     style="display: flex; justify-content: space-between;">
                                                     <a href="#">
-                                                        <img src="{{ $propData->agen_image }}" alt="" class="mr-2">
+                                                        <img src="{{ $propData->agen_image }}" alt=""
+                                                            class="mr-2">
                                                         {{ $propData->agen }}
                                                     </a>
                                                     <a href="{{ $propData->whatsapp }}" class="mt-2" target="__blank">
@@ -548,7 +600,7 @@
                                     </div>
                                 </a>
                                 <div class="news-item-text">
-                                    <a href="blog-details.html">
+                                    <a href="{{ $article->url }}">
                                         <h3>{{ $article->title }}</h3>
                                     </a>
                                     <div class="dates">
@@ -619,3 +671,29 @@
     </div>
     <!-- END SECTION PARTNERS -->
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            // Event listener untuk setiap elemen <li> di dalam dropdown
+            $('.nice-select .list .option').on('click', function() {
+                var provinceId = $(this).data('value'); // Ambil nilai ID provinsi
+                console.log("province id :", provinceId)
+                // Lakukan request AJAX dengan ID provinsi yang dipilih
+                // $.ajax({
+                //     url: '/your-endpoint-url', // Ganti dengan endpoint yang sesuai
+                //     type: 'GET', // Atau 'POST' tergantung pada kebutuhan Anda
+                //     data: { province_id: provinceId }, // Data yang dikirimkan ke server
+                //     success: function(response) {
+                //         // Tangani respons dari server
+                //         console.log(response);
+                //         // Anda bisa memperbarui tampilan atau data di halaman sesuai kebutuhan
+                //     },
+                //     error: function(xhr, status, error) {
+                //         console.error(error); // Tangani kesalahan jika ada
+                //     }
+                // });
+            });
+        });
+        u
+    </script>
+@endpush
