@@ -184,13 +184,12 @@
                                     <span class="det">{{ $property->listed_on }}</span>
                                 </li>
                             @endif
-                            @if ($property->facilities)
-                                <li>
-                                    <span class="font-weight-bold mr-1">Fasilitas:</span>
-                                    <span class="det">{{ $property->facilities }}</span>
-                                </li>
-                            @endif
                         </ul>
+                        @if ($property->facilities)
+                            <hr>
+                            <span class="font-weight-bold mr-1">Fasilitas:</span>
+                            <span class="det">{{ $property->facilities }}</span>
+                        @endif
                     </div>
 
 

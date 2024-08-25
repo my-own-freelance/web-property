@@ -39,7 +39,7 @@
     @stack('styles')
 </head>
 
-<body class="inner-pages homepage-3 {{ $routename != 'home' ? 'agents  hp-6 full hd-white' : 'the-search' }} ">
+<body class="inner-pages homepage-3 ui-elements {{ $routename != 'home' ? 'agents  hp-6 full hd-white' : 'the-search' }} ">
     <!-- Wrapper -->
     <div id="wrapper">
         <!-- START SECTION HEADINGS -->

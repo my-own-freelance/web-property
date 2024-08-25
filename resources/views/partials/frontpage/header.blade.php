@@ -39,31 +39,31 @@ $propCertificates = \App\Models\PropertyCertificate::all();
                                 <li><a href="#">Tipe Transaksi</a>
                                     <ul>
                                         @forelse ($propTransactions as $propTransac)
-                                        <li><a
-                                                href="{{ route('property.list', ['trx_id' => $propTransac->id]) }}">{{ $propTransac->name }}</a>
-                                        </li>
-                                    @empty
-                                    @endforelse
+                                            <li><a
+                                                    href="{{ route('property.list', ['trx_id' => $propTransac->id]) }}">{{ $propTransac->name }}</a>
+                                            </li>
+                                        @empty
+                                        @endforelse
                                     </ul>
                                 </li>
                                 <li><a href="#">Tipe Properti</a>
                                     <ul>
                                         @forelse ($propTypes as $propType)
-                                        <li><a
-                                                href="{{ route('property.list', ['type_id' => $propType->id]) }}">{{ $propType->name }}</a>
-                                        </li>
-                                    @empty
-                                    @endforelse
+                                            <li><a
+                                                    href="{{ route('property.list', ['type_id' => $propType->id]) }}">{{ $propType->name }}</a>
+                                            </li>
+                                        @empty
+                                        @endforelse
                                     </ul>
                                 </li>
                                 <li><a href="#">Tipe Sertifikat</a>
                                     <ul>
                                         @forelse ($propCertificates as $propCertif)
-                                        <li><a
-                                                href="{{ route('property.list', ['crt_id' => $propCertif->id]) }}">{{ $propCertif->name }}</a>
-                                        </li>
-                                    @empty
-                                    @endforelse
+                                            <li><a
+                                                    href="{{ route('property.list', ['crt_id' => $propCertif->id]) }}">{{ $propCertif->name }}</a>
+                                            </li>
+                                        @empty
+                                        @endforelse
                                     </ul>
                                 </li>
                             </ul>
@@ -77,13 +77,13 @@ $propCertificates = \App\Models\PropertyCertificate::all();
                                     <a href="{{ route('article.list') }}">Artikel</a>
                                 </li>
                                 <li>
-                                    <a href="#">Faq</a>
+                                    <a href="{{ route('faq.list') }}">Faq</a>
                                 </li>
                             </ul>
                         </li>
 
                         <li><a href="contact-us.html">Contact</a></li>
-                        <li class="d-none d-xl-none d-block d-lg-block"><a href="{{route('login')}}">Login</a></li>
+                        <li class="d-none d-xl-none d-block d-lg-block"><a href="{{ route('login') }}">Login</a></li>
                         </li>
                     </ul>
                 </nav>
