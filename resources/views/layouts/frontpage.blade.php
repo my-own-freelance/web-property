@@ -37,6 +37,69 @@
 
     @include('partials.frontpage.styles')
     @stack('styles')
+    <style>
+        /* Gaya umum untuk notifikasi */
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            display: none;
+            z-index: 100000;
+            /* Pastikan notifikasi berada di atas modal */
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            /* Batasan lebar notifikasi */
+            width: 100%;
+            /* Mengisi lebar sesuai konten dan batasan max-width */
+        }
+
+        /* Notifikasi sukses */
+        .success-notification {
+            background-color: #28a745;
+        }
+
+        /* Notifikasi error */
+        .error-notification {
+            background-color: #dc3545;
+        }
+
+        /* Animasi fade-in dan fade-out */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .fade-out {
+            animation: fadeOut 0.5s forwards;
+        }
+    </style>
+
 </head>
 
 <body
@@ -52,6 +115,16 @@
 
         <!--register form -->
         <div class="login-and-register-form modal">
+            <!-- Notifikasi Sukses -->
+            <div id="success-notification" class="notification success-notification">
+                <i class="fa fa-check-circle"></i> <span id="succesMessage"></span>
+            </div>
+
+            <!-- Notifikasi Error -->
+            <div id="error-notification" class="notification error-notification">
+                <i class="fa fa-times-circle"></i> <span id="errMessage"></span>
+            </div>
+
             <div class="main-overlay"></div>
             <div class="main-register-holder">
                 <div class="main-register fl-wrap">
@@ -122,28 +195,36 @@
                             console.log("Loading...")
                         },
                         success: function(res) {
-                            // showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
                             if (res.message == "Login Sukses") {
+                                showNotification('success', res.message);
                                 setTimeout(() => {
                                     window.location.href = "{{ route('dashboard') }}"
                                 }, 1500)
-                            } else {
-                                // setTimeout(() => {
-
-                                //     location.reload();
-                                // }, 1500)
                             }
                         },
                         error: function(err) {
                             console.log("error :", err)
-                            // showMessage("danger", "flaticon-error", "Peringatan", err.message || err
-                            //     .responseJSON
-                            //     ?.message);
+                            showNotification('error', err.message || err.responseJSON?.message);
                         }
                     })
                 }
 
+                function showNotification(type, message) {
+                    let notificationElement = type === 'success' ? $('#success-notification') : $(
+                        '#error-notification');
 
+                    let notifMessage = type === 'success' ? $("#succesMessage") : $("#errMessage");
+                    notifMessage.html(message);
+
+                    notificationElement.addClass('fade-in').show();
+
+                    setTimeout(function() {
+                        notificationElement.addClass('fade-out');
+                        setTimeout(function() {
+                            notificationElement.hide().removeClass('fade-in fade-out');
+                        }, 500); // Waktu fade-out
+                    }, 3000); // Waktu tampilan notifikasi sebelum menghilang
+                }
             });
         </script>
     </div>

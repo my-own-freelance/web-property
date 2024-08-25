@@ -107,7 +107,6 @@
                     console.log("Loadig...")
                 },
                 success: function(response) {
-                    console.log("response :", response)
                     Swal.fire({
                         icon: 'success',
                         title: 'Message Sent',
