@@ -113,6 +113,13 @@
 
         /* end article */
 
+        /* user profile dropdown */
+        #header.cloned.sticky ul li a:hover {
+            color: #8731E8 !important;
+        }
+
+        /* end user profile dropdown */
+
         .notification {
             position: fixed;
             top: 20px;

@@ -77,8 +77,12 @@
                         </li>
 
                         <li><a href="{{ route('contact.view') }}">Contact</a></li>
-                        <li class="d-none d-xl-none d-block d-lg-block"><a href="{{ route('login') }}">Login</a></li>
-                        </li>
+                        @guest
+                            <li class="d-none d-xl-none d-block d-lg-block">
+                                <a href="{{ route('login') }}">Login</a>
+                            </li>
+                            </li>
+                        @endguest
                     </ul>
                 </nav>
                 <!-- Main Navigation / End -->
@@ -89,7 +93,9 @@
             @auth
                 <div class="header-user-menu user-menu add">
                     <div class="header-user-name">
-                        <span><img src="{{ Storage::url(auth()->user()->image) }}" alt=""></span>Hi,
+                        <span>
+                            <img src="{{ Storage::url(auth()->user()->image) }}" style="object-fit: cover;" alt="">
+                        </span>Hi,
                         {{ auth()->user()->name }}
                     </div>
                     <ul>

@@ -110,6 +110,12 @@
                         </a>
                     </li>
                 @endif
+                <li class="nav-item ml-3">
+                    <a href="{{ route('home') }}">
+                        <i class="fas fa-arrow-left"></i>
+                        <p>Website Page</p>
+                    </a>
+                </li>
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
