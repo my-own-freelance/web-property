@@ -3,6 +3,7 @@
 @push('metadata')
     <meta property="og:image" content="{{ $property->image }}" />
     <meta property="og:title" content="{{ $property->short_title }}" />
+    <meta property="og:title" content="{{ $property->long_title }}" />
     <meta property="og:keywords" content="{{ $property->short_title }}" />
     <meta property="og:keywords" content="{{ $property->long_title }}" />
     <meta name="keywords" content="{{ $property->short_title }}" />
