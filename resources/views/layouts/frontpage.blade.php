@@ -114,7 +114,7 @@
         /* end article */
 
         /* user profile dropdown */
-        #header.cloned.sticky ul li a:hover {
+        .header-user-menu.user-menu.add.active ul li a:hover {
             color: #8731E8 !important;
         }
 
