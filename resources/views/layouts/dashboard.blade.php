@@ -8,7 +8,7 @@
     $webLogo =
         $template && $template->web_logo
             ? url('/') . Storage::url($template->web_logo)
-            : asset('dashboard/icon/icon.png');
+            : asset('frontpage/images/logo-purple.svg');
     $webDesciption = $template && $template->web_description ? $template->web_description : '';
 @endphp
 <!DOCTYPE html>

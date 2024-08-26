@@ -38,7 +38,13 @@ class CustomTemplateController extends Controller
             if ($customTemplate->web_logo) {
                 $customTemplate['web_logo'] =  url("/") . Storage::url($customTemplate->web_logo);
             } else {
-                $customTemplate['web_logo'] = url("/") . "/dashboard/icon/icon.png";
+                $customTemplate['web_logo'] = asset('frontpage/images/logo-purple.svg');
+            }
+
+            if ($customTemplate->web_logo_white) {
+                $customTemplate['web_logo_white'] =  url("/") . Storage::url($customTemplate->web_logo_white);
+            } else {
+                $customTemplate['web_logo_white'] = asset('frontpage/images/logo-white-1.svg');
             }
 
             if ($customTemplate['maps_location'] && $customTemplate['maps_location'] != "") {
@@ -62,10 +68,15 @@ class CustomTemplateController extends Controller
         $data = $request->all();
         unset($data['id']);
         unset($data["web_logo"]);
+        unset($data["web_logo_white"]);
         $existCustomData = CustomTemplate::first();
         if (!$existCustomData) {
             if ($request->file("web_logo")) {
                 $data["web_logo"] = $request->file("web_logo")->store("assets/setting", "public");
+            }
+
+            if ($request->file("web_logo_white")) {
+                $data["web_logo_white"] = $request->file("web_logo_white")->store("assets/setting", "public");
             }
 
             CustomTemplate::create($data);
@@ -81,6 +92,14 @@ class CustomTemplateController extends Controller
                 Storage::delete($oldImagePath);
             }
             $data["web_logo"] = $request->file("web_logo")->store("assets/setting", "public");
+        }
+
+        if ($request->file("web_logo_white")) {
+            $oldImagePath = "public/" . $existCustomData->web_logo_white;
+            if (Storage::exists($oldImagePath)) {
+                Storage::delete($oldImagePath);
+            }
+            $data["web_logo_white"] = $request->file("web_logo_white")->store("assets/setting", "public");
         }
 
         $existCustomData->update($data);

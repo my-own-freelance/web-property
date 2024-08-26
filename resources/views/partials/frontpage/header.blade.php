@@ -1,11 +1,3 @@
-<?php
-$template = \App\Models\CustomTemplate::first();
-$webLogo = $template && $template->web_logo ? url('/') . Storage::url($template->web_logo) : asset('dashboard/icon/icon.png');
-$routename = request()->route()->getName();
-$propTransactions = \App\Models\PropertyTransaction::all();
-$propTypes = \App\Models\PropertyType::all();
-$propCertificates = \App\Models\PropertyCertificate::all();
-?>
 <!-- Header Container
         ================================================== -->
 <header id="header-container" class="header {{ $routename == 'home' ? 'head-tr' : '' }}">
@@ -17,8 +9,8 @@ $propCertificates = \App\Models\PropertyCertificate::all();
                 <!-- Logo -->
                 <div id="logo">
                     <a href="{{ route('home') }}">
-                        <img src="{{ $routename == 'home' ? asset('frontpage/images/logo-white-1.svg') : asset('frontpage/images/logo-purple.svg') }}"
-                            data-sticky-logo="{{ asset('frontpage/images/logo-purple.svg') }}" alt="">
+                        <img src="{{ $routename == 'home' ? $webLogoWhite : $webLogo }}"
+                            data-sticky-logo="{{ $webLogo }}" alt="">
                     </a>
                 </div>
                 <!-- Mobile Navigation -->
@@ -101,8 +93,11 @@ $propCertificates = \App\Models\PropertyCertificate::all();
                         {{ auth()->user()->name }}
                     </div>
                     <ul>
+                        <li><a href="{{ route('dashboard') }}"> Dashboard</a></li>
                         <li><a href="{{ route('account') }}"> Edit profile</a></li>
-                        <li><a href="{{ route('property') }}"> Add Property</a></li>
+                        @if (auth()->user()->role == 'agen')
+                            <li><a href="{{ route('property') }}"> Add Property</a></li>
+                        @endif
                         <li><a href="{{ route('account') }}"> Change Password</a></li>
                         <li><a href="{{ route('logout') }}">Log Out</a></li>
                     </ul>

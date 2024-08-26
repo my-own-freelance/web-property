@@ -2,9 +2,14 @@
 @section('title', $title)
 @push('styles')
     <style>
+        #search-article {
+            background-color: #8731E8 !important;
+            border-color: #8731E8 !important;
+        }
+
         #search-article:hover {
             background-color: white !important;
-            color: red !important;
+            color: #8731E8 !important;
         }
     </style>
 @endpush
@@ -64,7 +69,8 @@
                     <div class="widget">
                         <h5 class="font-weight-bold mb-4">Cari Artikel</h5>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="input-search-article" placeholder="Cari berdasarkan judul...">
+                            <input type="text" class="form-control" id="input-search-article"
+                                placeholder="Cari berdasarkan judul...">
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" id="search-article">
                                     <i class="fa fa-search" aria-hidden="true"></i>

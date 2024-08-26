@@ -44,13 +44,13 @@ Route::group(["prefix" => "dropdown"], function () {
 Route::post("/contact/send-message", [ContactController::class, "create"]);
 
 // MOBILE API
-Route::group(["middleware" => "api", "prefix" => "auth"], function () {
-    Route::post('register', [MobAuthController::class, 'register']);
-    Route::post('login', [MobAuthController::class, 'login']);
-    Route::post('logout', [MobAuthController::class, 'logout']);
-    Route::post('refresh', [MobAuthController::class, 'refresh']);
-    Route::post('me', [MobAuthController::class, 'me']);
-});
+// Route::group(["middleware" => "api", "prefix" => "auth"], function () {
+//     Route::post('register', [MobAuthController::class, 'register']);
+//     Route::post('login', [MobAuthController::class, 'login']);
+//     Route::post('logout', [MobAuthController::class, 'logout']);
+//     Route::post('refresh', [MobAuthController::class, 'refresh']);
+//     Route::post('me', [MobAuthController::class, 'me']);
+// });
 
 Route::group(["middleware" => ["api", "auth:api"], "prefix" => "mobile"], function () {
     // ARTICLE

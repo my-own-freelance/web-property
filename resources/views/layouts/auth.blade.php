@@ -3,7 +3,7 @@
     $webLogo =
         $template && $template->web_logo
             ? url('/') . Storage::url($template->web_logo)
-            : asset('dashboard/icon/icon.png');
+            : asset('frontpage/images/logo-purple.svg');
 @endphp
 <!DOCTYPE html>
 <html lang="en">

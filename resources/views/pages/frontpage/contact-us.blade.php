@@ -2,9 +2,14 @@
 @section('title', $title)
 @push('styles')
     <style>
+        #sendMessage {
+            background-color: #8731E8 !important;
+            border-color: #8731E8 !important;
+        }
+
         #sendMessage:hover {
             background-color: white !important;
-            color: red !important;
+            color: #8731E8 !important;
         }
     </style>
 @endpush

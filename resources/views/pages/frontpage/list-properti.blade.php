@@ -1,5 +1,21 @@
 @extends('layouts.frontpage')
 @section('title', $title)
+<style>
+    .dropdown-filter span::after,
+    .inner-pages.hp-6.full .btn.btn-yellow:hover {
+        color: #8731E8 !important;
+    }
+
+    #search-property {
+        background-color: #8731E8 !important;
+        border: 1px solid #8731E8 !important;
+    }
+
+    #search-property:hover {
+        background-color: white !important;
+        color: #8731E8 !important;
+    }
+</style>
 @section('content')
     <!-- START SECTION PROPERTIES LISTING -->
     <section class="properties-list featured portfolio blog">
@@ -45,7 +61,7 @@
                                     </div>
                                     <div class="dropdown-filter"><span>Filter Tambahan</span></div>
                                     <div class="col-xl-2 col-lg-2 col-md-4 pl-0">
-                                        <a class="btn btn-yellow" onclick="searchProperty()">Cari
+                                        <a class="btn btn-yellow" onclick="searchProperty()" id="search-property">Cari
                                             Sekarang</a>
                                     </div>
                                     <div class="explore__form-checkbox-list full-filter" style="margin-top: 20px">

@@ -5,8 +5,15 @@
     $webLogo =
         $template && $template->web_logo
             ? url('/') . Storage::url($template->web_logo)
-            : asset('dashboard/icon/icon.png');
+            : asset('frontpage/images/logo-purple.svg');
+    $webLogoWhite =
+        $template && $template->web_logo_white
+            ? url('/') . Storage::url($template->web_logo_white)
+            : asset('frontpage/images/logo-white-1.svg');
     $webDesciption = $template && $template->web_description ? $template->web_description : '';
+    $propTransactions = \App\Models\PropertyTransaction::all();
+    $propTypes = \App\Models\PropertyType::all();
+    $propCertificates = \App\Models\PropertyCertificate::all();
 @endphp
 <!DOCTYPE html>
 <html lang="zxx">
@@ -38,7 +45,26 @@
     @include('partials.frontpage.styles')
     @stack('styles')
     <style>
-        /* Gaya umum untuk notifikasi */
+        .btn-yellow,
+        .log-submit-btn,
+        .close-reg {
+            background: #8731E8 !important;
+        }
+
+        .news-link {
+            color: #8731E8 !important;
+        }
+
+        .widget h5::after {
+            background-color: #8731E8 !important;
+
+        }
+
+
+        .homepage-3 .portfolio .homes-tag.sale {
+            background: #18ba60 !important;
+        }
+
         .notification {
             position: fixed;
             top: 20px;
@@ -51,13 +77,10 @@
             font-weight: bold;
             display: none;
             z-index: 100000;
-            /* Pastikan notifikasi berada di atas modal */
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             max-width: 400px;
-            /* Batasan lebar notifikasi */
             width: 100%;
-            /* Mengisi lebar sesuai konten dan batasan max-width */
         }
 
         /* Notifikasi sukses */
@@ -104,7 +127,6 @@
             overflow-y: auto !important;
             border: 1px solid #ddd;
         }
-
     </style>
 
 </head>

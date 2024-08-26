@@ -10,13 +10,18 @@
 @endpush
 @push('styles')
     <style>
+        #search-agen {
+            background-color: #8731E8 !important;
+            border-color: #8731E8 !important;
+        }
+
         #search-agen:hover {
             background-color: white !important;
-            color: red !important;
+            color: #8731E8 !important;
         }
 
         #search-agen:hover i {
-            color: red !important;
+            color: #8731E8 !important;
         }
     </style>
 @endpush
