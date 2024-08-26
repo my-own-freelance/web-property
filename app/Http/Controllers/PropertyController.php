@@ -87,18 +87,18 @@ class PropertyController extends Controller
         }
 
         // filter properti transaction
-        if ($request->query("property_transaction_id") && $request->query('property_transaction_id') != "") {
-            $query->where('property_transaction_id', $request->query('property_transaction_id'));
+        if ($request->query("trx_id") && $request->query('trx_id') != "") {
+            $query->where('property_transaction_id', $request->query('trx_id'));
         }
 
         // filter property type
-        if ($request->query("property_type_id") && $request->query('property_type_id') != "") {
-            $query->where('property_type_id', $request->query('property_type_id'));
+        if ($request->query("type_id") && $request->query('type_id') != "") {
+            $query->where('property_type_id', $request->query('type_id'));
         }
 
         // filter property certificate
-        if ($request->query("property_certificate_id") && $request->query('property_certificate_id') != "") {
-            $query->where('property_certificate_id', $request->query('property_certificate_id'));
+        if ($request->query("crt_id") && $request->query('crt_id') != "") {
+            $query->where('property_certificate_id', $request->query('crt_id'));
         }
 
         // filter province

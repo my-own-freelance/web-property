@@ -10,8 +10,8 @@
             <div class="row">
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="property_transaction_id">Filter Transaksi</label>
-                        <select class="form-control" id="property_transaction_id" name="property_transaction_id">
+                        <label for="trx_id">Filter Transaksi</label>
+                        <select class="form-control" id="trx_id" name="trx_id">
                             <option value="">All</option>
                             @foreach ($transactions as $transaction)
                                 <option value = "{{ $transaction->id }}">{{ $transaction->name }}</option>
@@ -21,8 +21,8 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="property_type_id">Filter Type</label>
-                        <select class="form-control" id="property_type_id" name="property_type_id">
+                        <label for="type_id">Filter Type</label>
+                        <select class="form-control" id="type_id" name="type_id">
                             <option value="">All</option>
                             @foreach ($types as $type)
                                 <option value = "{{ $type->id }}">{{ $type->name }}</option>
@@ -32,8 +32,8 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="property_certificate_id">Filter Sertifikat</label>
-                        <select class="form-control" id="property_certificate_id" name="property_certificate_id">
+                        <label for="crt_id">Filter Sertifikat</label>
+                        <select class="form-control" id="crt_id" name="crt_id">
                             <option value="">All</option>
                             @foreach ($certificates as $certificate)
                                 <option value = "{{ $certificate->id }}">{{ $certificate->name }}</option>
