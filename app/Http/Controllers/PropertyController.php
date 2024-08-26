@@ -27,17 +27,26 @@ class PropertyController extends Controller
     public function pending()
     {
         $user = auth()->user();
-        return view("pages.admin.property.pending", compact("user"));
+        $types = PropertyType::all();
+        $transactions = PropertyTransaction::all();
+        $certificates = PropertyCertificate::all();
+        return view("pages.admin.property.pending", compact("user", "types", "transactions", "certificates"));
     }
 
     public function approved()
     {
-        return view("pages.admin.property.approved");
+        $types = PropertyType::all();
+        $transactions = PropertyTransaction::all();
+        $certificates = PropertyCertificate::all();
+        return view("pages.admin.property.approved", compact("types", "transactions", "certificates"));
     }
 
     public function rejected()
     {
-        return view("pages.admin.property.rejected");
+        $types = PropertyType::all();
+        $transactions = PropertyTransaction::all();
+        $certificates = PropertyCertificate::all();
+        return view("pages.admin.property.rejected", compact("types", "transactions", "certificates"));
     }
 
     // HANDLER API

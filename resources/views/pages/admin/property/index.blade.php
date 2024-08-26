@@ -714,8 +714,9 @@
         }
 
         // DATA TABLE LOADED
-        function pendingDataTable() {
-            const url = "/api/admin/property/datatable?admin_approval=pending";
+        function pendingDataTable(filter) {
+            let url = "/api/admin/property/datatable?admin_approval=pending";
+            if (filter) url += '&' + filter;
             pendingTable = $("#pendingDataTable").DataTable({
                 searching: true,
                 orderng: true,
@@ -748,8 +749,9 @@
             });
         }
 
-        function approvedDataTable() {
-            const url = "/api/admin/property/datatable?admin_approval=approved";
+        function approvedDataTable(filter) {
+            let url = "/api/admin/property/datatable?admin_approval=approved";
+            if (filter) url += '&' + filter;
             approvedTable = $("#approvedDataTable").DataTable({
                 searching: true,
                 orderng: true,
@@ -782,8 +784,9 @@
             });
         }
 
-        function rejectedDataTable() {
-            const url = "/api/admin/property/datatable?admin_approval=rejected";
+        function rejectedDataTable(filter) {
+            let url = "/api/admin/property/datatable?admin_approval=rejected";
+            if (filter) url += '&' + filter;
             rejectedTable = $("#rejectedDataTable").DataTable({
                 searching: true,
                 orderng: true,
@@ -838,6 +841,37 @@
                             ?.message);
                     }
                 })
+            }
+        }
+
+        function filterData(tableName) {
+            if (tableName == "pending") {
+                let dataFilter = {}
+                let inputFilter = $("#formFilterPending").serializeArray();
+                $.each(inputFilter, function(i, field) {
+                    dataFilter[field.name] = field.value;
+                });
+                pendingTable.clear();
+                pendingTable.destroy();
+                pendingDataTable($.param(dataFilter))
+            } else if (tableName == "approved") {
+                let dataFilter = {};
+                let inputFilter = $("#formFilterApproved").serializeArray();
+                $.each(inputFilter, function(i, field) {
+                    dataFilter[field.name] = field.value;
+                });
+                approvedTable.clear();
+                approvedTable.destroy();
+                approvedDataTable($.param(dataFilter))
+            } else if (tableName == "rejected") {
+                let dataFilter = {};
+                let inputFilter = $("#formFilterRejected").serializeArray();
+                $.each(inputFilter, function(i, field) {
+                    dataFilter[field.name] = field.value;
+                });
+                rejectedTable.clear();
+                rejectedTable.destroy();
+                rejectedDataTable($.param(dataFilter))
             }
         }
         // END DATA TABLE LOADED
@@ -1073,9 +1107,9 @@
                 }
 
                 // MAPS PROPERTY
-                if (data.maps_location && data.maps_preview ) {
+                if (data.maps_location && data.maps_preview) {
                     console.log("ada nih")
-                        $(".wrapper-maps").append(`
+                    $(".wrapper-maps").append(`
                             <hr>
                             <div class="col-md-6">
                                 <h4 class="font-weight-bold">Maps Properti</h4>
@@ -1084,7 +1118,7 @@
                                 </div>
                             </div>
                         `);
-                    }
+                }
                 // VIDEO YOUTUBE VIEW
                 if (data.youtube_code && data.youtube_code != "") {
                     $(".wrapper-youtube").append(`
