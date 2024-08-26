@@ -1,5 +1,17 @@
 @extends('layouts.frontpage')
 @section('title', $title)
+@push('styles')
+    <style>
+        #search-agen:hover {
+            background-color: white !important;
+            color: red !important;
+        }
+
+        #search-agen:hover i {
+            color: red !important;
+        }
+    </style>
+@endpush
 @section('content')
     <!-- START SECTION PROPERTIES LISTING -->
     <section class="properties-right featured portfolio blog pt-5">
@@ -40,11 +52,11 @@
                                             <h3><a href="{{ $agen->url }}">{{ $agen->name }}</a></h3>
                                             <ul class="the-agents-details">
                                                 <li>
-                                                    <a href="{{ $agen->url }}" target="__blank">Code:
+                                                    <a href="{{ $agen->url }}">Code:
                                                         {{ $agen->code }}</a>
                                                 </li>
                                                 <li>
-                                                    <a href="{{ $agen->url }}" target="__blank">Jabatan:
+                                                    <a href="{{ $agen->url }}">Jabatan:
                                                         {{ $agen->position ? $agen->position : '-' }}</a>
                                                 </li>
                                                 <li>

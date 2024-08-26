@@ -9,6 +9,14 @@
     <meta name="description" content="{{ Illuminate\Support\Str::limit(strip_tags($article->excerpt), 200) }}" />
     <meta name="excerpt" content="{{ Illuminate\Support\Str::limit(strip_tags($article->excerpt), 200) }}" />
 @endpush
+@push('styles')
+    <style>
+        #search-article:hover {
+            background-color: white !important;
+            color: red !important;
+        }
+    </style>
+@endpush
 @section('content')
 
     <section class="headings">

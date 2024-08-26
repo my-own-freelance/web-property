@@ -1,5 +1,13 @@
 @extends('layouts.frontpage')
 @section('title', $title)
+@push('styles')
+    <style>
+        #sendMessage:hover {
+            background-color: white !important;
+            color: red !important;
+        }
+    </style>
+@endpush
 @section('content')
 
     <section class="headings">
@@ -38,7 +46,7 @@
                         <div class="form-group">
                             <textarea class="form-control textarea-custom input-full" id="message" required rows="8" placeholder="Message"></textarea>
                         </div>
-                        <button class="btn btn-primary btn-lg" type="submit">Kirim</button>
+                        <button class="btn btn-primary btn-lg" type="submit" id="sendMessage">Kirim</button>
                     </form>
                 </div>
                 <div class="col-lg-4 col-md-12 bgc">
@@ -105,8 +113,10 @@
                 method: "POST",
                 beforeSend: function() {
                     console.log("Loadig...")
+                    $("#sendMessage").attr("disabled", true);
                 },
                 success: function(response) {
+                    $("#sendMessage").attr("disabled", false);
                     Swal.fire({
                         icon: 'success',
                         title: 'Message Sent',
@@ -117,6 +127,7 @@
                     $('#formContact')[0].reset();
                 },
                 error: function(xhr, status, error) {
+                    $("#sendMessage").attr("disabled", false);
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',

@@ -1,5 +1,13 @@
 @extends('layouts.frontpage')
 @section('title', $title)
+@push('styles')
+    <style>
+        #search-article:hover {
+            background-color: white !important;
+            color: red !important;
+        }
+    </style>
+@endpush
 @section('content')
 
     <section class="headings">

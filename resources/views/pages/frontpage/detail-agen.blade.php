@@ -8,6 +8,18 @@
     <meta name="keywords" content="{{ $agen->name }}" />
     <meta name="keywords" content="{{ $agen->caption }}" />
 @endpush
+@push('styles')
+    <style>
+        #search-agen:hover {
+            background-color: white !important;
+            color: red !important;
+        }
+
+        #search-agen:hover i {
+            color: red !important;
+        }
+    </style>
+@endpush
 @section('content')
     <!-- START SECTION AGENTS DETAILS -->
     <section class="blog blog-section portfolio single-proper details mb-0">
@@ -66,7 +78,7 @@
                                     <div class="news-item-bottom">
                                         <a href="{{ $agen->link_property }}" class="news-link">Lihat Property Saya</a>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>

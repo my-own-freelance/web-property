@@ -17,7 +17,7 @@
                             <section class="headings-2 pt-0">
                                 <div class="pro-wrapper">
                                     <div class="row">
-                                        <div class="col-7">
+                                        <div class="col-md-7 col-12 ">
                                             <div class="detail-wrapper-body">
                                                 <div class="listing-title-bar">
                                                     <h3>{{ $property->short_title }} <span
@@ -32,7 +32,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-5">
+                                        <div class="col-md-5 col-12 mt-3 mt-md-0">
                                             <div class="single text-right mr-2">
                                                 <div class="detail-wrapper-body">
                                                     <div class="listing-title-bar">
@@ -61,7 +61,7 @@
                                         <div class="{{ $loop->index == 0 ? 'active' : '' }} item carousel-item"
                                             data-slide-number="{{ $loop->index }}">
                                             <img src="{{ $propImg->image }}" class="img-fluid"
-                                                style="width: 100%; max-height: 400px; object-fit:cover"
+                                                style="width: 100%; height: 400px!important; object-fit:cover"
                                                 alt="slider-listing">
                                         </div>
                                     @empty
@@ -78,17 +78,15 @@
                                         <li class="list-inline-item active">
                                             <a id="carousel-selector-{{ $loop->index }}" class="selected"
                                                 data-slide-to="{{ $loop->index }}" data-target="#listingDetailsSlider">
-                                                <img src="{{ $propImg->image }}" class="img-fluid" alt="listing-small">
+                                                <img src="{{ $propImg->image }}" class="img-fluid"
+                                                    style="width: 100%; height: 80px !important; object-fit:cover"
+                                                    alt="listing-small">
                                             </a>
                                         </li>
                                     @empty
                                     @endforelse
                                 </ul>
                                 <!-- main slider carousel items -->
-                            </div>
-                            <div class="blog-info details mb-30">
-                                <h5 class="mb-4">Deskripsi</h5>
-                                {!! $property->description !!}
                             </div>
                         </div>
                     </div>
@@ -191,6 +189,10 @@
                             <span class="det">{{ $property->facilities }}</span>
                         @endif
                     </div>
+                    <div class="blog-info details mb-30">
+                        <h5 class="mb-4">Deskripsi</h5>
+                        {!! $property->description !!}
+                    </div>
 
 
                     @if ($property->youtube_code && $property->youtube_code != '')
@@ -248,7 +250,8 @@
                                                 <span class="la la-envelope-o">
                                                     <i class="fa fa-envelope" aria-hidden="true"></i>
                                                 </span>
-                                                <a href="mailto:?body={{ $property->Agen->email }}">{{ $property->Agen->email }}</a>
+                                                <a
+                                                    href="mailto:?body={{ $property->Agen->email }}">{{ $property->Agen->email }}</a>
                                             </li>
                                         </ul>
                                     </div>
