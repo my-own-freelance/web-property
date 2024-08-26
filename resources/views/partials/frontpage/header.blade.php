@@ -1,4 +1,6 @@
 <?php
+$template = \App\Models\CustomTemplate::first();
+$webLogo = $template && $template->web_logo ? url('/') . Storage::url($template->web_logo) : asset('dashboard/icon/icon.png');
 $routename = request()->route()->getName();
 $propTransactions = \App\Models\PropertyTransaction::all();
 $propTypes = \App\Models\PropertyType::all();

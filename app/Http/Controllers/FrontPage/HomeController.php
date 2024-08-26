@@ -68,6 +68,7 @@ class HomeController extends Controller
                     'building_sale_area' => $property->building_sale_area,
                     'agen' => $property->Agen->name,
                     'agen_image' => url("/") . Storage::url($property->Agen->image),
+                    'agen_url' => url('/') . '/cari-agen/view/' . $property->Agen->code,
                     'whatsapp' => $whatsapp,
                 ];
             });
@@ -121,6 +122,7 @@ class HomeController extends Controller
                             'building_sale_area' => $property->building_sale_area,
                             'agen' => $property->Agen->name,
                             'agen_image' => url("/") . Storage::url($property->Agen->image),
+                            'agen_url' => url('/') . '/cari-agen/view/' . $property->Agen->code,
                             'whatsapp' => $whatsapp,
                         ];
                     }),
@@ -140,7 +142,7 @@ class HomeController extends Controller
                     'id' => $district->id,
                     'name' => $district->name,
                     'total_property' => $district->total_property,
-                    'url' => '#'
+                    'url' => url('/') . '/list-properti?district_id=' . $district->id
                 ];
             });
 
@@ -167,7 +169,7 @@ class HomeController extends Controller
             ];
         });
 
-        $provinces = Province::all();
+        $provinces = Province::orderBy("name", "asc")->get();
         // dd($propertiesByTrx);
         return view("pages.frontpage.index", compact("title", "types", "transactions", "certificates", "propertiesByTrx", "popularProperties", "topDistricts", "reviews", "articles", "provinces"));
     }

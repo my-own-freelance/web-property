@@ -11,7 +11,6 @@
                             <div class="text-heading text-left">
                                 <p><a href="{{ route('home') }}">Home </a> &nbsp;/&nbsp; <span>List Properti</span></p>
                             </div>
-                            <h3>Grid View</h3>
                         </div>
                     </div>
                 </div>
@@ -24,54 +23,79 @@
                             <div class="rld-main-search">
                                 <div class="row">
                                     <div class="rld-single-input">
-                                        <input type="text" placeholder="Enter Keyword...">
+                                        <input type="text" id="fSearch" placeholder="Masukan Kata Kunci...">
                                     </div>
                                     <div class="rld-single-select ml-22">
-                                        <select class="select single-select">
-                                            <option value="1">Property Type</option>
-                                            <option value="2">Family House</option>
-                                            <option value="3">Apartment</option>
-                                            <option value="3">Condo</option>
+                                        <select class="select single-select" id="fPropTransaction">
+                                            <option value="">Tipe Transaksi</option>
+                                            @forelse ($transactions as $propTrx)
+                                                <option value="{{ $propTrx->id }}">{{ $propTrx->name }}</option>
+                                            @empty
+                                            @endforelse
                                         </select>
                                     </div>
                                     <div class="rld-single-select">
-                                        <select class="select single-select mr-0">
-                                            <option value="1">Location</option>
-                                            <option value="2">Los Angeles</option>
-                                            <option value="3">Chicago</option>
-                                            <option value="3">Philadelphia</option>
-                                            <option value="3">San Francisco</option>
-                                            <option value="3">Miami</option>
-                                            <option value="3">Houston</option>
+                                        <select class="select single-select mr-0" id="fPropType">
+                                            <option value="">Tipe Properti</option>
+                                            @forelse ($types as $propType)
+                                                <option value="{{ $propType->id }}">{{ $propType->name }}</option>
+                                            @empty
+                                            @endforelse
                                         </select>
                                     </div>
-                                    <div class="dropdown-filter"><span>Advanced Search</span></div>
+                                    <div class="dropdown-filter"><span>Filter Tambahan</span></div>
                                     <div class="col-xl-2 col-lg-2 col-md-4 pl-0">
-                                        <a class="btn btn-yellow" href="#">Search Now</a>
+                                        <a class="btn btn-yellow" onclick="searchProperty()">Cari
+                                            Sekarang</a>
                                     </div>
-                                    <div class="explore__form-checkbox-list full-filter">
+                                    <div class="explore__form-checkbox-list full-filter" style="margin-top: 20px">
                                         <div class="row">
-                                            <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0">
-                                                <!-- Form Property Status -->
-                                                <div class="form-group categories">
-                                                    <div class="nice-select form-control wide" tabindex="0"><span
-                                                            class="current"><i class="fa fa-home"></i>Property Status</span>
-                                                        <ul class="list">
-                                                            <li data-value="1" class="option selected ">For Sale</li>
-                                                            <li data-value="2" class="option">For Rent</li>
+                                            <div class="col-lg-3 col-md-6 py-1 pr-30 pl-0">
+                                                <!-- Form Property Sertiticate -->
+                                                <div class="form-group certificate" id="fPropCertificate"
+                                                    style="margin-bottom: 0px !important;">
+                                                    <div class="nice-select form-control wide" tabindex="0">
+                                                        <span class="current">
+                                                            <i class="fas fa-file-contract"></i>Tipe Sertifikat
+                                                        </span>
+                                                        <ul class="list" id="certificate-list">
+                                                            @forelse ($certificates as $crt)
+                                                                <li data-value="{{ $crt->id }}" class="option">
+                                                                    {{ $crt->name }}</li>
+                                                            @empty
+                                                            @endforelse
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
-                                                <!--/ End Form Property Status -->
+                                                <!--/ End Form Property Sertiticate -->
                                             </div>
-                                            <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 ">
+                                            <div class="col-lg-3 col-md-6 py-1 pr-30 pl-0 ">
+                                                <!-- Form Property Warranry -->
+                                                <div class="form-group warranty" id="fWarranty"
+                                                    style="margin-bottom: 0px !important;">
+                                                    <div class="nice-select form-control wide" tabindex="0">
+                                                        <span class="current">
+                                                            <i class="fas fa-shield-alt"></i>Garansi
+                                                        </span>
+                                                        <ul class="list" id="warranty-list">
+                                                            <li data-value="Y" class="option">Ya</li>
+                                                            <li data-value="N" class="option">Tidak</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!--/ End Form Property Warranty -->
+                                            </div>
+                                            <div class="col-lg-3 col-md-6 py-1 pr-30 pl-0 ">
                                                 <!-- Form Bedrooms -->
-                                                <div class="form-group beds">
-                                                    <div class="nice-select form-control wide" tabindex="0"><span
-                                                            class="current"><i class="fa fa-bed" aria-hidden="true"></i>
-                                                            Bedrooms</span>
-                                                        <ul class="list">
-                                                            <li data-value="1" class="option selected">1</li>
+                                                <div class="form-group bedrooms" if="fBedRooms"
+                                                    style="margin-bottom: 0px !important;">
+                                                    <div class="nice-select form-control wide" tabindex="0">
+                                                        <span class="current">
+                                                            <i class="fa fa-bed" aria-hidden="true"></i>Kamar Tidur
+                                                        </span>
+                                                        <ul class="list" id="bedrooms-list">
+                                                            <li data-value="1" class="option">1</li>
                                                             <li data-value="2" class="option">2</li>
                                                             <li data-value="3" class="option">3</li>
                                                             <li data-value="3" class="option">4</li>
@@ -86,14 +110,18 @@
                                                 </div>
                                                 <!--/ End Form Bedrooms -->
                                             </div>
-                                            <div class="col-lg-4 col-md-6 py-1 pl-0 pr-0">
+                                            <div class="col-lg-3 col-md-6 py-1 pr-30 pl-0">
                                                 <!-- Form Bathrooms -->
-                                                <div class="form-group bath">
-                                                    <div class="nice-select form-control wide" tabindex="0"><span
-                                                            class="current"><i class="fa fa-bath" aria-hidden="true"></i>
-                                                            Bathrooms</span>
-                                                        <ul class="list">
-                                                            <li data-value="1" class="option selected">1</li>
+                                                <div class="form-group bathrooms" id="fBathRooms"
+                                                    style="margin-bottom: 0px !important;">
+                                                    <div class="nice-select form-control wide" tabindex="0">
+                                                        <span class="current">
+                                                            <i class="fa fa-bath" aria-hidden="true"></i>Kamar
+                                                            Mandi
+                                                        </span>
+                                                        <ul class="list" id="bathrooms-list">
+                                                            <li data-value="1" class="option">1
+                                                            </li>
                                                             <li data-value="2" class="option">2</li>
                                                             <li data-value="3" class="option">3</li>
                                                             <li data-value="3" class="option">4</li>
@@ -108,7 +136,61 @@
                                                 </div>
                                                 <!--/ End Form Bathrooms -->
                                             </div>
-                                            <div class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld">
+
+                                            <div class="col-lg-3 col-md-6 py-1 pr-30 pl-0">
+                                                <!-- Form Property Province -->
+                                                <div class="form-group warranty" id="province_id"
+                                                    style="margin-bottom: 0px !important;">
+                                                    <div class="nice-select form-control wide" tabindex="0">
+                                                        <span class="current">
+                                                            <i class="fas fa-map-marked-alt"></i>Provinsi
+                                                        </span>
+                                                        <ul class="list scrollable-list" id="province-list">
+                                                            @forelse ($provinces as $provinsi)
+                                                                <li data-value="{{ $provinsi->id }}" class="option">
+                                                                    {{ $provinsi->name }}</li>
+                                                            @empty
+                                                            @endforelse
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!--/ End Form Property Province -->
+                                            </div>
+                                            <div class="col-lg-3 col-md-6 py-1 pr-30 pl-0">
+                                                <!-- Form Property District -->
+                                                <div class="form-group warranty" id="district_id"
+                                                    style="margin-bottom: 0px !important;">
+                                                    <div class="nice-select form-control wide" tabindex="0">
+                                                        <span class="current">
+                                                            <i class="fas fa-city"></i>Kota/Kabupaten
+                                                        </span>
+                                                        <ul class="list scrollable-list" id="district-list">
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!--/ End Form Property District -->
+                                            </div>
+                                            <div class="col-lg-3 col-md-6 py-1 pr-30 pl-0">
+                                                <!-- Form Property Sub District -->
+                                                <div class="form-group warranty" id="sub_district_id"
+                                                    style="margin-bottom: 0px !important;">
+                                                    <div class="nice-select form-control wide" tabindex="0">
+                                                        <span class="current">
+                                                            <i class="fas fa-map-pin"></i>Kecamatan
+                                                        </span>
+                                                        <ul class="list scrollable-list" id="sub-district-list">
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!--/ End Form Property Sub District -->
+                                            </div>
+
+                                            {{--   VIEW DI HIDDEN KARENA TIDAK BISA DI HAPUS --}}
+
+                                            {{-- <div class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld"
+                                            style="visibility: hidden; height: 0px!important;" >
                                                 <!-- Price Fields -->
                                                 <div class="main-search-field-2">
                                                     <!-- Area Range -->
@@ -128,7 +210,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
+                                            <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30"style="visibility: hidden; height: 0px!important;">
                                                 <!-- Checkboxes -->
                                                 <div class="checkboxes one-in-row margin-bottom-10 ch-1">
                                                     <input id="check-2" type="checkbox" name="check">
@@ -147,8 +229,9 @@
                                                     <label for="check-8">Window Covering</label>
                                                 </div>
                                                 <!-- Checkboxes / End -->
-                                            </div>
-                                            <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
+                                            </div> --}}
+                                            <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30"
+                                                style="visibility: hidden; height: 0px!important;">
                                                 <!-- Checkboxes -->
                                                 <div class="checkboxes one-in-row margin-bottom-10 ch-2">
                                                     <input id="check-9" type="checkbox" name="check">
@@ -248,7 +331,7 @@
                                         </h3>
                                     </div>
                                     <div class="footer" style="display: flex; justify-content: space-between;">
-                                        <a href="#">
+                                        <a href="{{ $properti->agen_url }}">
                                             <img src="{{ $properti->agen_image }}" alt="" class="mr-2">
                                             {{ $properti->agen }}
                                         </a>

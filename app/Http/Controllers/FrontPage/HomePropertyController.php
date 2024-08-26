@@ -4,6 +4,10 @@ namespace App\Http\Controllers\FrontPage;
 
 use App\Http\Controllers\Controller;
 use App\Models\Property;
+use App\Models\PropertyCertificate;
+use App\Models\PropertyTransaction;
+use App\Models\PropertyType;
+use App\Models\Province;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -14,6 +18,11 @@ class HomePropertyController extends Controller
     public function list(Request $request)
     {
         $title = 'List Properti';
+        $provinces = Province::orderBy("name", "asc")->get();
+        $types = PropertyType::all();
+        $transactions = PropertyTransaction::all();
+        $certificates = PropertyCertificate::all();
+
         $query = Property::with("PropertyTransaction")
             ->with("PropertyType")
             ->with('PropertyType')
@@ -83,6 +92,11 @@ class HomePropertyController extends Controller
             $query->where('bathrooms', $request->query('bathrooms'));
         }
 
+        // filter warranty
+        if ($request->query("warranty") && $request->query('warranty') != "") {
+            $query->where('warranty', $request->query('warranty'));
+        }
+
         $properties = $query->paginate(9)->appends($request->query())->through(function ($property) {
             $district = $property->District ? $property->District->name : "";
             $subDistrict = $property->SubDistrict ? $property->SubDistrict->name : "";
@@ -113,11 +127,12 @@ class HomePropertyController extends Controller
                 'building_sale_area' => $property->building_sale_area,
                 'agen' => $property->Agen->name,
                 'agen_image' => url("/") . Storage::url($property->Agen->image),
+                'agen_url' => url('/') . '/cari-agen/view/' . $property->Agen->code,
                 'whatsapp' => $whatsapp,
             ];
         });
 
-        return view('pages.frontpage.list-properti', compact('title', 'properties'));
+        return view('pages.frontpage.list-properti', compact('title', 'properties', 'provinces', "types", "transactions", "certificates",));
     }
 
     public function detail($code, $slug)

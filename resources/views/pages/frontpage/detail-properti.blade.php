@@ -39,7 +39,7 @@
                                                         <h4>Rp. {{ number_format($property->price, 0, ',', '.') }}</h4>
                                                         @if ($property->price_per_meter && $property->price_per_meter != 0)
                                                             <div class="mt-0">
-                                                                <a href="#listing-location" class="listing-address">
+                                                                <a href="" class="listing-address">
                                                                     <p>Rp.
                                                                         {{ number_format($property->price_per_meter, 0, ',', '.') }}
                                                                         / m<sup>2</sup></p>
@@ -241,13 +241,14 @@
                                                 <span class="la la-phone">
                                                     <i class="fa fa-phone" aria-hidden="true"></i>
                                                 </span>
-                                                <a href="#">{{ $property->Agen->phone_number }}</a>
+                                                <a
+                                                    href="{{ $property->contact_agen }}">{{ $property->Agen->phone_number }}</a>
                                             </li>
                                             <li>
                                                 <span class="la la-envelope-o">
                                                     <i class="fa fa-envelope" aria-hidden="true"></i>
                                                 </span>
-                                                <a href="#">{{ $property->Agen->email }}</a>
+                                                <a href="mailto:?body={{ $property->Agen->email }}">{{ $property->Agen->email }}</a>
                                             </li>
                                         </ul>
                                     </div>

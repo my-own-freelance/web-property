@@ -19,11 +19,11 @@
                                 <div class="tab-pane fade show active" id="tabs_1">
                                     <div class="rld-main-search">
                                         <div class="row">
-                                            <div class="rld-single-input" id="fSearch">
-                                                <input type="text" placeholder="Masukan Kata Kunci...">
+                                            <div class="rld-single-input">
+                                                <input type="text" id="fSearch" placeholder="Masukan Kata Kunci...">
                                             </div>
-                                            <div class="rld-single-select ml-22" id="fPropTransaction">
-                                                <select class="select single-select">
+                                            <div class="rld-single-select ml-22">
+                                                <select class="select single-select" id="fPropTransaction">
                                                     <option value="">Tipe Transaksi</option>
                                                     @forelse ($transactions as $propTrx)
                                                         <option value="{{ $propTrx->id }}">{{ $propTrx->name }}</option>
@@ -42,19 +42,19 @@
                                             </div>
                                             <div class="dropdown-filter"><span>Filter Tambahan</span></div>
                                             <div class="col-xl-2 col-lg-2 col-md-4 pl-0">
-                                                <a class="btn btn-yellow" href="#">Cari Sekarang</a>
+                                                <a class="btn btn-yellow" onclick="searchProperty()">Cari Sekarang</a>
                                             </div>
                                             <div class="explore__form-checkbox-list full-filter">
                                                 <div class="row">
                                                     <div class="col-lg-3 col-md-6 py-1 pr-30 pl-0">
-                                                        <!-- Form Property Type -->
+                                                        <!-- Form Property Sertiticate -->
                                                         <div class="form-group certificate" id="fPropCertificate"
                                                             style="margin-bottom: 0px !important;">
                                                             <div class="nice-select form-control wide" tabindex="0">
                                                                 <span class="current">
                                                                     <i class="fas fa-file-contract"></i>Tipe Sertifikat
                                                                 </span>
-                                                                <ul class="list">
+                                                                <ul class="list scrollable-list" id="certificate-list">
                                                                     @forelse ($certificates as $crt)
                                                                         <li data-value="{{ $crt->id }}" class="option">
                                                                             {{ $crt->name }}</li>
@@ -64,7 +64,7 @@
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <!--/ End Form Property Type -->
+                                                        <!--/ End Form Property Sertiticate -->
                                                     </div>
                                                     <div class="col-lg-3 col-md-6 py-1 pr-30 pl-0">
                                                         <!-- Form Property Warranry -->
@@ -74,7 +74,7 @@
                                                                 <span class="current">
                                                                     <i class="fas fa-shield-alt"></i>Garansi
                                                                 </span>
-                                                                <ul class="list">
+                                                                <ul class="list scrollable-list" id="warranty-list">
                                                                     <li data-value="Y" class="option">Ya</li>
                                                                     <li data-value="N" class="option">Tidak</li>
                                                                 </ul>
@@ -90,8 +90,8 @@
                                                                 <span class="current">
                                                                     <i class="fa fa-bed" aria-hidden="true"></i>Kamar Tidur
                                                                 </span>
-                                                                <ul class="list">
-                                                                    <li data-value="1" class="option selected">1</li>
+                                                                <ul class="list scrollable-list" id="bedrooms-list">
+                                                                    <li data-value="1" class="option">1</li>
                                                                     <li data-value="2" class="option">2</li>
                                                                     <li data-value="3" class="option">3</li>
                                                                     <li data-value="3" class="option">4</li>
@@ -115,8 +115,8 @@
                                                                     <i class="fa fa-bath" aria-hidden="true"></i>Kamar
                                                                     Mandi
                                                                 </span>
-                                                                <ul class="list">
-                                                                    <li data-value="1" class="option selected">1
+                                                                <ul class="list scrollable-list" id="bathrooms-list">
+                                                                    <li data-value="1" class="option">1
                                                                     </li>
                                                                     <li data-value="2" class="option">2</li>
                                                                     <li data-value="3" class="option">3</li>
@@ -134,14 +134,14 @@
                                                     </div>
 
                                                     <div class="col-lg-3 col-md-6 py-1 pr-30 pl-0">
-                                                        <!-- Form Property Warranry -->
+                                                        <!-- Form Property Province -->
                                                         <div class="form-group warranty" id="province_id"
                                                             style="margin-bottom: 0px !important;">
                                                             <div class="nice-select form-control wide" tabindex="0">
                                                                 <span class="current">
-                                                                    <i class="fas fa-shield-alt"></i>Provinsi
+                                                                    <i class="fas fa-map-marked-alt"></i>Provinsi
                                                                 </span>
-                                                                <ul class="list">
+                                                                <ul class="list scrollable-list" id="province-list">
                                                                     @forelse ($provinces as $provinsi)
                                                                         <li data-value="{{ $provinsi->id }}"
                                                                             class="option">{{ $provinsi->name }}</li>
@@ -150,43 +150,41 @@
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <!--/ End Form Property Warranty -->
+                                                        <!--/ End Form Property Province -->
                                                     </div>
                                                     <div class="col-lg-3 col-md-6 py-1 pr-30 pl-0">
-                                                        <!-- Form Property Warranry -->
-                                                        <div class="form-group warranty" id="fWarranty"
+                                                        <!-- Form Property District -->
+                                                        <div class="form-group warranty" id="district_id"
                                                             style="margin-bottom: 0px !important;">
                                                             <div class="nice-select form-control wide" tabindex="0">
                                                                 <span class="current">
-                                                                    <i class="fas fa-shield-alt"></i>Garansi
+                                                                    <i class="fas fa-city"></i>Kota/Kabupaten
                                                                 </span>
-                                                                <ul class="list">
-                                                                    <li data-value="Y" class="option">Ya</li>
-                                                                    <li data-value="N" class="option">Tidak</li>
+                                                                <ul class="list scrollable-list" id="district-list">
+                                                                    
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <!--/ End Form Property Warranty -->
+                                                        <!--/ End Form Property District -->
                                                     </div>
                                                     <div class="col-lg-3 col-md-6 py-1 pr-30 pl-0">
-                                                        <!-- Form Property Warranry -->
-                                                        <div class="form-group warranty" id="fWarranty"
+                                                        <!-- Form Property Sub District -->
+                                                        <div class="form-group warranty" id="sub_district_id"
                                                             style="margin-bottom: 0px !important;">
                                                             <div class="nice-select form-control wide" tabindex="0">
                                                                 <span class="current">
-                                                                    <i class="fas fa-shield-alt"></i>Garansi
+                                                                    <i class="fas fa-map-pin"></i>Kecamatan
                                                                 </span>
-                                                                <ul class="list">
-                                                                    <li data-value="Y" class="option">Ya</li>
-                                                                    <li data-value="N" class="option">Tidak</li>
+                                                                <ul class="list scrollable-list" id="sub-district-list">
+                                                                    
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <!--/ End Form Property Warranty -->
+                                                        <!--/ End Form Property Sub District -->
                                                     </div>
 
                                                     {{--   VIEW DI HIDDEN KARENA TIDAK BISA DI HAPUS --}}
-                                                    <div class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld d-xl-flex "
+                                                    {{-- <div class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld d-xl-flex "
                                                         style="visibility: hidden; height: 0px!important;">
                                                         <!-- Price Fields -->
                                                         <div class="main-search-field-2">
@@ -227,7 +225,7 @@
                                                             <label for="check-8">Window Covering</label>
                                                         </div>
                                                         <!-- Checkboxes / End -->
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30 d-xl-flex"
                                                         style="visibility: hidden; height: 0px!important;">
                                                         <!-- Checkboxes -->
@@ -349,7 +347,7 @@
                                                 </h3>
                                             </div>
                                             <div class="footer" style="display: flex; justify-content: space-between;">
-                                                <a href="#">
+                                                <a href="{{ $popProp->agen_url }}">
                                                     <img src="{{ $popProp->agen_image }}" alt="" class="mr-2">
                                                     {{ $popProp->agen }}
                                                 </a>
@@ -505,7 +503,7 @@
                                                 </div>
                                                 <div class="footer"
                                                     style="display: flex; justify-content: space-between;">
-                                                    <a href="#">
+                                                    <a href="{{ $propData->agen_url }}">
                                                         <img src="{{ $propData->agen_image }}" alt=""
                                                             class="mr-2">
                                                         {{ $propData->agen }}
@@ -671,28 +669,3 @@
     </div>
     <!-- END SECTION PARTNERS -->
 @endsection
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            // Event listener untuk setiap elemen <li> di dalam dropdown
-            $('.nice-select .list .option').on('click', function() {
-                var provinceId = $(this).data('value'); // Ambil nilai ID provinsi
-                console.log("province id :", provinceId)
-                // Lakukan request AJAX dengan ID provinsi yang dipilih
-                // $.ajax({
-                //     url: '/your-endpoint-url', // Ganti dengan endpoint yang sesuai
-                //     type: 'GET', // Atau 'POST' tergantung pada kebutuhan Anda
-                //     data: { province_id: provinceId }, // Data yang dikirimkan ke server
-                //     success: function(response) {
-                //         // Tangani respons dari server
-                //         console.log(response);
-                //         // Anda bisa memperbarui tampilan atau data di halaman sesuai kebutuhan
-                //     },
-                //     error: function(xhr, status, error) {
-                //         console.error(error); // Tangani kesalahan jika ada
-                //     }
-                // });
-            });
-        });
-    </script>
-@endpush

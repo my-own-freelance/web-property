@@ -11,7 +11,7 @@ class LocationController extends Controller
 {
     public function provinces()
     {
-        $provinces = Province::all();
+        $provinces = Province::orderBy("name", "asc")->get();
         return response()->json([
             "status" => "success",
             "data" => $provinces
@@ -20,7 +20,7 @@ class LocationController extends Controller
 
     public function districts($provinceId)
     {
-        $districts = District::where("province_id", $provinceId)->get();
+        $districts = District::where("province_id", $provinceId)->orderBy("name", "asc")->get();
         return response()->json([
             "status" => "success",
             "data" => $districts
@@ -29,7 +29,7 @@ class LocationController extends Controller
 
     public function subDistricts($districtId)
     {
-        $subDistricts = SubDistrict::where("district_id", $districtId)->get();
+        $subDistricts = SubDistrict::where("district_id", $districtId)->orderBy("name", "asc")->get();
         return response()->json([
             "status" => "success",
             "data" => $subDistricts

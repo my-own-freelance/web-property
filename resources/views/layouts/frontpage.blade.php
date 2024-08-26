@@ -98,12 +98,19 @@
         .fade-out {
             animation: fadeOut 0.5s forwards;
         }
+
+        .scrollable-list {
+            max-height: 300px;
+            overflow-y: auto !important;
+            border: 1px solid #ddd;
+        }
+
     </style>
 
 </head>
 
 <body
-    class="inner-pages homepage-3 ui-elements {{ $routename != 'home' ? 'agents  hp-6 full hd-white' : 'the-search' }} ">
+    class="inner-pages homepage-3 {{ $routename != 'home' ? 'agents  hp-6 full hd-white ' : 'the-search' }} {{ $routename == 'faq.list' ? 'ui-elements' : '' }} ">
     <!-- Wrapper -->
     <div id="wrapper">
         <!-- START SECTION HEADINGS -->
@@ -164,68 +171,168 @@
         @stack('scripts')
 
         <script>
-            // SEARCH ARTICLE
-            $(document).ready(function() {
-                $('#search-article').on('click', function() {
-                    var searchValue = $('#input-search-article').val();
-                    window.location.href = window.location.origin + '/list-artikel?search=' +
-                        encodeURIComponent(searchValue);
-                });
+            // $(document).ready(function() {
+            // FILTER SEARCH PROPERTY
+            let crtId = null;
+            let warranty = null;
+            let bedrooms = null;
+            let bathrooms = null;
+            let provinceId = null;
+            let districtId = null;
+            let subDistrictId = null;
 
-                $('#search-agen').on('click', function() {
-                    var searchValue = $('#input-search-agen').val();
-                    window.location.href = window.location.origin + '/list-agen?search=' +
-                        encodeURIComponent(searchValue);
-                });
-
-                $("#formLogin").submit(function(e) {
-                    e.preventDefault();
-
-                    let dataToSend = $(this).serialize();
-                    submitAuth(dataToSend, "login");
-                    return false;
-                })
-
-                function submitAuth(data, type) {
-                    $.ajax({
-                        url: "/api/auth/login/validate",
-                        method: "POST",
-                        data: data,
-                        beforeSend: function() {
-                            console.log("Loading...")
-                        },
-                        success: function(res) {
-                            if (res.message == "Login Sukses") {
-                                showNotification('success', res.message);
-                                setTimeout(() => {
-                                    window.location.href = "{{ route('dashboard') }}"
-                                }, 1500)
-                            }
-                        },
-                        error: function(err) {
-                            console.log("error :", err)
-                            showNotification('error', err.message || err.responseJSON?.message);
-                        }
-                    })
-                }
-
-                function showNotification(type, message) {
-                    let notificationElement = type === 'success' ? $('#success-notification') : $(
-                        '#error-notification');
-
-                    let notifMessage = type === 'success' ? $("#succesMessage") : $("#errMessage");
-                    notifMessage.html(message);
-
-                    notificationElement.addClass('fade-in').show();
-
-                    setTimeout(function() {
-                        notificationElement.addClass('fade-out');
-                        setTimeout(function() {
-                            notificationElement.hide().removeClass('fade-in fade-out');
-                        }, 500); // Waktu fade-out
-                    }, 3000); // Waktu tampilan notifikasi sebelum menghilang
-                }
+            $('#certificate-list').on('click', 'li', function() {
+                crtId = $(this).data('value');
             });
+
+            $('#warranty-list').on('click', 'li', function() {
+                warranty = $(this).data('value');
+            });
+
+            $('#bedrooms-list').on('click', 'li', function() {
+                bedrooms = $(this).data('value');
+            });
+
+            $('#bathrooms-list').on('click', 'li', function() {
+                bathrooms = $(this).data('value');
+            });
+
+            $('#province-list').on('click', 'li', function() {
+                provinceId = $(this).data('value');
+                $("#sub-district-list").empty();
+                $("#district-list").empty();
+
+                $.ajax({
+                    url: `/api/dropdown/location/districts/${provinceId}`,
+                    type: 'GET',
+                    success: function(response) {
+                        response.data.forEach((district) => {
+                            $("#district-list").append(
+                                `<li data-value="${district.id}" class="option">${district.name}</li>`
+                            );
+                        })
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        $("#district-list").append(
+                            '<li class="option">Data Kabupaten/Kota tidak tersedia</li>'
+                        )
+                    }
+                });
+            });
+
+            $('#district-list').on('click', 'li', function() {
+                districtId = $(this).data('value');
+
+                $.ajax({
+                    url: `/api/dropdown/location/sub-districts/${districtId}`,
+                    type: 'GET',
+                    success: function(response) {
+                        $("#sub-district-list").empty()
+                        response.data.forEach((subDistrict) => {
+                            $("#sub-district-list").append(
+                                `<li data-value="${subDistrict.id}" class="option">${subDistrict.name}</li>`
+                            );
+                        })
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        $("#sub-district-list").append(
+                            '<li class="option">Data Kecamatan tidak tersedia</li>'
+                        )
+                    }
+                });
+            });
+
+            $('#sub-district-list').on('click', 'li', function() {
+                subDistrictId = $(this).data('value');
+            });
+
+            function searchProperty() {
+                let queryParams = [];
+
+                let search = $("#fSearch").val();
+                let trxId = $("#fPropTransaction").val();
+                let typeId = $("#fPropType").val();
+                if (search != "") queryParams.push(`serach=${encodeURIComponent(search)}`);
+                if (trxId != "") queryParams.push(`trx_id=${trxId}`)
+                if (typeId != "") queryParams.push(`type_id=${typeId}`)
+                if (crtId) queryParams.push(`crt_id=${crtId}`)
+                if (warranty) queryParams.push(`warranty=${warranty}`)
+                if (bedrooms) queryParams.push(`bedrooms=${bedrooms}`)
+                if (bathrooms) queryParams.push(`bathrooms=${bathrooms}`)
+                if (provinceId) queryParams.push(`province_id=${provinceId}`)
+                if (districtId) queryParams.push(`district_id=${districtId}`)
+                if (subDistrictId) queryParams.push(`sub_district_id=${subDistrictId}`)
+
+                let queryString = queryParams.length ? '?' + queryParams.join('&') : '';
+                let url = `{{ route('property.list') }}` + queryString;
+
+                window.location.href = url;
+            }
+
+            // END FILTER SEARCH PROPERTY
+
+            $('#search-article').on('click', function() {
+                var searchValue = $('#input-search-article').val();
+                window.location.href = window.location.origin + '/list-artikel?search=' +
+                    encodeURIComponent(searchValue);
+            });
+
+            $('#search-agen').on('click', function() {
+                var searchValue = $('#input-search-agen').val();
+                window.location.href = window.location.origin + '/list-agen?search=' +
+                    encodeURIComponent(searchValue);
+            });
+
+            $("#formLogin").submit(function(e) {
+                e.preventDefault();
+
+                let dataToSend = $(this).serialize();
+                submitAuth(dataToSend, "login");
+                return false;
+            })
+
+            function submitAuth(data, type) {
+                $.ajax({
+                    url: "/api/auth/login/validate",
+                    method: "POST",
+                    data: data,
+                    beforeSend: function() {
+                        console.log("Loading...")
+                    },
+                    success: function(res) {
+                        if (res.message == "Login Sukses") {
+                            showNotification('success', res.message);
+                            setTimeout(() => {
+                                window.location.href = "{{ route('dashboard') }}"
+                            }, 1500)
+                        }
+                    },
+                    error: function(err) {
+                        console.log("error :", err)
+                        showNotification('error', err.message || err.responseJSON?.message);
+                    }
+                })
+            }
+
+            function showNotification(type, message) {
+                let notificationElement = type === 'success' ? $('#success-notification') : $(
+                    '#error-notification');
+
+                let notifMessage = type === 'success' ? $("#succesMessage") : $("#errMessage");
+                notifMessage.html(message);
+
+                notificationElement.addClass('fade-in').show();
+
+                setTimeout(function() {
+                    notificationElement.addClass('fade-out');
+                    setTimeout(function() {
+                        notificationElement.hide().removeClass('fade-in fade-out');
+                    }, 500); // Waktu fade-out
+                }, 3000); // Waktu tampilan notifikasi sebelum menghilang
+            }
+            // });
         </script>
     </div>
     <!-- Wrapper / End -->
