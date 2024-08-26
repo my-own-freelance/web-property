@@ -6,6 +6,23 @@
     <meta property="og:keywords" content="{{ $property->short_title }}" />
     <meta name="keywords" content="{{ $property->short_title }}" />
 @endpush
+@push('styles')
+    <style>
+        h5::after {
+            background-color: #8731E8 !important;
+        }
+
+        span.category-tag {
+            background-color: #8731E8 !important;
+            color: white !important;
+        }
+
+        .listing-title-bar>h4,
+        span>i {
+            color: #8731E8 !important;
+        }
+    </style>
+@endpush
 @section('content')
     <!-- START SECTION PROPERTIES LISTING -->
     <section class="single-proper blog details">
@@ -24,7 +41,7 @@
                                                             class="mrg-l-5 category-tag">{{ $property->property_transaction }}</span>
                                                     </h3>
                                                     <div class="mt-0">
-                                                        <a href="#listing-location" class="listing-address">
+                                                        <a href="#" class="listing-address">
                                                             <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i>
                                                             {{ $property->location }}
                                                         </a>
@@ -227,10 +244,12 @@
                                 <div class="widget-boxed-body">
                                     <div class="sidebar-widget author-widget2">
                                         <div class="author-box clearfix">
-                                            <img src="{{ $property->Agen->image }}" alt="author-image"
-                                                class="author__img">
-                                            <h4 class="author__title">{{ $property->Agen->name }}</h4>
-                                            <p class="author__meta">{{ $property->Agen->position }}</p>
+                                            <a href="{{ $property->Agen->url }}" style="text-decoration: none">
+                                                <img src="{{ $property->Agen->image }}" alt="author-image"
+                                                    class="author__img">
+                                                <h4 class="author__title">{{ $property->Agen->name }}</h4>
+                                                <p class="author__meta">{{ $property->Agen->position }}</p>
+                                            </a>
                                         </div>
                                         <ul class="author__contact">
                                             <li>

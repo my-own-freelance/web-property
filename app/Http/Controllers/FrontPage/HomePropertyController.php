@@ -187,6 +187,8 @@ class HomePropertyController extends Controller
             . $property['slug']
             . '%0A%0AApakah masih ada? Apa ada update terbaru? %0A%0ATerima kasih';
 
+        $property->Agen->url = url('/') . '/cari-agen/view/' . $property->Agen->code;
+
         $property['agen_location'] = $property->Agen->SubDistrict->name . ', ' . $property->Agen->District->name;
         $property['property_transaction'] = $property->PropertyTransaction ? $property->PropertyTransaction->name : "";
         $property['property_type'] = $property->PropertyType ? $property->PropertyType->name : "";
