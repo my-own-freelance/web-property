@@ -175,13 +175,13 @@ class PropertyController extends Controller
                             </small>';
 
             $customSpesification = '<small>
-                                        <strong>L. Tanah </strong>: ' . $item->land_sale_area . 'm<sup>2</sup>
+                                        <strong>L. Tanah </strong>: ' . ($item->land_sale_area ? $item->land_sale_area : 0) . 'm<sup>2</sup>
                                         <br>
-                                        <strong>L. Bangunan</strong> : ' . $item->building_sale_area . 'm<sup>2</sup>
+                                        <strong>L. Bangunan</strong> : ' . ($item->building_sale_area ? $item->building_sale_area : 0) . 'm<sup>2</sup>
                                         <br>
-                                        <strong>K. Tidur</strong> : ' . $item->bedrooms . '
+                                        <strong>K. Tidur</strong> : ' . ($item->bedrooms ? $item->bedrooms : 0) . '
                                         <br>
-                                        <strong>K. Mandi</strong> : ' . $item->bathrooms . '
+                                        <strong>K. Mandi</strong> : ' . ($item->bathrooms ? $item->bathrooms : 0) . '
                                     </small>';
             $item['action'] = $action;
             $item['image_url'] = url("/") . Storage::url($item->image);

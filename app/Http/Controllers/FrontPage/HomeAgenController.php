@@ -69,7 +69,7 @@ class HomeAgenController extends Controller
                     'email' => $agen->email,
                     'phone_number' => $agen->phone_number,
                     'position' => $agen->position,
-                    'image' => url("/") . Storage::url($agen->image),
+                    'image' => $agen->image ? url("/") . Storage::url($agen->image) : asset('dashboard/img/jm_denis.jpg'),
                     'link_property' => url('/') . '/list-properti?agen_code=' . $agen->code,
                     'total_property' => $agen->properties_count,
                     'whatsapp' => $whatsapp,
@@ -127,7 +127,7 @@ class HomeAgenController extends Controller
             }])
             ->first();
 
-        $agen['image'] = url("/") . Storage::url($agen->image);
+        $agen['image'] = $agen->image ? url("/") . Storage::url($agen->image) : asset('dashboard/img/jm_denis.jpg');
         $agen['link_property'] =  url('/') . '/list-properti?agen_code=' . $agen->code;
         $agen['whatsapp'] = 'https://api.whatsapp.com/send/?phone='
             . preg_replace('/^08/', '628', $agen->phone_number)

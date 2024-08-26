@@ -5,6 +5,7 @@
     <meta property="og:title" content="{{ $agen->name }}" />
     <meta property="og:keywords" content="{{ $agen->name }}" />
     <meta property="og:keywords" content="{{ $agen->caption }}" />
+    <meta property="og:description" content="{{ Illuminate\Support\Str::limit(strip_tags($agen->description), 200) }}" />
     <meta name="keywords" content="{{ $agen->name }}" />
     <meta name="keywords" content="{{ $agen->caption }}" />
 @endpush
@@ -53,7 +54,8 @@
                                     <div class="news-item-img homes">
                                         <div class="homes-tag button alt featured">{{ $agen->properties_count }} Listings
                                         </div>
-                                        <img class="resp-img" src="{{ $agen->image }}" alt="{{ $agen->name }}">
+                                        <img class="resp-img" src="{{ $agen->image }}"
+                                            style="width: 100%; object-fit: cover;" alt="{{ $agen->name }}">
                                     </div>
                                 </a>
                                 <div class="news-item-text">

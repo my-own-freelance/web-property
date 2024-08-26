@@ -60,10 +60,58 @@
 
         }
 
+        .page-item.active .page-link {
+            background: #8731E8 !important;
+            border-color: #8731E8 !important;
+        }
+
+        .page-item .page-link:hover {
+            background: #8731E8 !important;
+            color: white !important;
+            border-color: #8731E8 !important;
+        }
 
         .homepage-3 .portfolio .homes-tag.sale {
             background: #18ba60 !important;
         }
+
+        .homes-img {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .homes-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* article */
+        .news-item-img {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .news-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .inner-pages .blog-section .news-item-descr.big-news {
+            height: 80px !important;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* end article */
 
         .notification {
             position: fixed;

@@ -32,7 +32,7 @@
                 <div class="col-lg-9 col-md-12 col-xs-12">
                     <div class="row">
                         @forelse ($articles as $article)
-                            <div class="col-md-6 col-xs-12">
+                            <div class="col-md-6 col-xs-12 mb-4">
                                 <div class="news-item nomb">
                                     <a href="{{ $article->url }}" class="news-img-link">
                                         <div class="news-item-img">
@@ -52,7 +52,7 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="news-item-descr big-news">
+                                        <div class="news-item-descr big-news mb-3">
                                             <p>{{ $article->excerpt }}</p>
                                         </div>
                                         <div class="news-item-bottom">

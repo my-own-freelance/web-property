@@ -1,5 +1,13 @@
 @extends('layouts.frontpage')
 @section('title', $title)
+@push('styles')
+    <style>
+        .ui-elements .accordion-1 .active .title {
+            background: #8731E8 !important;
+            color: #fff;
+        }
+    </style>
+@endpush
 @section('content')
     <section class="headings">
         <div class="text-heading text-center">
@@ -31,7 +39,7 @@
                             </li>
                         @empty
                         @endforelse
-                    <!--end of accordion-->
+                        <!--end of accordion-->
                 </div>
             </div>
         </div>

@@ -281,7 +281,7 @@
                                         <option value="PDAM">PDAM</option>
                                         <option value="SUMUR">SUMUR</option>
                                         <option value="SUMUR BOR">SUMUR BOR</option>
-                                        <option value="ORHER">LAIN NYA</option>
+                                        <option value="OTHER">LAIN NYA</option>
                                     </select>
                                 </div>
                             </div>
@@ -845,7 +845,7 @@
 
         // CRUD DATA PROPERTY
         function addData() {
-            $(".img-upload-preview").attr("src", "http://placehold.it/150x150");
+            $(".img-upload-preview").attr("src", "");
             $("#formEditable").attr('data-action', 'add').fadeIn(200, function() {
                 $("#form-title").html("TAMBAH PENGAJUAN")
                 $("#uploadImg2").attr("required", true);
@@ -858,11 +858,11 @@
         }
 
         function closeForm() {
-            $(".img-upload-preview").attr("src", "http://placehold.it/150x150");
+            $(".img-upload-preview").attr("src", "");
+            $("#reset").click();
             $("#formEditable").slideUp(200, function() {
                 $("#boxTable").addClass("col-md-12").fadeIn(200);
                 $("#summernote").summernote('code', "");
-                $("#reset").click();
             })
 
             $("#formPropertyImage").slideUp(200);

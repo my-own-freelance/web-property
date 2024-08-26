@@ -15,6 +15,10 @@
         background-color: white !important;
         color: #8731E8 !important;
     }
+
+    .button-effect a i {
+        margin-top: 18px !important;
+    }
 </style>
 @section('content')
     <!-- START SECTION PROPERTIES LISTING -->
@@ -293,12 +297,17 @@
                                     </a>
                                 </div>
                                 <div class="button-effect">
-                                    <a href="{{ $properti->url }}" class="btn"><i class="fa fa-link"></i></a>
+                                    <a href="{{ $properti->url }}" class="btn">
+                                        <i class="fa fa-link"></i>
+                                    </a>
                                     @if ($properti->youtube)
-                                        <a href="{{ $properti->youtube }}" class="btn popup-video popup-youtube"><i
-                                                class="fas fa-video"></i></a>
+                                        <a href="{{ $properti->youtube }}" class="btn popup-video popup-youtube">
+                                            <i class="fas fa-video"></i>
+                                        </a>
                                     @endif
-                                    <a href="{{ $properti->url }}" class="img-poppu btn"><i class="fa fa-photo"></i></a>
+                                    <a href="{{ $properti->url }}" class="img-poppu btn">
+                                        <i class="fa fa-photo"></i>
+                                    </a>
                                 </div>
                             </div>
                             <!-- homes content -->
@@ -340,7 +349,7 @@
                                             </li>
                                         @endif
                                     </ul>
-                                    <div class="price-properties footer" style="padding-top: 0px !important;">
+                                    <div class="price-properties footer">
                                         <h3 class="title mt-3">
                                             <a href="{{ $properti->url }}">Rp.
                                                 {{ number_format($properti->price, 0, ',', '.') }}</a>
@@ -348,7 +357,8 @@
                                     </div>
                                     <div class="footer" style="display: flex; justify-content: space-between;">
                                         <a href="{{ $properti->agen_url }}">
-                                            <img src="{{ $properti->agen_image }}" alt="" class="mr-2">
+                                            <img src="{{ $properti->agen_image }}" alt=""
+                                                style="object-fit: cover;" class="mr-2">
                                             {{ $properti->agen }}
                                         </a>
                                         <a href="{{ $properti->whatsapp }}" class="mt-2" target="__blank">

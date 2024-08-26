@@ -2,10 +2,11 @@
 @section('title', $title)
 @push('styles')
     <style>
-        #search-agen{
+        #search-agen {
             background-color: #8731E8 !important;
             border-color: #8731E8 !important;
         }
+
         #search-agen:hover {
             background-color: white !important;
             color: #8731E8 !important;

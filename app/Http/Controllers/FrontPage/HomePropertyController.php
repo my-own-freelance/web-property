@@ -147,9 +147,9 @@ class HomePropertyController extends Controller
             'Agen.SubDistrict', // Load relasi SubDistrict pada Agen
             'Agen.District',    // Load relasi District pada Agen
         ])
-            ->where("is_publish", "Y")
-            ->where("admin_approval", "APPROVED")
-            // ->where("is_available", "Y") // kalau detail boleh menampilkan yg available nya sudah no
+            // ->where("is_publish", "Y")
+            // ->where("admin_approval", "APPROVED")
+            // ->where("is_available", "Y") // kalau detail boleh menampilkan yg publish, approval dan available nya sudah no
             ->where("code", $code)
             ->where("slug", $slug)
             ->first();

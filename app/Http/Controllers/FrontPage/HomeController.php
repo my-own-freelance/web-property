@@ -73,61 +73,64 @@ class HomeController extends Controller
                 ];
             });
 
-        $propertiesByTrx = PropertyTransaction::with(['Properties' => function ($query) {
-            $query->orderBy("id", "desc")
-                ->limit(8)
-                ->where("is_publish", "Y")
-                ->where("admin_approval", "APPROVED")
-                ->where("is_available", "Y")
-                ->with('PropertyType')
-                ->with('Province')
-                ->with('District')
-                ->with('SubDistrict')
-                ->with('Agen');
-        }])
-            ->get()
-            ->filter(function ($propByTrx) {
-                // Filter out transactions that have no properties
-                return $propByTrx->properties->isNotEmpty();
-            })
-            ->transform(function ($propByTrx) {
-                return (object) [
-                    "transaction" => $propByTrx->name,
-                    "data" => $propByTrx->properties->map(function ($property) {
-                        $district = $property->District ? $property->District->name : "";
-                        $subDistrict = $property->SubDistrict ? $property->SubDistrict->name : "";
-                        $location = $subDistrict . ', ' . $district;
-                        $whatsapp = 'https://api.whatsapp.com/send/?phone='
-                            . preg_replace('/^08/', '628', $property->Agen->phone_number)
-                            . '&text='
-                            . 'Halo, saya ingin menanyakan info/data mengenai properti ini : %0A%0A'
-                            . url('/') . '/cari-properti/view/'
-                            . $property['code']
-                            . '/'
-                            . $property['slug']
-                            . '%0A%0AApakah masih ada? Apa ada update terbaru? %0A%0ATerima kasih';
+        // Ambil PropertyTransaction yang memiliki setidaknya satu Property yang memenuhi syarat
+        $propertyTransactions = PropertyTransaction::whereHas('Properties', function ($query) {
+            $query->where('is_publish', 'Y')
+                ->where('admin_approval', 'APPROVED')
+                ->where('is_available', 'Y');
+        })->get();
 
-                        return (object) [
-                            'id' => $property->id,
-                            'type' => $property->PropertyType ? $property->PropertyType->name : null,
-                            'image' =>  url("/") . Storage::url($property->image),
-                            'url' => url('/') . '/cari-properti/view/' . $property['code'] . '/' . $property['slug'],
-                            'youtube' => $property->youtube_code && $property->youtube_code != "" ? ("https://www.youtube.com/watch?v=" . $property->youtube_code) : null,
-                            'short_title' => $property->short_title,
-                            'price' => $property->price,
-                            'location' => $location,
-                            'bedrooms' => $property->bedrooms,
-                            'bathrooms' => $property->bathrooms,
-                            'land_sale_area' => $property->land_sale_area,
-                            'building_sale_area' => $property->building_sale_area,
-                            'agen' => $property->Agen->name,
-                            'agen_image' => url("/") . Storage::url($property->Agen->image),
-                            'agen_url' => url('/') . '/cari-agen/view/' . $property->Agen->code,
-                            'whatsapp' => $whatsapp,
-                        ];
-                    }),
-                ];
-            });
+        // Ambil maksimal 8 Property untuk setiap PropertyTransaction yang memenuhi syarat
+        $propertiesByTrx = $propertyTransactions->map(function ($transaction) {
+            // Ambil maksimal 8 Property untuk setiap PropertyTransaction
+            $properties = Property::where('property_transaction_id', $transaction->id)
+                ->where('is_publish', 'Y')
+                ->where('admin_approval', 'APPROVED')
+                ->where('is_available', 'Y')
+                ->orderBy('id', 'desc')
+                ->limit(8) // Batasi jumlah Properties per transaksi
+                ->with(['PropertyType', 'Province', 'District', 'SubDistrict', 'Agen'])
+                ->get();
+
+            return (object) [
+                'transaction' => $transaction->name,
+                'data' => $properties->map(function ($property) {
+                    $district = $property->District ? $property->District->name : "";
+                    $subDistrict = $property->SubDistrict ? $property->SubDistrict->name : "";
+                    $location = $subDistrict . ', ' . $district;
+                    $whatsapp = 'https://api.whatsapp.com/send/?phone='
+                        . preg_replace('/^08/', '628', $property->Agen->phone_number)
+                        . '&text='
+                        . 'Halo, saya ingin menanyakan info/data mengenai properti ini : %0A%0A'
+                        . url('/') . '/cari-properti/view/'
+                        . $property['code']
+                        . '/'
+                        . $property['slug']
+                        . '%0A%0AApakah masih ada? Apa ada update terbaru? %0A%0ATerima kasih';
+
+                    return (object) [
+                        'id' => $property->id,
+                        'type' => $property->PropertyType ? $property->PropertyType->name : null,
+                        'image' => url("/") . Storage::url($property->image),
+                        'url' => url('/') . '/cari-properti/view/' . $property['code'] . '/' . $property['slug'],
+                        'youtube' => $property->youtube_code && $property->youtube_code != "" ? ("https://www.youtube.com/watch?v=" . $property->youtube_code) : null,
+                        'short_title' => $property->short_title,
+                        'price' => $property->price,
+                        'location' => $location,
+                        'bedrooms' => $property->bedrooms,
+                        'bathrooms' => $property->bathrooms,
+                        'land_sale_area' => $property->land_sale_area,
+                        'building_sale_area' => $property->building_sale_area,
+                        'agen' => $property->Agen->name,
+                        'agen_image' => url("/") . Storage::url($property->Agen->image),
+                        'agen_url' => url('/') . '/cari-agen/view/' . $property->Agen->code,
+                        'whatsapp' => $whatsapp,
+                    ];
+                }),
+            ];
+        });
+
+
 
         // dd($propertiesByTrx);
         $topDistricts = DB::table('districts')

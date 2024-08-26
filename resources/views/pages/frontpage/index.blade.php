@@ -161,7 +161,7 @@
                                                                     <i class="fas fa-city"></i>Kota/Kabupaten
                                                                 </span>
                                                                 <ul class="list scrollable-list" id="district-list">
-                                                                    
+
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -176,7 +176,7 @@
                                                                     <i class="fas fa-map-pin"></i>Kecamatan
                                                                 </span>
                                                                 <ul class="list scrollable-list" id="sub-district-list">
-                                                                    
+
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -281,7 +281,7 @@
                                     <div class="project-inner project-head">
                                         <div class="homes">
                                             <!-- homes img -->
-                                            <a href="single-property-1.html" class="homes-img">
+                                            <a href="{{ $popProp->url }}" class="homes-img">
                                                 <div class="homes-tag button alt featured">{{ $popProp->transaction }}
                                                 </div>
                                                 <div class="homes-tag button alt sale">{{ $popProp->type }}</div>
@@ -348,7 +348,8 @@
                                             </div>
                                             <div class="footer" style="display: flex; justify-content: space-between;">
                                                 <a href="{{ $popProp->agen_url }}">
-                                                    <img src="{{ $popProp->agen_image }}" alt="" class="mr-2">
+                                                    <img src="{{ $popProp->agen_image }}" style="object-fit: cover;"
+                                                        alt="" class="mr-2">
                                                     {{ $popProp->agen }}
                                                 </a>
                                                 <a href="{{ $popProp->whatsapp }}" class="mt-2" target="__blank">
@@ -434,7 +435,7 @@
                                         <div class="project-inner project-head">
                                             <div class="homes">
                                                 <!-- homes img -->
-                                                <a href="single-property-1.html" class="homes-img">
+                                                <a href="{{ $propData->url }}" class="homes-img">
                                                     <div class="homes-tag button alt featured">
                                                         {{ $propByTrx->transaction }}
                                                     </div>
@@ -505,7 +506,7 @@
                                                     style="display: flex; justify-content: space-between;">
                                                     <a href="{{ $propData->agen_url }}">
                                                         <img src="{{ $propData->agen_image }}" alt=""
-                                                            class="mr-2">
+                                                            style="object-fit: cover;" class="mr-2">
                                                         {{ $propData->agen }}
                                                     </a>
                                                     <a href="{{ $propData->whatsapp }}" class="mt-2" target="__blank">
@@ -630,7 +631,7 @@
     <div class="partners bg-white">
         <div class="container">
             <div class="sec-title">
-                <h2><span>Parner</span> Kami</h2>
+                <h2><span>Partner</span> Kami</h2>
                 <p>Perusahaan Partnet Kami</p>
             </div>
             <div class="owl-carousel style2">

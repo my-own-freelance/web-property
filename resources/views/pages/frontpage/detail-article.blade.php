@@ -47,7 +47,7 @@
                                         <img class="img-responsive" src="{{ $article->image }}" alt="{{ $article->title }}">
                                     </div>
                                 </a>
-                                <div class="news-item-text details pb-0">
+                                <div class="news-item-text details pb-0 px-3">
                                     <a href="blog-details.html">
                                         <h3>{{ $article->title }}</h3>
                                     </a>

@@ -3,11 +3,11 @@
 @push('metadata')
     <meta property="og:image" content="{{ $property->image }}" />
     <meta property="og:title" content="{{ $property->short_title }}" />
-    <meta property="og:title" content="{{ $property->long_title }}" />
     <meta property="og:keywords" content="{{ $property->short_title }}" />
-    <meta property="og:keywords" content="{{ $property->long_title }}" />
     <meta name="keywords" content="{{ $property->short_title }}" />
-    <meta name="keywords" content="{{ $property->long_title }}" />
+    <meta property="og:description" content="{{ Illuminate\Support\Str::limit(strip_tags($property->long_title), 200) }}" />
+    <meta name="description" content="{{ Illuminate\Support\Str::limit(strip_tags($property->long_title), 200) }}" />
+    <meta name="excerpt" content="{{ Illuminate\Support\Str::limit(strip_tags($property->long_title), 200) }}" />
 @endpush
 @push('styles')
     <style>
@@ -24,6 +24,12 @@
         span>i {
             color: #8731E8 !important;
         }
+
+
+        .listing-details-sliders .left,
+        .listing-details-sliders .right {
+            background: #8731E8 !important;
+        }
     </style>
 @endpush
 @section('content')
@@ -35,38 +41,36 @@
                     <div class="row">
                         <div class="col-md-12">
                             <section class="headings-2 pt-0">
-                                <div class="pro-wrapper">
-                                    <div class="row">
-                                        <div class="col-md-7 col-12 ">
-                                            <div class="detail-wrapper-body">
-                                                <div class="listing-title-bar">
-                                                    <h3>{{ $property->short_title }} <span
-                                                            class="mrg-l-5 category-tag">{{ $property->property_transaction }}</span>
-                                                    </h3>
-                                                    <div class="mt-0">
-                                                        <a href="#" class="listing-address">
-                                                            <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i>
-                                                            {{ $property->location }}
-                                                        </a>
-                                                    </div>
+                                <div class="row">
+                                    <div class="col-md-7 col-12 ">
+                                        <div class="detail-wrapper-body">
+                                            <div class="listing-title-bar">
+                                                <h3>{{ $property->short_title }} <span
+                                                        class="mrg-l-5 category-tag">{{ $property->property_transaction }}</span>
+                                                </h3>
+                                                <div class="mt-0">
+                                                    <a href="#" class="listing-address">
+                                                        <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i>
+                                                        {{ $property->location }}
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-5 col-12 mt-3 mt-md-0">
-                                            <div class="single text-right mr-2">
-                                                <div class="detail-wrapper-body">
-                                                    <div class="listing-title-bar">
-                                                        <h4>Rp. {{ number_format($property->price, 0, ',', '.') }}</h4>
-                                                        @if ($property->price_per_meter && $property->price_per_meter != 0)
-                                                            <div class="mt-0">
-                                                                <a href="" class="listing-address">
-                                                                    <p>Rp.
-                                                                        {{ number_format($property->price_per_meter, 0, ',', '.') }}
-                                                                        / m<sup>2</sup></p>
-                                                                </a>
-                                                            </div>
-                                                        @endif
-                                                    </div>
+                                    </div>
+                                    <div class="col-md-5 col-12 mt-3 mt-md-0">
+                                        <div class="single text-right mr-2">
+                                            <div class="detail-wrapper-body">
+                                                <div class="listing-title-bar">
+                                                    <h4>Rp. {{ number_format($property->price, 0, ',', '.') }}</h4>
+                                                    @if ($property->price_per_meter && $property->price_per_meter != 0)
+                                                        <div class="mt-0">
+                                                            <a href="" class="listing-address">
+                                                                <p>Rp.
+                                                                    {{ number_format($property->price_per_meter, 0, ',', '.') }}
+                                                                    / m<sup>2</sup></p>
+                                                            </a>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
