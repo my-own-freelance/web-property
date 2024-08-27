@@ -7,7 +7,7 @@
     <meta property="og:keywords" content="{{ $agen->caption }}" />
     <meta property="og:description" content="{{ Illuminate\Support\Str::limit(strip_tags($agen->description), 200) }}" />
     <meta name="keywords" content="{{ $agen->name }}" />
-    <meta name="keywords" content="{{ $agen->caption }}" />
+    <meta name="excerpt" content="{{ $agen->caption }}" />
 @endpush
 @push('styles')
     <style>

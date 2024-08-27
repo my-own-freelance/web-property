@@ -22,19 +22,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="description" content="{{ $webDesciption }}" />
     <meta name="author" content="">
     <title>@yield('title')</title>
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     {{-- metadata --}}
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="title" content="" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta name="keywords" content="" />
+    <meta property="title" content="{{ $webTitle }}" />
+    <meta name="description" content="{{ $webDesctription }}" />
+    <meta name="keywords" content="{{ $webTitle }}" />
     <meta property="og:image" content="{{ $webLogo }}" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta property="og:url" content="{{ request()->url() }}">
-    <meta property="og:site_name" content="">
+    <meta property="og:site_name" content="{{ $webTitle }}">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
     <!-- FAVICON -->
