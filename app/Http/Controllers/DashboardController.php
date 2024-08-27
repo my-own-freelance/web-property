@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Contact;
 use App\Models\Faq;
 use App\Models\Property;
 use App\Models\PropertyCertificate;
 use App\Models\PropertyTransaction;
 use App\Models\PropertyType;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -27,6 +29,8 @@ class DashboardController extends Controller
         $articles = 0;
         $faqs = 0;
         $agens = 0;
+        $reviews = 0;
+        $contacts = 0;
 
         if ($user->role == "agen") {
             $propPending = Property::where('agen_id', $user->id)->where('admin_approval', 'PENDING')->count();
@@ -42,6 +46,8 @@ class DashboardController extends Controller
             $articles = Article::count();
             $faqs = Faq::count();
             $agens = User::where("role", "agen")->count();
+            $reviews = Review::count();
+            $contacts = Contact::count();
 
             $propPending = Property::where('admin_approval', 'PENDING')->count();
             $propApproved = Property::where('admin_approval', 'APPROVED')->count();
@@ -50,6 +56,6 @@ class DashboardController extends Controller
         }
 
 
-        return view("pages.admin.index", compact('title', 'user', 'propTransactions', 'propTypes', 'propCertificates', 'propAll', 'propPending', 'propApproved', 'propRejected', 'articles', 'faqs', 'agens'));
+        return view("pages.admin.index", compact('title', 'user', 'propTransactions', 'propTypes', 'propCertificates', 'propAll', 'propPending', 'propApproved', 'propRejected', 'articles', 'faqs', 'agens', 'reviews', 'contacts'));
     }
 }

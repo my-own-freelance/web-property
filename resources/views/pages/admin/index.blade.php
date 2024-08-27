@@ -48,6 +48,48 @@
             <div class="col-6 col-sm-6 col-md-3">
                 <div class="card card-stats card-round">
                     <div class="card-body">
+                        <a href="{{ route('review') }}">
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="icon-big text-center">
+                                        <i class="flaticon-chat-5 text-warning"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 col-stats">
+                                    <div class="numbers">
+                                        <p class="card-category">Review</p>
+                                        <h4 class="card-title">{{ $reviews }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <a href="{{ route('contact') }}">
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="icon-big text-center">
+                                        <i class="flaticon-envelope-1 text-secondary"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 col-stats">
+                                    <div class="numbers">
+                                        <p class="card-category">Contact</p>
+                                        <h4 class="card-title">{{ $contacts }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
                         <a href="{{ route('agen') }}">
                             <div class="row">
                                 <div class="col-5">
@@ -115,7 +157,7 @@
                             <div class="row">
                                 <div class="col-5">
                                     <div class="icon-big text-secondary">
-                                        <i class="flaticon-file-1 text-info"></i>
+                                        <i class="flaticon-file-1 text-primary"></i>
                                     </div>
                                 </div>
                                 <div class="col-7 col-stats">
@@ -137,7 +179,7 @@
                         <div class="row">
                             <div class="col-5">
                                 <div class="icon-big text-center">
-                                    <i class="flaticon-graph-2 text-primary"></i>
+                                    <i class="flaticon-graph-2 text-secondary"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-stats">
