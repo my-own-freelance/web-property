@@ -30,7 +30,7 @@
     {{-- metadata --}}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="title" content="{{ $webTitle }}" />
-    <meta name="description" content="{{ $webDesctription }}" />
+    <meta name="description" content="{{ $webDesciption }}" />
     <meta name="keywords" content="{{ $webTitle }}" />
     <meta property="og:image" content="{{ $webLogo }}" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
