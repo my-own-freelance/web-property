@@ -252,7 +252,7 @@
                                     <div class="sidebar-widget author-widget2">
                                         <div class="author-box clearfix">
                                             <a href="{{ $property->Agen->url }}" style="text-decoration: none">
-                                                <img src="{{ $property->Agen->image }}" alt="author-image"
+                                                <img src="{{ $property->Agen->image }}" style="object-fit: cover;" alt="author-image"
                                                     class="author__img">
                                                 <h4 class="author__title">{{ $property->Agen->name }}</h4>
                                                 <p class="author__meta">{{ $property->Agen->position }}</p>
