@@ -331,7 +331,7 @@
                 let search = $("#fSearch").val();
                 let trxId = $("#fPropTransaction").val();
                 let typeId = $("#fPropType").val();
-                if (search != "") queryParams.push(`serach=${encodeURIComponent(search)}`);
+                if (search != "") queryParams.push(`search=${encodeURIComponent(search)}`);
                 if (trxId != "") queryParams.push(`trx_id=${trxId}`)
                 if (typeId != "") queryParams.push(`type_id=${typeId}`)
                 if (crtId) queryParams.push(`crt_id=${crtId}`)
