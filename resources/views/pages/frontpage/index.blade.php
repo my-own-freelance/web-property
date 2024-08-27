@@ -569,7 +569,7 @@
                             {{ $review->review }}
                         </p>
                         <div class="detailJC">
-                            <span><img src="{{ $review->image }}" alt="review" /></span>
+                            <span><img src="{{ $review->image }}" style="object-fit: cover;" alt="review" /></span>
                             <h5>{{ $review->name }}</h5>
                             <p>{{ $review->address }}</p>
                         </div>
