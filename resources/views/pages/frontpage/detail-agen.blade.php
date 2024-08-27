@@ -96,7 +96,7 @@
                             {!! $agen->description !!}
                         </div>
                         <!-- START SIMILAR PROPERTIES -->
-                        <section class="similar-property featured portfolio bshd p-0 bg-white">
+                        <section class="similar-property featured portfolio bshd pt-3 p-0 bg-white">
                             <div class="container">
                                 <h5>Properti Terbaru oleh {{ $agen->name }}</h5>
                                 <div class="row">
