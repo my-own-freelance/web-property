@@ -77,12 +77,12 @@
                         </li>
 
                         <li><a href="{{ route('contact.view') }}">Contact</a></li>
-                        @guest
+                        {{-- @guest
                             <li class="d-none d-xl-none d-block d-lg-block">
                                 <a href="{{ route('login') }}">Login</a>
                             </li>
                             </li>
-                        @endguest
+                        @endguest --}}
                     </ul>
                 </nav>
                 <!-- Main Navigation / End -->
@@ -90,7 +90,7 @@
             <!-- Left Side Content / End -->
 
             <!-- Right Side Content / End -->
-            @auth
+            {{-- @auth
                 <div class="header-user-menu user-menu add">
                     <div class="header-user-name">
                         <span>
@@ -119,7 +119,7 @@
                     </div>
                     <!-- Header Widget / End -->
                 </div>
-            @endguest
+            @endguest --}}
             <!-- Right Side Content / End -->
         </div>
     </div>
