@@ -8,7 +8,7 @@
                                 <a href="{{ route('home') }}" class="logo">
                                     <img src="{{ $webLogoWhite }}" style="width: 80px!important;" alt="netcom">
                                 </a>
-                                <p>Properti Ideal untuk Setiap Kebutuhan, Temukan dengan Mudah Bersama Kami!</p>
+                                <p>{{ $template->web_description }}</p>
                             </div>
                             <div class="contactus">
                                 @if ($template)
@@ -33,7 +33,12 @@
                                             <li>
                                                 <div class="info">
                                                     <i class="fa fa-envelope" aria-hidden="true"></i>
-                                                    <p class="in-p ti">{{ $template->email }}</p>
+                                                    <p class="in-p ti">
+                                                        <a href="mailto:?body={{ $template->email }}"
+                                                            style="text-decoration: none; color:white;">
+                                                            {{ $template->email }}
+                                                        </a>
+                                                    </p>
                                                 </div>
                                             </li>
                                         @endif

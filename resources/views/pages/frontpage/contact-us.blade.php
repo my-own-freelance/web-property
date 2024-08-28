@@ -80,7 +80,12 @@
                                     <li>
                                         <div class="info">
                                             <i class="fa fa-envelope" aria-hidden="true"></i>
-                                            <p class="in-p ti">{{ $setting->email }}</p>
+                                            <p class="in-p ti">
+                                                <a href="mailto:?body={{ $setting->email }}"
+                                                    style="text-decoration: none; color:white;">
+                                                    {{ $setting->email }}
+                                                </a>
+                                            </p>
                                         </div>
                                     </li>
                                 @endif
