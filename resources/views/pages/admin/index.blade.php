@@ -256,5 +256,26 @@
                 </div>
             </div>
         </div>
+        <div class="col-6 col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <a href="{{ route('property') }}">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center">
+                                    <i class="flaticon-error text-danger"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 col-stats">
+                                <div class="numbers">
+                                    <p class="card-category">Properti Hapus</p>
+                                    <h4 class="card-title">{{ $propDeleted }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

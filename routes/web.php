@@ -71,5 +71,6 @@ Route::group(["middleware" => "auth:web", "prefix" => "admin"], function () {
         Route::get('/pending', [PropertyController::class, 'pending'])->name("property.pending");
         Route::get('/approved', [PropertyController::class, 'approved'])->name("property.approved");
         Route::get('/rejected', [PropertyController::class, 'rejected'])->name("property.rejected");
+        Route::get('/deleted', [PropertyController::class, 'deleted'])->name("property.deleted");
     });
 });

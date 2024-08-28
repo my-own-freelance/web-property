@@ -79,7 +79,9 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
         Route::post("create", [PropertyController::class, "create"]);
         Route::post("update", [PropertyController::class, "update"]);
         Route::post("update-status", [PropertyController::class, "updateStatus"]);
-        Route::delete("delete", [PropertyController::class, "destroy"]);
+        Route::post("restore", [PropertyController::class, "restore"]);
+        Route::delete("soft-delete", [PropertyController::class, "softDelete"]);
+        Route::delete("hard-delete", [PropertyController::class, "hardDelete"]);
     });
 
     // PROPERTY IMAGES

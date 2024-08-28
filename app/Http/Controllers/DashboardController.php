@@ -26,6 +26,7 @@ class DashboardController extends Controller
         $propPending = 0;
         $propApproved = 0;
         $propRejected = 0;
+        $propDeleted = 0;
         $articles = 0;
         $faqs = 0;
         $agens = 0;
@@ -36,7 +37,8 @@ class DashboardController extends Controller
             $propPending = Property::where('agen_id', $user->id)->where('admin_approval', 'PENDING')->count();
             $propApproved = Property::where('agen_id', $user->id)->where('admin_approval', 'APPROVED')->count();
             $propRejected = Property::where('agen_id', $user->id)->where('admin_approval', 'REJECTED')->count();
-            $propAll = $propPending + $propApproved + $propRejected;
+            $propDeleted = Property::where('agen_id', $user->id)->onlyTrashed()->count();
+            $propAll = $propPending + $propApproved + $propRejected + $propDeleted;
         }
 
         if ($user->role == "owner") {
@@ -52,10 +54,11 @@ class DashboardController extends Controller
             $propPending = Property::where('admin_approval', 'PENDING')->count();
             $propApproved = Property::where('admin_approval', 'APPROVED')->count();
             $propRejected = Property::where('admin_approval', 'REJECTED')->count();
-            $propAll = $propPending + $propApproved + $propRejected;
+            $propDeleted = Property::onlyTrashed()->count();
+            $propAll = $propPending + $propApproved + $propRejected + $propDeleted;
         }
 
 
-        return view("pages.admin.index", compact('title', 'user', 'propTransactions', 'propTypes', 'propCertificates', 'propAll', 'propPending', 'propApproved', 'propRejected', 'articles', 'faqs', 'agens', 'reviews', 'contacts'));
+        return view("pages.admin.index", compact('title', 'user', 'propTransactions', 'propTypes', 'propCertificates', 'propAll', 'propPending', 'propApproved', 'propRejected', 'propDeleted', 'articles', 'faqs', 'agens', 'reviews', 'contacts'));
     }
 }

@@ -49,6 +49,14 @@ class PropertyController extends Controller
         return view("pages.admin.property.rejected", compact("types", "transactions", "certificates"));
     }
 
+    public function deleted()
+    {
+        $types = PropertyType::all();
+        $transactions = PropertyTransaction::all();
+        $certificates = PropertyCertificate::all();
+        return view("pages.admin.property.deleted", compact("types", "transactions", "certificates"));
+    }
+
     // HANDLER API
     public function dataTable(Request $request)
     {
@@ -79,6 +87,11 @@ class PropertyController extends Controller
         // filter status approved
         if ($request->query('admin_approval') && in_array($request->query("admin_approval"), ['pending', 'approved', 'rejected'])) {
             $query->where('admin_approval', strtoupper($request->query('admin_approval')));
+        }
+
+        // filted status deleted
+        if ($request->query('status_data') && $request->query('status_data') == 'deleted') {
+            $query->onlyTrashed();
         }
 
         // filter status sale 
@@ -124,12 +137,14 @@ class PropertyController extends Controller
 
         $output = $data->map(function ($item) {
             $user = auth()->user();
-            $action_approve = $user->role == "owner" && $item->admin_approval != "APPROVED" ? "<a class='dropdown-item' onclick='return updateApproval(\"{$item->id}\", \"" . strtolower($item->admin_approval) . "\", \"approved\");' href='javascript:void(0)' title='Approve'>Approve</a>" : "";
-            $action_reject = $user->role == "owner" && $item->admin_approval != "REJECTED" ? "<a class='dropdown-item' onclick='return updateApproval(\"{$item->id}\", \"" . strtolower($item->admin_approval) . "\", \"rejected\");' href='javascript:void(0)' title='Reject'>Reject</a>" : "";
-            $action_pending = $user->role == "owner" && $item->admin_approval != "PENDING" ? "<a class='dropdown-item' onclick='return updateApproval(\"{$item->id}\", \"" . strtolower($item->admin_approval) . "\", \"pending\");' href='javascript:void(0)' title='Set Pending'>Set Pending</a>" : "";
-            $action_edit = $user->id == $item->agen_id && $user->role == "agen" ? "<a class='dropdown-item' onclick='return getData(\"{$item->id}\", \"edit\");' href='javascript:void(0);' title='Edit'>Edit</a>" : "";
-            $action_gallery = $user->id == $item->agen_id && $user->role == "agen" ? "<a class='dropdown-item' onclick='return addGallery(\"{$item->id}\", \"" . strtolower($item->admin_approval) . "\");' href='javascript:void(0)' title='Tambah Gallery'>Tambah Gallery</a>" : "";
-            $action_delete = $user->id == $item->agen_id && $user->role == "agen" ? "<a class='dropdown-item' onclick='return removeData(\"{$item->id}\", \"" . strtolower($item->admin_approval) . "\");' href='javascript:void(0)' title='Hapus'>Hapus</a>" : "";
+            $action_approve = !$item->deleted_at && $user->role == "owner" && $item->admin_approval != "APPROVED" ? "<a class='dropdown-item' onclick='return updateApproval(\"{$item->id}\", \"" . strtolower($item->admin_approval) . "\", \"approved\");' href='javascript:void(0)' title='Approve'>Approve</a>" : "";
+            $action_reject = !$item->deleted_at && $user->role == "owner" && $item->admin_approval != "REJECTED" ? "<a class='dropdown-item' onclick='return updateApproval(\"{$item->id}\", \"" . strtolower($item->admin_approval) . "\", \"rejected\");' href='javascript:void(0)' title='Reject'>Reject</a>" : "";
+            $action_pending = !$item->deleted_at && $user->role == "owner" && $item->admin_approval != "PENDING" ? "<a class='dropdown-item' onclick='return updateApproval(\"{$item->id}\", \"" . strtolower($item->admin_approval) . "\", \"pending\");' href='javascript:void(0)' title='Set Pending'>Set Pending</a>" : "";
+            $action_edit = !$item->deleted_at && $user->id == $item->agen_id && $user->role == "agen" ? "<a class='dropdown-item' onclick='return getData(\"{$item->id}\", \"edit\");' href='javascript:void(0);' title='Edit'>Edit</a>" : "";
+            $action_gallery = !$item->deleted_at && $user->id == $item->agen_id && $user->role == "agen" ? "<a class='dropdown-item' onclick='return addGallery(\"{$item->id}\", \"" . strtolower($item->admin_approval) . "\");' href='javascript:void(0)' title='Tambah Gallery'>Tambah Gallery</a>" : "";
+            $action_soft_delete = !$item->deleted_at && ($user->id == $item->agen_id && $user->role == "agen" || $user->role == "owner") ? "<a class='dropdown-item' onclick='return softDelete(\"{$item->id}\", \"" . strtolower($item->admin_approval) . "\", \"deleted\");' href='javascript:void(0)' title='Hapus Sementara'>Hapus</a>" : "";
+            $action_hard_delete = $item->deleted_at != null && ($user->id == $item->agen_id && $user->role == "agen" || $user->role == "owner") ? "<a class='dropdown-item' onclick='return hardDelete(\"{$item->id}\", \"deleted\");' href='javascript:void(0)' title='Hapus Permanen'>Hapus Permanen</a>" : "";
+            $action_restore_soft_delete = $item->deleted_at != null && ($user->id == $item->agen_id && $user->role == "agen" || $user->role == "owner") ? "<a class='dropdown-item' onclick='return restoreData(\"{$item->id}\", \"deleted\",  \"" . strtolower($item->admin_approval) . "\");' href='javascript:void(0)' title='Hapus'>Restore</a>" : "";
 
             $action = " <div class='dropdown-primary dropdown open'>
                             <button class='btn btn-sm btn-primary dropdown-toggle waves-effect waves-light' id='dropdown-{$item->id}' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
@@ -142,7 +157,9 @@ class PropertyController extends Controller
                                 " . $action_reject . "
                                 " . $action_pending . "
                                 " . $action_gallery . "
-                                " . $action_delete . "
+                                " . $action_restore_soft_delete . "
+                                " . $action_soft_delete . "
+                                " . $action_hard_delete . "
                             </div>
                         </div>";
 
@@ -201,13 +218,14 @@ class PropertyController extends Controller
             $item['custom_spec'] = $customSpesification;
 
             if ($user->role == "agen") {
+                $disabled = $item->deleted_at != null ? 'disabled=true' : '';
                 $custom_status = $item->is_publish == 'Y' ? '
                     <div class="text-center mt-1">
                         <span class="label-switch">Publish</span>
                     </div>
                     <div class="input-row">
                         <div class="toggle_status on">
-                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Draft\', \'' . $item->admin_approval . '\');" />
+                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Draft\', \'' . $item->admin_approval . '\');"  ' . $disabled . ' />
                             <span class="slider"></span>
                         </div>
                     </div>' :
@@ -216,7 +234,7 @@ class PropertyController extends Controller
                     </div>
                     <div class="input-row">
                         <div class="toggle_status off">
-                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Publish\', \'' . $item->admin_approval . '\');" />
+                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Publish\', \'' . $item->admin_approval . '\');" ' . $disabled . ' />
                             <span class="slider"></span>
                         </div>
                     </div>';
@@ -227,7 +245,7 @@ class PropertyController extends Controller
                     </div>
                     <div class="input-row">
                         <div class="toggle_status on">
-                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Sold\', \'' . $item->admin_approval . '\');" />
+                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Sold\', \'' . $item->admin_approval . '\');" ' . $disabled . ' />
                             <span class="slider"></span>
                         </div>
                     </div>' :
@@ -236,7 +254,7 @@ class PropertyController extends Controller
                     </div>
                     <div class="input-row">
                         <div class="toggle_status off">
-                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'ForSale\', \'' . $item->admin_approval . '\');" />
+                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'ForSale\', \'' . $item->admin_approval . '\');" ' . $disabled . ' />
                             <span class="slider"></span>
                         </div>
                     </div>';
@@ -254,6 +272,10 @@ class PropertyController extends Controller
         $queryTotal = Property::query();
         if ($request->query('admin_approval') && in_array($request->query("admin_approval"), ['pending', 'approved', 'rejected'])) {
             $queryTotal->where('admin_approval', strtoupper($request->query('admin_approval')));
+        }
+
+        if ($request->query('status_data') && $request->query('status_data') == 'deleted') {
+            $queryTotal->onlyTrashed();
         }
 
         if ($user->role == "agen") {
@@ -289,7 +311,7 @@ class PropertyController extends Controller
                 $query->where("agen_id", $user->id);
             }
 
-            $property = $query->first();
+            $property = $query->withTrashed()->where("id", $id)->first();
 
             if (!$property) {
                 return response()->json([
@@ -799,7 +821,7 @@ class PropertyController extends Controller
         }
     }
 
-    public function destroy(Request $request)
+    public function softDelete(Request $request)
     {
         try {
             $validator = Validator::make($request->all(), ["id" => "required|integer"], [
@@ -830,6 +852,50 @@ class PropertyController extends Controller
                 ], 404);
             }
 
+            $property->delete();
+            return response()->json([
+                "status" => "success",
+                "message" => "Data berhasil dihapus"
+            ]);
+        } catch (\Exception $err) {
+            return response()->json([
+                "status" => "error",
+                "message" => $err->getMessage()
+            ], 500);
+        }
+    }
+
+    public function hardDelete(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), ["id" => "required|integer"], [
+                "id.required" => "Data ID harus diisi",
+                "id.integer" => "Type ID tidak valid"
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    "status" => "error",
+                    "message" => $validator->errors()->first()
+                ], 400);
+            }
+
+            $id = $request->id;
+            $query = Property::withTrashed()->where("id", $id);
+            $user = auth()->user();
+            if ($user->role == "agen") {
+                $query->where("agen_id", $user->id);
+            }
+
+            $property = $query->first();
+
+            if (!$property) {
+                return response()->json([
+                    "status" => "error",
+                    "message" => "Data tidak ditemukan"
+                ], 404);
+            }
+
             $oldImagePath = "public/" . $property->image;
             if (Storage::exists($oldImagePath)) {
                 Storage::delete($oldImagePath);
@@ -845,10 +911,55 @@ class PropertyController extends Controller
                 PropertyImage::where("id", $pi->id)->delete();
             }
 
-            $property->delete();
+            $property->forceDelete();
             return response()->json([
                 "status" => "success",
-                "message" => "Data berhasil dihapus"
+                "message" => "Data berhasil dihapus permanen"
+            ]);
+        } catch (\Exception $err) {
+            return response()->json([
+                "status" => "error",
+                "message" => $err->getMessage()
+            ], 500);
+        }
+    }
+
+    public function restore(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), ["id" => "required|integer"], [
+                "id.required" => "Data ID harus diisi",
+                "id.integer" => "Type ID tidak valid"
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    "status" => "error",
+                    "message" => $validator->errors()->first()
+                ], 400);
+            }
+
+            $id = $request->id;
+            $query = Property::withTrashed()->where("id", $id);
+            $user = auth()->user();
+            if ($user->role == "agen") {
+                $query->where("agen_id", $user->id);
+            }
+
+            $property = $query->first();
+
+            if (!$property) {
+                return response()->json([
+                    "status" => "error",
+                    "message" => "Data tidak ditemukan"
+                ], 404);
+            }
+
+            $property->restore();
+
+            return response()->json([
+                "status" => "success",
+                "message" => "Data berhasil direstore"
             ]);
         } catch (\Exception $err) {
             return response()->json([

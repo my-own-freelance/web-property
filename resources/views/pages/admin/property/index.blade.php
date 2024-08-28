@@ -152,16 +152,24 @@
     <div class="row mb-5 mt--5">
         <div class="col-md-12" id="boxTable">
             <ul class="nav nav-tabs md-tabs" role="tablist">
-                <li class="nav-item"><a class="nav-link active text-uppercase" id="tabPending" data-toggle="tab"
-                        href="#request" role="tab">DIAJUKAN</a>
+                <li class="nav-item">
+                    <a class="nav-link active text-uppercase" id="tabPending" data-toggle="tab" href="#pending"
+                        role="tab">DIAJUKAN</a>
                     <div class="slide"></div>
                 </li>
-                <li class="nav-item"><a class="nav-link text-uppercase" id="tabApproved" data-toggle="tab" href="#objection"
+                <li class="nav-item">
+                    <a class="nav-link text-uppercase" id="tabApproved" data-toggle="tab" href="#approved"
                         role="tab">DISETUJUI</a>
                     <div class="slide"></div>
                 </li>
-                <li class="nav-item"><a class="nav-link text-uppercase" id="tabRejected" data-toggle="tab" href="#complaint"
+                <li class="nav-item">
+                    <a class="nav-link text-uppercase" id="tabRejected" data-toggle="tab" href="#rejected"
                         role="tab">DITOLAK</a>
+                    <div class="slide"></div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-uppercase" id="tabDeleted" data-toggle="tab" href="#deleted"
+                        role="tab">DIHAPUS</a>
                     <div class="slide"></div>
                 </li>
             </ul>
@@ -177,6 +185,11 @@
                     </center>
                 </div>
                 <div class="tab-pane" id="rejected">
+                    <center>
+                        <h5>Loading .... </h5>
+                    </center>
+                </div>
+                <div class="tab-pane" id="deleted">
                     <center>
                         <h5>Loading .... </h5>
                     </center>
@@ -422,8 +435,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <div class="input-file input-file-image">
-                                        <img class="img-upload-preview" width="300" src="{{asset('dashboard/img/no-image.jpg')}}"
-                                            alt="preview">
+                                        <img class="img-upload-preview" width="300"
+                                            src="{{ asset('dashboard/img/no-image.jpg') }}" alt="preview">
                                         <input type="file" class="form-control form-control-file" id="uploadImg2"
                                             name="uploadImg2" accept="image/*">
                                         <label for="uploadImg2" class="  label-input-file btn btn-black btn-round">
@@ -679,6 +692,7 @@
         let pendingTable = null;
         let approvedTable = null;
         let rejectedTable = null;
+        let deletedTable = null;
 
         $(function() {
             $("#pending").load("/admin/property/pending", function() {
@@ -689,6 +703,9 @@
             })
             $("#rejected").load("/admin/property/rejected", function() {
                 rejectedDataTable()
+            })
+            $("#deleted").load("/admin/property/deleted", function() {
+                deletedDataTable()
             })
 
             $(".tab-pane").hide()
@@ -706,6 +723,10 @@
             $("#tabRejected").click(function() {
                 showTab("rejected")
             })
+
+            $("#tabDeleted").click(function() {
+                showTab("deleted")
+            })
         })
 
 
@@ -722,6 +743,8 @@
                 approvedTable.ajax.reload(null, false);
             } else if (tableName == "rejected") {
                 rejectedTable.ajax.reload(null, false);
+            } else if (tableName == "deleted") {
+                deletedTable.ajax.reload(null, false);
             }
         }
 
@@ -831,11 +854,72 @@
             });
         }
 
-        function removeData(id, type) {
-            let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
+        function deletedDataTable(filter) {
+            let url = "/api/admin/property/datatable?status_data=deleted";
+            if (filter) url += '&' + filter;
+            deletedTable = $("#deletedDataTable").DataTable({
+                searching: true,
+                orderng: true,
+                lengthChange: true,
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                searchDelay: 1000,
+                paging: true,
+                lengthMenu: [5, 10, 25, 50, 100],
+                ajax: url,
+                columns: [{
+                    data: "action"
+                }, {
+                    data: "image"
+                }, {
+                    data: "custom_info"
+                }, {
+                    data: "custom_price"
+                }, {
+                    data: "custom_spec"
+                }, {
+                    data: "status_approval"
+                }, {
+                    data: "custom_status"
+                }, {
+                    data: "views"
+                }],
+                pageLength: 25,
+            });
+        }
+
+        function softDelete(id, oldStatus, newStatus) {
+            let c = confirm("Apakah anda yakin untuk memindahkan data ke daftar hapus ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/property/delete",
+                    url: "/api/admin/property/soft-delete",
+                    method: "DELETE",
+                    data: {
+                        id: id
+                    },
+                    beforeSend: function() {
+                        console.log("Loading...")
+                    },
+                    success: function(res) {
+                        refreshData(oldStatus);
+                        refreshData(newStatus);
+                        showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
+                    },
+                    error: function(err) {
+                        console.log("error :", err);
+                        showMessage("danger", "flaticon-error", "Peringatan", err.message || err.responseJSON
+                            ?.message);
+                    }
+                })
+            }
+        }
+
+        function hardDelete(id, type) {
+            let c = confirm("Apakah anda yakin untuk menghapus permanen data ini ?");
+            if (c) {
+                $.ajax({
+                    url: "/api/admin/property/hard-delete",
                     method: "DELETE",
                     data: {
                         id: id
@@ -845,6 +929,32 @@
                     },
                     success: function(res) {
                         refreshData(type);
+                        showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
+                    },
+                    error: function(err) {
+                        console.log("error :", err);
+                        showMessage("danger", "flaticon-error", "Peringatan", err.message || err.responseJSON
+                            ?.message);
+                    }
+                })
+            }
+        }
+
+        function restoreData(id, oldStatus, newStatus) {
+            let c = confirm("Apakah anda yakin untuk me-restore data ini ?");
+            if (c) {
+                $.ajax({
+                    url: "/api/admin/property/restore",
+                    method: "POST",
+                    data: {
+                        id: id
+                    },
+                    beforeSend: function() {
+                        console.log("Loading...")
+                    },
+                    success: function(res) {
+                        refreshData(oldStatus);
+                        refreshData(newStatus);
                         showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
                     },
                     error: function(err) {
@@ -884,6 +994,15 @@
                 rejectedTable.clear();
                 rejectedTable.destroy();
                 rejectedDataTable($.param(dataFilter))
+            } else if (tableName == "deleted") {
+                let dataFilter = {};
+                let inputFilter = $("#formFilterDeleted").serializeArray();
+                $.each(inputFilter, function(i, field) {
+                    dataFilter[field.name] = field.value;
+                });
+                deletedTable.clear();
+                deletedTable.destroy();
+                deletedDataTable($.param(dataFilter))
             }
         }
         // END DATA TABLE LOADED
@@ -891,7 +1010,7 @@
 
         // CRUD DATA PROPERTY
         function addData() {
-            $(".img-upload-preview").attr("src", "{{asset('dashboard/img/no-image.jpg')}}");
+            $(".img-upload-preview").attr("src", "{{ asset('dashboard/img/no-image.jpg') }}");
             $("#formEditable").attr('data-action', 'add').fadeIn(200, function() {
                 $("#form-title").html("TAMBAH PENGAJUAN")
                 $("#uploadImg2").attr("required", true);
@@ -905,7 +1024,7 @@
         }
 
         function closeForm() {
-            $(".img-upload-preview").attr("src", "{{asset('dashboard/img/no-image.jpg')}}");
+            $(".img-upload-preview").attr("src", "{{ asset('dashboard/img/no-image.jpg') }}");
             $("#reset").click();
             $("#formEditable").slideUp(200, function() {
                 $("#boxTable").addClass("col-md-12").fadeIn(200);
