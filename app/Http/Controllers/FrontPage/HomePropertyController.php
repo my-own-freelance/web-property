@@ -117,7 +117,7 @@ class HomePropertyController extends Controller
                 'transaction' => $property->PropertyTransaction ? $property->PropertyTransaction->name : null,
                 'image' => url("/") . Storage::url($property->image),
                 'url' => url('/') . '/cari-properti/view/' . $property['code'] . '/' . $property['slug'],
-                'youtube' => $property->youtube_code && $property->youtube_code != "" ? ("https://www.youtube.com/watch?v=" . $property->youtube_code) : null,
+                'youtube' => $property->youtube_code && $property->youtube_code != "" ?  $property->youtube_code : null,
                 'short_title' => $property->short_title,
                 'price' => $property->price,
                 'location' => $location,
@@ -175,6 +175,10 @@ class HomePropertyController extends Controller
 
         if ($property['maps_location'] && $property['maps_location'] != "") {
             $property['maps_preview'] = "<iframe src='" . $property["maps_location"] . "' allowfullscreen class='w-100' height='500'></iframe>";
+        }
+
+        if($property['youtube_code'] && $property['youtube_code'] != ""){
+            $property['embed_youtube_link'] = str_replace("/watch?v=", "/embed/", $property->youtube_code);
         }
 
         $property['contact_agen'] = 'https://api.whatsapp.com/send/?phone='
@@ -246,7 +250,7 @@ class HomePropertyController extends Controller
                     'transaction' => $similarProp->PropertyTransaction ? $similarProp->PropertyTransaction->name : null,
                     'image' =>  url("/") . Storage::url($similarProp->image),
                     'url' => url('/') . '/cari-properti/view/' . $similarProp['code'] . '/' . $similarProp['slug'],
-                    'youtube' => $similarProp->youtube_code && $similarProp->youtube_code != "" ? ("https://www.youtube.com/watch?v=" . $similarProp->youtube_code) : null,
+                    'youtube' => $similarProp->youtube_code && $similarProp->youtube_code != "" ? $similarProp->youtube_code : null,
                     'short_title' => $similarProp->short_title,
                     'price' => $similarProp->price,
                     'location' => $location,

@@ -171,7 +171,7 @@ class HomeAgenController extends Controller
                     'transaction' => $property->PropertyTransaction ? $property->PropertyTransaction->name : null,
                     'image' =>  url("/") . Storage::url($property->image),
                     'url' => url('/') . '/cari-properti/view/' . $property['code'] . '/' . $property['slug'],
-                    'youtube' => $property->youtube_code && $property->youtube_code != "" ? ("https://www.youtube.com/watch?v=" . $property->youtube_code) : null,
+                    'youtube' => $property->youtube_code && $property->youtube_code != "" ?  $property->youtube_code : null,
                     'short_title' => $property->short_title,
                     'price' => $property->price,
                     'location' => $location,

@@ -186,7 +186,7 @@
         </div>
 
         {{-- form pengajuan properti --}}
-        <div class="col-md-12" style="display: none" data-action="update" id="formEditable">
+        <div class="col-md-10" style="display: none" data-action="update" id="formEditable">
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
@@ -202,16 +202,14 @@
                     <form>
                         <input class="form-control" id="id" type="hidden" name="id" />
                         <div class="row">
-                            <div class="col-md-6 col-lg-4">
+                            <div class="col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <label for="short_title">Judul <span class="text-danger">*</span></label>
                                     <input class="form-control" id="short_title" type="text" name="short_title"
                                         placeholder="masukkan judul properti" required />
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8 col-lg-6">
+                            <div class="col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <label for="long_title">Judul Panjang <span class="text-danger">*</span></label>
                                     <input class="form-control" id="long_title" type="text" name="long_title"
@@ -220,44 +218,57 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4 col-lg-3">
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="price">Harga <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="price" type="number" min="1" name="price"
-                                        placeholder="masukkan harga" required />
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Rp</span>
+                                        </div>
+                                        <input class="form-control" id="price" type="text" min="1"
+                                            name="price" placeholder="masukkan harga" required />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-lg-3">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="price_per_meter">Harga/M<sup>2</sup></label>
-                                    <input class="form-control" id="price_per_meter" type="number" name="price_per_meter"
-                                        placeholder="masukkan harga per meter" />
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">Rp</span>
+                                        </div>
+                                        <input class="form-control" id="price_per_meter" type="text"
+                                            name="price_per_meter" placeholder="masukkan harga per meter" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3 col-lg-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="bedrooms">Kamar Tidur</label>
                                     <input class="form-control" id="bedrooms" type="number" name="bedrooms"
                                         placeholder="jumlah kamar tidur" />
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="bathrooms">Kamar Mandi</label>
                                     <input class="form-control" id="bathrooms" type="number" name="bathrooms"
                                         placeholder="jumlah kamar mandi" />
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="land_sale_area">L. Tanah m<sup>2</sup></label>
                                     <input class="form-control" id="land_sale_area" type="number" name="land_sale_area"
                                         placeholder="luas tanah" />
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="building_sale_area">L. Bangunan m<sup>2</sup></label>
                                     <input class="form-control" id="building_sale_area" type="number"
@@ -266,14 +277,14 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3 col-lg-2">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="electricity">Listrik (Watt)</label>
                                     <input class="form-control" id="electricity" type="number" name="electricity"
                                         placeholder="masukkan daya listrik" />
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-2">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="water">Sumber Air</label>
                                     <select class="form-control form-control" id="water" name="water">
@@ -285,7 +296,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-2">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="warranty">Garansi</label>
                                     <select class="form-control form-control" id="warranty" name="warranty">
@@ -297,43 +308,40 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4 col-lg-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="facilities">Fasilitas</label>
                                     <input class="form-control" id="facilities" type="text" name="facilities"
                                         placeholder="masukan fasilitas" />
                                 </div>
                             </div>
-                            <div class="col-md-4 col-lg-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="youtube">Link Video</label>
                                     <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"
-                                                id="link-addon">https://www.youtube.com/watch?v=</span>
-                                        </div>
-                                        <input type="text" class="form-control" placeholder="kode" aria-label="link"
-                                            aria-describedby="link-addon" id="youtube_code" name="youtube_code">
+                                        <input type="text" class="form-control" placeholder="link youtube video"
+                                            aria-label="link" aria-describedby="link-addon" id="youtube_code"
+                                            name="youtube_code">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3 col-lg-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="floor_material">Material Lantai</label>
                                     <input class="form-control" id="floor_material" type="text" name="floor_material"
                                         placeholder="masukan material lantai" />
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="building_material">Material Bangunan</label>
                                     <input class="form-control" id="building_material" type="text"
                                         name="building_material" placeholder="masukan material bangunan" />
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="orientation">Hadap</label>
                                     <input class="form-control" id="orientation" type="text" name="orientation"
@@ -342,7 +350,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3 col-lg-2">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="property_transaction_id">Tipe Transaksi <span
                                             class="text-danger">*</span></label>
@@ -352,7 +360,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-2">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="property_type_id">Tipe Properti <span class="text-danger">*</span></label>
                                     <select class="form-control form-control" id="property_type_id"
@@ -361,7 +369,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-2">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="property_certificate_id">Tipe Sertifikat <span
                                             class="text-danger">*</span></label>
@@ -373,7 +381,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3 col-lg-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="province_id">Provinsi <span class="text-danger">*</span></label>
                                     <select class="form-control form-control" id="province_id" name="province_id"
@@ -382,7 +390,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="district_id">Kabupaten <span class="text-danger">*</span></label>
                                     <select class="form-control form-control" id="district_id" name="district_id"
@@ -391,7 +399,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="sub_district_id">Kecamatan <span class="text-danger">*</span></label>
                                     <select class="form-control form-control" id="sub_district_id" name="sub_district_id"
@@ -402,7 +410,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="address">Alamat</label>
                                     <input class="form-control" id="address" type="text" name="address"
@@ -411,7 +419,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <div class="input-file input-file-image">
                                         <img class="img-upload-preview" width="300" src="http://placehold.it/150x150"
@@ -429,7 +437,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="form-group form-group-default">
                                     <label for="location">Link Embed Google Maps (hanya masukan link https saja)</label>
                                     <textarea class="form-control" id="maps_location" name="maps_location"
@@ -438,7 +446,7 @@
                             </div>
                         </div>
                         <div class="row ">
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="form-group form-group-default" id="maps_preview">
 
                                 </div>
@@ -657,11 +665,15 @@
 
         function formatToRupiah(amount) {
             return new Intl.NumberFormat('id-ID', {
-                style: 'currency',
+                // style: 'currency',
                 currency: 'IDR',
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 0
             }).format(amount);
+        }
+
+        function removeRupiahFormat(rupiah) {
+            return parseInt(rupiah.replace(/[^,\d]/g, ''), 10);
         }
 
         let pendingTable = null;
@@ -884,6 +896,7 @@
                 $("#form-title").html("TAMBAH PENGAJUAN")
                 $("#uploadImg2").attr("required", true);
                 $("#boxTable").slideUp(200)
+                $("#short_title").focus()
             })
             getProvinces()
             getPropTransaction()
@@ -942,8 +955,8 @@
                 $("#id").val(d.id);
                 $("#short_title").val(d.short_title);
                 $("#long_title").val(d.long_title);
-                $("#price").val(d.price);
-                $("#price_per_meter").val(d.price_per_meter);
+                $("#price").val(formatToRupiah(d.price));
+                if (d.price_per_meter) $("#price_per_meter").val(formatToRupiah(d.price_per_meter));
                 $("#bedrooms").val(d.bedrooms);
                 $("#bathrooms").val(d.bathrooms);
                 $("#land_sale_area").val(d.land_sale_area);
@@ -1005,9 +1018,9 @@
 
                 // load title
                 $("#det-short-title").html(data.short_title);
-                $("#det-price").html(formatToRupiah(data.price));
+                $("#det-price").html(`Rp. ${formatToRupiah(data.price)}`);
                 if (data.price_per_meter) {
-                    $("#det-price-per-meter").html(`${formatToRupiah(data.price_per_meter)}/m<sup>2</sup>`);
+                    $("#det-price-per-meter").html(`Rp. ${formatToRupiah(data.price_per_meter)}/m<sup>2</sup>`);
                 }
                 $("#det-long-title").html(data.long_title);
 
@@ -1121,6 +1134,7 @@
                 }
                 // VIDEO YOUTUBE VIEW
                 if (data.youtube_code && data.youtube_code != "") {
+                    let embedYoutube = data.youtube_code.replace("/watch?v=", "/embed/")
                     $(".wrapper-youtube").append(`
                     <hr>
                     <div class="row mt-3">
@@ -1130,7 +1144,7 @@
                                 <iframe 
                                     width="560" 
                                     height="315" 
-                                    src="https://www.youtube.com/embed/${data.youtube_code}" 
+                                    src="${embedYoutube}" 
                                     title="YouTube video player" 
                                     frameborder="0" 
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -1171,15 +1185,21 @@
                     </div>`)
         }
 
+        $('#price, #price_per_meter').on('keyup', function() {
+            let value = $(this).val().replace(/[^,\d]/g, '');
+            $(this).val(formatToRupiah(value));
+        });
+
+
         $("#formEditable form").submit(function(e) {
             e.preventDefault();
             let formData = new FormData();
             formData.append("id", parseInt($("#id").val()));
             formData.append("short_title", $("#short_title").val());
             formData.append("long_title", $("#long_title").val());
-            formData.append("price", parseInt($("#price").val()));
+            formData.append("price", removeRupiahFormat($('#price').val()));
 
-            if (!isNaN(parseInt($("#price_per_meter").val()))) {
+            if (!isNaN(removeRupiahFormat($('#price_per_meter').val()))) {
                 formData.append("price_per_meter", parseInt($("#price_per_meter").val()));
             }
             if (!isNaN(parseInt($("#bedrooms").val()))) {
@@ -1200,21 +1220,34 @@
 
             formData.append("water", $("#water").val());
             formData.append("warranty", $("#warranty").val());
-            formData.append("facilities", $("#facilities").val());
-            formData.append("youtube_code", $("#youtube_code").val());
+            formData
+                .append("facilities", $("#facilities").val());
+            formData.append("youtube_code", $("#youtube_code")
+                .val());
             formData.append("floor_material", $("#floor_material").val());
-            formData.append("building_material", $("#building_material").val());
+            formData.append(
+                "building_material", $(
+                    "#building_material").val());
             formData.append("orientation", $("#orientation").val());
 
             formData.append("property_transaction_id", parseInt($("#property_transaction_id").val()));
-            formData.append("property_type_id", parseInt($("#property_type_id").val()));
-            formData.append("property_certificate_id", parseInt($("#property_certificate_id").val()));
+            formData
+                .append(
+                    "property_type_id", parseInt($("#property_type_id").val()));
+            formData.append(
+                "property_certificate_id",
+                parseInt($("#property_certificate_id").val()));
 
             formData.append("province_id", parseInt($("#province_id").val()));
-            formData.append("district_id", parseInt($("#district_id").val()));
-            formData.append("sub_district_id", parseInt($("#sub_district_id").val()));
+            formData.append("district_id",
+                parseInt(
+                    $("#district_id").val()));
+            formData.append("sub_district_id", parseInt($("#sub_district_id")
+                .val()));
             formData.append("address", $("#address").val());
-            formData.append("image", document.getElementById("uploadImg2").files[0]);
+            formData.append("image", document
+                .getElementById(
+                    "uploadImg2").files[0]);
             formData.append("maps_location", $("#maps_location").val());
 
             formData.append("description", $("#summernote").summernote('code'));

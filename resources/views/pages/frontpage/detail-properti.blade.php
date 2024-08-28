@@ -219,11 +219,11 @@
                     </div>
 
 
-                    @if ($property->youtube_code && $property->youtube_code != '')
+                    @if ($property->embed_youtube_link && $property->embed_youtube_link != '')
                         <div class="floor-plan property wprt-image-video w50 pro">
                             <h5>Video Properti</h5>
                             <iframe width="100%" height="400"
-                                src="https://www.youtube.com/embed/{{ $property->youtube_code }}"
+                                src="{{ $property->embed_youtube_link }}"
                                 title="YouTube video player" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowfullscreen>
