@@ -42,9 +42,27 @@ class WebAuthController extends Controller
         return $this->authService->register($request, "web");
     }
 
+    function validateCaptcha($captchaResponse)
+    {
+        $secretKey = env('recaptcha2.secret');
+        $verifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
+
+        $response = file_get_contents($verifyUrl . '?secret=' . $secretKey . '&response=' . $captchaResponse);
+        $responseKeys = json_decode($response, true);
+        return $responseKeys;
+        return isset($responseKeys["success"]) && $responseKeys["success"] === true;
+    }
+
+
     public function validateLogin(Request $request)
     {
         try {
+            $captchaResponse = $request->input('g-recaptcha-response');
+
+            if (!$this->validateCaptcha($captchaResponse)) {
+                return response()->json(['message' => 'Captcha tidak valid.'], 422);
+            }
+
             $rules = [
                 "username" => "required|string",
                 "password" => "required|string",
@@ -100,7 +118,7 @@ class WebAuthController extends Controller
         Auth::logout();
         Cookie::queue(Cookie::forget("user"));
 
-        return redirect()->route('home');
+        return redirect()->route('login');
     }
 
     public function detail()
