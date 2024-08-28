@@ -422,7 +422,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <div class="input-file input-file-image">
-                                        <img class="img-upload-preview" width="300" src="http://placehold.it/150x150"
+                                        <img class="img-upload-preview" width="300" src="{{asset('dashboard/img/no-image.jpg')}}"
                                             alt="preview">
                                         <input type="file" class="form-control form-control-file" id="uploadImg2"
                                             name="uploadImg2" accept="image/*">
@@ -891,7 +891,7 @@
 
         // CRUD DATA PROPERTY
         function addData() {
-            $(".img-upload-preview").attr("src", "");
+            $(".img-upload-preview").attr("src", "{{asset('dashboard/img/no-image.jpg')}}");
             $("#formEditable").attr('data-action', 'add').fadeIn(200, function() {
                 $("#form-title").html("TAMBAH PENGAJUAN")
                 $("#uploadImg2").attr("required", true);
@@ -905,7 +905,7 @@
         }
 
         function closeForm() {
-            $(".img-upload-preview").attr("src", "");
+            $(".img-upload-preview").attr("src", "{{asset('dashboard/img/no-image.jpg')}}");
             $("#reset").click();
             $("#formEditable").slideUp(200, function() {
                 $("#boxTable").addClass("col-md-12").fadeIn(200);
