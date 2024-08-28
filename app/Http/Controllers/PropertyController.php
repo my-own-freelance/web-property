@@ -330,7 +330,7 @@ class PropertyController extends Controller
             }
 
             if ($property['maps_location'] && $property['maps_location'] != "") {
-                $property['maps_preview'] = "<iframe src='" . $property["maps_location"] . "' allowfullscreen class='w-100' height='500'></iframe>";
+                $property['maps_preview'] = "<iframe src='" . $property["maps_location"] . "' allowfullscreen class='w-100' height='350'></iframe>";
             }
 
             $property['contact_agen'] = 'https://api.whatsapp.com/send/?phone='
