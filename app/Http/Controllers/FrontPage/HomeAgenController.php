@@ -182,6 +182,7 @@ class HomeAgenController extends Controller
                     'agen' => $property->Agen->name,
                     'agen_image' => url("/") . Storage::url($property->Agen->image),
                     'whatsapp' => $whatsapp,
+                    'code' => $property->code
                 ];
             });
 
