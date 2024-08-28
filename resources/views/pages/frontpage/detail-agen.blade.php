@@ -132,52 +132,63 @@
                                                 <!-- homes content -->
                                                 <div class="homes-content">
                                                     <!-- homes address -->
-                                                    <h3>
-                                                        <a href="{{ $agenProp->url }}">{{ $agenProp->short_title }}</a>
-                                                        </h4>
-                                                        <p class="homes-address">
-                                                            <i
-                                                                class="fa fa-map-marker"></i><span>&nbsp;&nbsp;{{ $agenProp->location }}</span>
-                                                        </p>
-                                                        <!-- homes List -->
-                                                        <ul class="homes-list clearfix">
-                                                            @if ($agenProp->bedrooms)
-                                                                <li class="the-icons">
-                                                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                                                    <span>{{ $agenProp->bedrooms }} K. Tidur</span>
-                                                                </li>
-                                                            @endif
-
-                                                            @if ($agenProp->bathrooms)
-                                                                <li class="the-icons">
-                                                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                                                    <span>{{ $agenProp->bathrooms }} K. Mandi</span>
-                                                                </li>
-                                                            @endif
-
-                                                            @if ($agenProp->land_sale_area)
-                                                                <li class="the-icons">
-                                                                    <i class="fas fa-object-group " style="color: #c4c4c4;"
-                                                                        aria-hidden="true"></i>
-                                                                    <span>{{ $agenProp->land_sale_area }}m<sup>2</sup></span>
-                                                                </li>
-                                                            @endif
-
-                                                            @if ($agenProp->building_sale_area)
-                                                                <li class="the-icons">
-                                                                    <i class="fas fa-home" style="color: #c4c4c4;"
-                                                                        aria-hidden="true"></i>
-                                                                    <span>{{ $agenProp->building_sale_area }}m<sup>2</sup></span>
-                                                                </li>
-                                                            @endif
-                                                        </ul>
-                                                        <div class="price-agenPropes footer"
-                                                            style="padding-top: 0px !important;">
-                                                            <h3 class="title mt-3">
-                                                                <a href="{{ $agenProp->url }}">Rp.
-                                                                    {{ number_format($agenProp->price, 0, ',', '.') }}</a>
+                                                    <a href="{{ $agenProp->url }}"
+                                                        style="text-decoration: none; cursor: pointer;">
+                                                        <div style="height: 100px">
+                                                            <h3>
+                                                                {{ Illuminate\Support\Str::limit(strip_tags($agenProp->short_title), 35) }}
                                                             </h3>
+                                                            <p class="homes-address text-muted">
+                                                                <i class="fa fa-map-marker"></i>
+                                                                <span>&nbsp;&nbsp;{{ $agenProp->location }}</span>
+                                                                <br>
+                                                                <i class="fas fa-tag"></i>
+                                                                <span>&nbsp;{{ $agenProp->code }}</span>
+                                                            </p>
                                                         </div>
+                                                        <hr style="margin:2px 0px !important;">
+                                                        <!-- homes List -->
+                                                        <ul class="homes-list clearfix"
+                                                            style="height: 90px; padding-top: 0px !important;">
+                                                            <li class="the-icons">
+                                                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
+                                                                <span>
+                                                                    {{ $agenProp->bedrooms ? $agenProp->bedrooms : 0 }} K.
+                                                                    Tidur
+                                                                </span>
+                                                            </li>
+                                                            <li class="the-icons">
+                                                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
+                                                                <span>
+                                                                    {{ $agenProp->bathrooms ? $agenProp->bathrooms : 0 }}
+                                                                    K. Mandi
+                                                                </span>
+                                                            </li>
+                                                            <li class="the-icons">
+                                                                <i class="fas fa-object-group " style="color: #c4c4c4;"
+                                                                    aria-hidden="true"></i>
+                                                                <span>
+                                                                    {{ $agenProp->land_sale_area ? $agenProp->land_sale_area : 0 }}
+                                                                    m<sup>2</sup>
+                                                                </span>
+                                                            </li>
+                                                            <li class="the-icons">
+                                                                <i class="fas fa-home" style="color: #c4c4c4;"
+                                                                    aria-hidden="true"></i>
+                                                                <span>
+                                                                    {{ $agenProp->building_sale_area ? $agenProp->building_sale_area : 0 }}
+                                                                    m<sup>2</sup>
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+                                                    </a>
+                                                    <div class="price-agenPropes footer"
+                                                        style="padding-top: 0px !important;">
+                                                        <h3 class="title mt-3">
+                                                            <a href="{{ $agenProp->url }}">Rp.
+                                                                {{ number_format($agenProp->price, 0, ',', '.') }}</a>
+                                                        </h3>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

@@ -42,7 +42,7 @@
                                     </a>
                                     <div class="news-item-text">
                                         <a href="{{ $article->url }}">
-                                            <h3>{{ $article->title }}</h3>
+                                            <h3>{{ Illuminate\Support\Str::limit(strip_tags($article->title), 25) }}</h3>
                                         </a>
                                         <div class="dates">
                                             <span class="date">{{ $article->date }} &nbsp;/</span>

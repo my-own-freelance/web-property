@@ -70,6 +70,7 @@ class HomeController extends Controller
                     'agen_image' => url("/") . Storage::url($property->Agen->image),
                     'agen_url' => url('/') . '/cari-agen/view/' . $property->Agen->code,
                     'whatsapp' => $whatsapp,
+                    'code' => $property->code,
                 ];
             });
 
@@ -125,6 +126,7 @@ class HomeController extends Controller
                         'agen_image' => url("/") . Storage::url($property->Agen->image),
                         'agen_url' => url('/') . '/cari-agen/view/' . $property->Agen->code,
                         'whatsapp' => $whatsapp,
+                        'code' => $property->code,
                     ];
                 }),
             ];

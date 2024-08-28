@@ -222,8 +222,7 @@
                     @if ($property->embed_youtube_link && $property->embed_youtube_link != '')
                         <div class="floor-plan property wprt-image-video w50 pro">
                             <h5>Video Properti</h5>
-                            <iframe width="100%" height="400"
-                                src="{{ $property->embed_youtube_link }}"
+                            <iframe width="100%" height="400" src="{{ $property->embed_youtube_link }}"
                                 title="YouTube video player" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowfullscreen>
@@ -252,8 +251,8 @@
                                     <div class="sidebar-widget author-widget2">
                                         <div class="author-box clearfix">
                                             <a href="{{ $property->Agen->url }}" style="text-decoration: none">
-                                                <img src="{{ $property->Agen->image }}" style="object-fit: cover;" alt="author-image"
-                                                    class="author__img">
+                                                <img src="{{ $property->Agen->image }}" style="object-fit: cover;"
+                                                    alt="author-image" class="author__img">
                                                 <h4 class="author__title">{{ $property->Agen->name }}</h4>
                                                 <p class="author__meta">{{ $property->Agen->position }}</p>
                                             </a>
@@ -323,7 +322,7 @@
                     <h5>Properti Serupa</h5>
                     <div class="row portfolio-items">
                         @forelse ($similarProperties as $simProp)
-                            <div class="item col-lg-4 col-md-6 col-xs-12 landscapes">
+                            <div class="item col-lg-4 col-md-6 col-xs-12">
                                 <div class="project-single">
                                     <div class="project-inner project-head">
                                         <div class="homes">
@@ -332,7 +331,7 @@
                                                 <div class="homes-tag button alt featured">{{ $simProp->type }}</div>
                                                 <div class="homes-tag button alt sale">{{ $simProp->transaction }}</div>
                                                 <img src="{{ $simProp->image }}" alt="{{ $simProp->short_title }}"
-                                                    class="img-responsive">
+                                                    class="img-responsive" style="object-fit: cover;">
                                             </a>
                                         </div>
                                         <div class="button-effect">
@@ -348,46 +347,54 @@
                                     </div>
                                     <!-- homes content -->
                                     <div class="homes-content">
-                                        <!-- homes address -->
-                                        <h3><a href="single-property-1.html">{{ $simProp->short_title }}</a></h3>
-                                        <p class="homes-address mb-3">
-                                            <a href="single-property-1.html">
-                                                <i class="fa fa-map-marker"></i>
-                                                <span> &nbsp;&nbsp;{{ $simProp->location }}</span>
-                                            </a>
-                                        </p>
-                                        <!-- homes List -->
-                                        <ul class="homes-list clearfix">
-                                            @if ($simProp->bedrooms)
+                                        <a href="{{ $simProp->url }}" style="text-decoration: none; cursor: pointer;">
+                                            <div style="height: 100px">
+                                                <!-- homes address -->
+                                                <h3>
+                                                    {{ Illuminate\Support\Str::limit(strip_tags($simProp->short_title), 35) }}
+                                                </h3>
+                                                <p class="homes-address mb-3 text-muted">
+                                                    <i class="fa fa-map-marker"></i>
+                                                    <span> &nbsp;&nbsp;{{ $simProp->location }}</span>
+                                                    <br>
+                                                    <i class="fas fa-tag"></i>
+                                                    <span> &nbsp;{{ $simProp->code }}</span>
+                                                </p>
+                                            </div>
+                                            <hr style="margin:2px 0px !important;">
+                                            <!-- homes List -->
+                                            <ul class="homes-list clearfix"
+                                                style="height: 90px; padding-top: 0px !important;">
                                                 <li class="the-icons">
                                                     <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                                    <span>{{ $simProp->bedrooms }} K. Tidur</span>
+                                                    <span>
+                                                        {{ $simProp->bedrooms ? $simProp->bedrooms : 0 }} K. Tidur
+                                                    </span>
                                                 </li>
-                                            @endif
-
-                                            @if ($simProp->bathrooms)
                                                 <li class="the-icons">
                                                     <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                                    <span>{{ $simProp->bathrooms }} K. Mandi</span>
+                                                    <span>
+                                                        {{ $simProp->bathrooms ? $simProp->bathrooms : 0 }} K. Mandi
+                                                    </span>
                                                 </li>
-                                            @endif
-
-                                            @if ($simProp->land_sale_area)
                                                 <li class="the-icons">
                                                     <i class="fas fa-object-group " style="color: #c4c4c4;"
                                                         aria-hidden="true"></i>
-                                                    <span>{{ $simProp->land_sale_area }}m<sup>2</sup></span>
+                                                    <span>
+                                                        {{ $simProp->land_sale_area ? $simProp->land_sale_area : 0 }}
+                                                        m<sup>2</sup>
+                                                    </span>
                                                 </li>
-                                            @endif
-
-                                            @if ($simProp->building_sale_area)
                                                 <li class="the-icons">
                                                     <i class="fas fa-home" style="color: #c4c4c4;"
                                                         aria-hidden="true"></i>
-                                                    <span>{{ $simProp->building_sale_area }}m<sup>2</sup></span>
+                                                    <span>
+                                                        {{ $simProp->building_sale_area ? $simProp->building_sale_area : 0 }}
+                                                        m<sup>2</sup>
+                                                    </span>
                                                 </li>
-                                            @endif
-                                        </ul>
+                                            </ul>
+                                        </a>
                                         <div class="price-properties footer" style="padding-top: 0px !important;">
                                             <h3 class="title mt-3">
                                                 <a href="{{ $simProp->url }}">Rp.
@@ -396,7 +403,8 @@
                                         </div>
                                         <div class="footer" style="display: flex; justify-content: space-between;">
                                             <a href="#">
-                                                <img src="{{ $simProp->agen_image }}" alt="" class="mr-2">
+                                                <img src="{{ $simProp->agen_image }}" alt=""
+                                                    style="object-fit: cover" class="mr-2">
                                                 {{ $simProp->agen }}
                                             </a>
                                             <a href="{{ $simProp->whatsapp }}" class="mt-2" target="__blank">
@@ -406,14 +414,13 @@
                                     </div>
                                 </div>
                             </div>
+                        @empty
+                        @endforelse
                     </div>
-                @empty
-                    @endforelse
                 </div>
+            </section>
+            <!-- END SIMILAR PROPERTIES -->
         </div>
-    </section>
-    <!-- END SIMILAR PROPERTIES -->
-    </div>
     </section>
     <!-- END SECTION PROPERTIES LISTING -->
 

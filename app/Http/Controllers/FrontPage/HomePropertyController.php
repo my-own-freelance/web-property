@@ -129,6 +129,7 @@ class HomePropertyController extends Controller
                 'agen_image' => url("/") . Storage::url($property->Agen->image),
                 'agen_url' => url('/') . '/cari-agen/view/' . $property->Agen->code,
                 'whatsapp' => $whatsapp,
+                'code' => $property->code
             ];
         });
 
@@ -177,7 +178,7 @@ class HomePropertyController extends Controller
             $property['maps_preview'] = "<iframe src='" . $property["maps_location"] . "' allowfullscreen class='w-100' height='500'></iframe>";
         }
 
-        if($property['youtube_code'] && $property['youtube_code'] != ""){
+        if ($property['youtube_code'] && $property['youtube_code'] != "") {
             $property['embed_youtube_link'] = str_replace("/watch?v=", "/embed/", $property->youtube_code);
         }
 
@@ -261,6 +262,7 @@ class HomePropertyController extends Controller
                     'agen' => $similarProp->Agen->name,
                     'agen_image' => url("/") . Storage::url($similarProp->Agen->image),
                     'whatsapp' => $whatsapp,
+                    'code' => $similarProp->code
                 ];
             });
 

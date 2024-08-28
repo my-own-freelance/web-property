@@ -288,8 +288,9 @@
                             <div class="project-inner project-head">
                                 <div class="homes">
                                     <!-- homes img -->
-                                    <a href="single-property-1.html" class="homes-img">
-                                        <div class="homes-tag button alt featured">{{ $properti->transaction }}
+                                    <a href="{{ $properti->url }}" class="homes-img">
+                                        <div class="homes-tag button alt featured">
+                                            {{ $properti->transaction }}
                                         </div>
                                         <div class="homes-tag button alt sale">{{ $properti->type }}</div>
                                         <img src="{{ $properti->image }}" alt="{{ $properti->short_title }}"
@@ -312,59 +313,64 @@
                             </div>
                             <!-- homes content -->
                             <div class="homes-content">
-                                <!-- homes address -->
-                                <h3>
-                                    <a href="{{ $properti->url }}">{{ $properti->short_title }}</a></h4>
-                                    <p class="homes-address">
-                                        <i class="fa fa-map-marker"></i><span>&nbsp;&nbsp;{{ $properti->location }}</span>
-                                    </p>
-                                    <!-- homes List -->
-                                    <ul class="homes-list clearfix">
-                                        @if ($properti->bedrooms)
-                                            <li class="the-icons">
-                                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                                <span>{{ $properti->bedrooms }} K. Tidur</span>
-                                            </li>
-                                        @endif
-
-                                        @if ($properti->bathrooms)
-                                            <li class="the-icons">
-                                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                                <span>{{ $properti->bathrooms }} K. Mandi</span>
-                                            </li>
-                                        @endif
-
-                                        @if ($properti->land_sale_area)
-                                            <li class="the-icons">
-                                                <i class="fas fa-object-group " style="color: #c4c4c4;"
-                                                    aria-hidden="true"></i>
-                                                <span>{{ $properti->land_sale_area }}m<sup>2</sup></span>
-                                            </li>
-                                        @endif
-
-                                        @if ($properti->building_sale_area)
-                                            <li class="the-icons">
-                                                <i class="fas fa-home" style="color: #c4c4c4;" aria-hidden="true"></i>
-                                                <span>{{ $properti->building_sale_area }}m<sup>2</sup></span>
-                                            </li>
-                                        @endif
-                                    </ul>
-                                    <div class="price-properties footer">
-                                        <h3 class="title mt-3">
-                                            <a href="{{ $properti->url }}">Rp.
-                                                {{ number_format($properti->price, 0, ',', '.') }}</a>
+                                <a href="{{ $properti->url }}" style="text-decoration: none; cursor: pointer;">
+                                    <div style="height: 100px">
+                                        <!-- homes address -->
+                                        <h3>
+                                            {{ Illuminate\Support\Str::limit(strip_tags($properti->short_title), 35) }}
                                         </h3>
+                                        <p class="homes-address text-muted">
+                                            <i class="fa fa-map-marker"></i>
+                                            <span>&nbsp;&nbsp;{{ $properti->location }}</span>
+                                            <br>
+                                            <i class="fas fa-tag"></i>
+                                            <span>&nbsp;{{ $properti->code }}</span>
+                                        </p>
                                     </div>
-                                    <div class="footer" style="display: flex; justify-content: space-between;">
-                                        <a href="{{ $properti->agen_url }}">
-                                            <img src="{{ $properti->agen_image }}" alt=""
-                                                style="object-fit: cover;" class="mr-2">
-                                            {{ $properti->agen }}
-                                        </a>
-                                        <a href="{{ $properti->whatsapp }}" class="mt-2" target="__blank">
-                                            <i class="fa fa-whatsapp"></i> Hubungi Saya
-                                        </a>
-                                    </div>
+                                    <hr style="margin:2px 0px !important;">
+                                    <!-- homes List -->
+                                    <ul class="homes-list clearfix" style="height: 90px; padding-top: 0px !important;">
+                                        <li class="the-icons">
+                                            <i class="flaticon-bed mr-2" aria-hidden="true"></i>
+                                            <span>{{ $properti->bedrooms ? $properti->bedrooms : 0 }} K. Tidur</span>
+                                        </li>
+                                        <li class="the-icons">
+                                            <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
+                                            <span>{{ $properti->bathrooms ? $properti->bathrooms : 0 }} K. Mandi</span>
+                                        </li>
+                                        <li class="the-icons">
+                                            <i class="fas fa-object-group " style="color: #c4c4c4;"
+                                                aria-hidden="true"></i>
+                                            <span>
+                                                {{ $properti->land_sale_area ? $properti->land_sale_area : 0 }}
+                                                m<sup>2</sup>
+                                            </span>
+                                        </li>
+                                        <li class="the-icons">
+                                            <i class="fas fa-home" style="color: #c4c4c4;" aria-hidden="true"></i>
+                                            <span>
+                                                {{ $properti->building_sale_area ? $properti->building_sale_area : 0 }}
+                                                m<sup>2</sup>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </a>
+                                <div class="price-properties footer">
+                                    <h3 class="title mt-3">
+                                        <a href="{{ $properti->url }}">Rp.
+                                            {{ number_format($properti->price, 0, ',', '.') }}</a>
+                                    </h3>
+                                </div>
+                                <div class="footer" style="display: flex; justify-content: space-between;">
+                                    <a href="{{ $properti->agen_url }}">
+                                        <img src="{{ $properti->agen_image }}" alt="" style="object-fit: cover;"
+                                            class="mr-2">
+                                        {{ $properti->agen }}
+                                    </a>
+                                    <a href="{{ $properti->whatsapp }}" class="mt-2" target="__blank">
+                                        <i class="fa fa-whatsapp"></i> Hubungi Saya
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

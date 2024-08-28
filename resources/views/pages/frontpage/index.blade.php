@@ -292,70 +292,83 @@
                                         <div class="button-effect">
                                             <a href="{{ $popProp->url }}" class="btn"><i class="fa fa-link"></i></a>
                                             @if ($popProp->youtube)
-                                                <a href="{{ $popProp->youtube }}"
-                                                    class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
+                                                <a href="{{ $popProp->youtube }}" class="btn popup-video popup-youtube">
+                                                    <i class="fas fa-video"></i>
+                                                </a>
                                             @endif
-                                            <a href="{{ $popProp->url }}" class="img-poppu btn"><i
-                                                    class="fa fa-photo"></i></a>
+                                            <a href="{{ $popProp->url }}" class="img-poppu btn">
+                                                <i class="fa fa-photo"></i>
+                                            </a>
                                         </div>
                                     </div>
                                     <!-- homes content -->
                                     <div class="homes-content">
-                                        <!-- homes address -->
-                                        <h3>
-                                            <a href="{{ $popProp->url }}">{{ $popProp->short_title }}</a></h4>
-                                            <p class="homes-address">
-                                                <i
-                                                    class="fa fa-map-marker"></i><span>&nbsp;&nbsp;{{ $popProp->location }}</span>
-                                            </p>
-                                            <!-- homes List -->
-                                            <ul class="homes-list clearfix">
-                                                @if ($popProp->bedrooms)
-                                                    <li class="the-icons">
-                                                        <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                                        <span>{{ $popProp->bedrooms }} K. Tidur</span>
-                                                    </li>
-                                                @endif
-
-                                                @if ($popProp->bathrooms)
-                                                    <li class="the-icons">
-                                                        <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                                        <span>{{ $popProp->bathrooms }} K. Mandi</span>
-                                                    </li>
-                                                @endif
-
-                                                @if ($popProp->land_sale_area)
-                                                    <li class="the-icons">
-                                                        <i class="fas fa-object-group " style="color: #c4c4c4;"
-                                                            aria-hidden="true"></i>
-                                                        <span>{{ $popProp->land_sale_area }}m<sup>2</sup></span>
-                                                    </li>
-                                                @endif
-
-                                                @if ($popProp->building_sale_area)
-                                                    <li class="the-icons">
-                                                        <i class="fas fa-home" style="color: #c4c4c4;"
-                                                            aria-hidden="true"></i>
-                                                        <span>{{ $popProp->building_sale_area }}m<sup>2</sup></span>
-                                                    </li>
-                                                @endif
-                                            </ul>
-                                            <div class="price-properties footer" style="padding-top: 0px !important;">
-                                                <h3 class="title mt-3">
-                                                    <a href="{{ $popProp->url }}">Rp.
-                                                        {{ number_format($popProp->price, 0, ',', '.') }}</a>
+                                        <a href="{{ $popProp->url }}" style="text-decoration: none; cursor: pointer;">
+                                            <div style="height: 100px">
+                                                <!-- homes address -->
+                                                <h3>
+                                                    {{ Illuminate\Support\Str::limit(strip_tags($popProp->short_title), 35) }}
                                                 </h3>
+                                                <p class="homes-address text-muted">
+                                                    <i class="fa fa-map-marker"></i>
+                                                    <span>&nbsp;&nbsp;{{ $popProp->location }}</span>
+                                                    <br>
+                                                    <i class="fas fa-tag"></i>
+                                                    <span>&nbsp;{{ $popProp->code }}</span>
+                                                </p>
                                             </div>
-                                            <div class="footer" style="display: flex; justify-content: space-between;">
-                                                <a href="{{ $popProp->agen_url }}">
-                                                    <img src="{{ $popProp->agen_image }}" style="object-fit: cover;"
-                                                        alt="" class="mr-2">
-                                                    {{ $popProp->agen }}
-                                                </a>
-                                                <a href="{{ $popProp->whatsapp }}" class="mt-2" target="__blank">
-                                                    <i class="fa fa-whatsapp"></i> Hubungi Saya
-                                                </a>
-                                            </div>
+                                            <hr style="margin: 2px 0px !important;">
+                                            <!-- homes List -->
+                                            <ul class="homes-list clearfix"
+                                                style="height: 90px; padding-top: 0px !important;">
+                                                <li class="the-icons">
+                                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
+                                                    <span>
+                                                        {{ $popProp->bedrooms ? $popProp->bedrooms : 0 }} K. Tidur
+                                                    </span>
+                                                </li>
+                                                <li class="the-icons">
+                                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
+                                                    <span>
+                                                        {{ $popProp->bathrooms ? $popProp->bathrooms : 0 }} K.
+                                                        Mandi
+                                                    </span>
+                                                </li>
+                                                <li class="the-icons">
+                                                    <i class="fas fa-object-group " style="color: #c4c4c4;"
+                                                        aria-hidden="true"></i>
+                                                    <span>
+                                                        {{ $popProp->land_sale_area ? $popProp->land_sale_area : 0 }}
+                                                        m<sup>2</sup>
+                                                    </span>
+                                                </li>
+
+                                                <li class="the-icons">
+                                                    <i class="fas fa-home" style="color: #c4c4c4;"
+                                                        aria-hidden="true"></i>
+                                                    <span>
+                                                        {{ $popProp->building_sale_area ? $popProp->building_sale_area : 0 }}
+                                                        m<sup>2</sup>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </a>
+                                        <div class="price-properties footer" style="padding-top: 0px !important;">
+                                            <h3 class="title mt-3">
+                                                <a href="{{ $popProp->url }}">Rp.
+                                                    {{ number_format($popProp->price, 0, ',', '.') }}</a>
+                                            </h3>
+                                        </div>
+                                        <div class="footer" style="display: flex; justify-content: space-between;">
+                                            <a href="{{ $popProp->agen_url }}">
+                                                <img src="{{ $popProp->agen_image }}" style="object-fit: cover;"
+                                                    alt="" class="mr-2">
+                                                {{ $popProp->agen }}
+                                            </a>
+                                            <a href="{{ $popProp->whatsapp }}" class="mt-2" target="__blank">
+                                                <i class="fa fa-whatsapp"></i> Hubungi Saya
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -445,74 +458,88 @@
                                                 </a>
                                             </div>
                                             <div class="button-effect">
-                                                <a href="{{ $propData->url }}" class="btn"><i
-                                                        class="fa fa-link"></i></a>
+                                                <a href="{{ $propData->url }}" class="btn">
+                                                    <i class="fa fa-link"></i>
+                                                </a>
                                                 @if ($propData->youtube)
                                                     <a href="{{ $propData->youtube }}"
-                                                        class="btn popup-video popup-youtube"><i
-                                                            class="fas fa-video"></i></a>
+                                                        class="btn popup-video popup-youtube">
+                                                        <i class="fas fa-video"></i>
+                                                    </a>
                                                 @endif
-                                                <a href="{{ $propData->url }}" class="img-poppu btn"><i
-                                                        class="fa fa-photo"></i></a>
+                                                <a href="{{ $propData->url }}" class="img-poppu btn">
+                                                    <i class="fa fa-photo"></i>
+                                                </a>
                                             </div>
                                         </div>
                                         <!-- homes content -->
                                         <div class="homes-content">
-                                            <!-- homes address -->
-                                            <h3><a href="{{ $propData->url }}">{{ $propData->short_title }}</a></h4>
-                                                <p class="homes-address">
-                                                    <i
-                                                        class="fa fa-map-marker"></i><span>&nbsp;&nbsp;{{ $propData->location }}</span>
-                                                </p>
-                                                <!-- homes List -->
-                                                <ul class="homes-list clearfix">
-                                                    @if ($propData->bedrooms)
-                                                        <li class="the-icons">
-                                                            <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                                            <span>{{ $propData->bedrooms }} K. Tidur</span>
-                                                        </li>
-                                                    @endif
-
-                                                    @if ($propData->bathrooms)
-                                                        <li class="the-icons">
-                                                            <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                                            <span>{{ $propData->bathrooms }} K. Mandi</span>
-                                                        </li>
-                                                    @endif
-
-                                                    @if ($propData->land_sale_area)
-                                                        <li class="the-icons">
-                                                            <i class="fas fa-object-group " style="color: #c4c4c4;"
-                                                                aria-hidden="true"></i>
-                                                            <span>{{ $propData->land_sale_area }}m<sup>2</sup></span>
-                                                        </li>
-                                                    @endif
-
-                                                    @if ($propData->building_sale_area)
-                                                        <li class="the-icons">
-                                                            <i class="fas fa-home" style="color: #c4c4c4;"
-                                                                aria-hidden="true"></i>
-                                                            <span>{{ $propData->building_sale_area }}m<sup>2</sup></span>
-                                                        </li>
-                                                    @endif
-                                                </ul>
-                                                <div class="price-properties footer" style="padding-top: 0px !important;">
-                                                    <h3 class="title mt-3">
-                                                        <a href="{{ $propData->url }}">Rp.
-                                                            {{ number_format($propData->price, 0, ',', '.') }}</a>
+                                            <a href="{{ $propData->url }}"
+                                                style="text-decoration: none; cursor: pointer;">
+                                                <div style="height: 100px">
+                                                    <!-- homes address -->
+                                                    <h3>
+                                                        {{ Illuminate\Support\Str::limit(strip_tags($propData->short_title), 35) }}
                                                     </h3>
+                                                    <p class="homes-address text-muted">
+                                                        <i class="fa fa-map-marker"></i>
+                                                        <span>&nbsp;&nbsp;{{ $propData->location }}</span>
+                                                        <br>
+                                                        <i class="fas fa-tag"></i>
+                                                        <span>&nbsp;{{ $propData->code }}</span>
+                                                    </p>
+                                                    {{-- </a> --}}
                                                 </div>
-                                                <div class="footer"
-                                                    style="display: flex; justify-content: space-between;">
-                                                    <a href="{{ $propData->agen_url }}">
-                                                        <img src="{{ $propData->agen_image }}" alt=""
-                                                            style="object-fit: cover;" class="mr-2">
-                                                        {{ $propData->agen }}
-                                                    </a>
-                                                    <a href="{{ $propData->whatsapp }}" class="mt-2" target="__blank">
-                                                        <i class="fa fa-whatsapp"></i> Hubungi Saya
-                                                    </a>
-                                                </div>
+                                                <hr style="margin:2px 0px !important;">
+                                                <!-- homes List -->
+                                                <ul class="homes-list clearfix"
+                                                    style="height: 90px; padding-top: 0px !important;">
+                                                    <li class="the-icons">
+                                                        <i class="flaticon-bed mr-2" aria-hidden="true"></i>
+                                                        <span>
+                                                            {{ $propData->bedrooms ? $propData->bedrooms : 0 }} K. Tidur
+                                                        </span>
+                                                    </li>
+                                                    <li class="the-icons">
+                                                        <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
+                                                        <span>
+                                                            {{ $propData->bathrooms ? $propData->bathrooms : 0 }} K. Mandi
+                                                        </span>
+                                                    </li>
+                                                    <li class="the-icons">
+                                                        <i class="fas fa-object-group " style="color: #c4c4c4;"
+                                                            aria-hidden="true"></i>
+                                                        <span>
+                                                            {{ $propData->land_sale_area ? $propData->land_sale_area : 0 }}
+                                                            m<sup>2</sup>
+                                                        </span>
+                                                    </li>
+                                                    <li class="the-icons">
+                                                        <i class="fas fa-home" style="color: #c4c4c4;"
+                                                            aria-hidden="true"></i>
+                                                        <span>
+                                                            {{ $propData->building_sale_area ? $propData->building_sale_area : 0 }}
+                                                            m<sup>2</sup>
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </a>
+                                            <div class="price-properties footer" style="padding-top: 0px !important;">
+                                                <h3 class="title mt-3">
+                                                    <a href="{{ $propData->url }}">Rp.
+                                                        {{ number_format($propData->price, 0, ',', '.') }}</a>
+                                                </h3>
+                                            </div>
+                                            <div class="footer" style="display: flex; justify-content: space-between;">
+                                                <a href="{{ $propData->agen_url }}">
+                                                    <img src="{{ $propData->agen_image }}" alt=""
+                                                        style="object-fit: cover;" class="mr-2">
+                                                    {{ $propData->agen }}
+                                                </a>
+                                                <a href="{{ $propData->whatsapp }}" class="mt-2" target="__blank">
+                                                    <i class="fa fa-whatsapp"></i> Hubungi Saya
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -600,7 +627,7 @@
                                 </a>
                                 <div class="news-item-text">
                                     <a href="{{ $article->url }}">
-                                        <h3>{{ $article->title }}</h3>
+                                        <h3>{{ Illuminate\Support\Str::limit(strip_tags($article->title), 35) }}</h3>
                                     </a>
                                     <div class="dates">
                                         <span class="date">{{ $article->date }} &nbsp;/</span>
