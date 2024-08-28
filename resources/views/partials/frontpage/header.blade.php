@@ -62,20 +62,9 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="#">Pages</a>
-                            <ul>
-                                <li>
-                                    <a href="{{ route('agen.list') }}">Agen</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('article.list') }}">Artikel</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('faq.list') }}">Faq</a>
-                                </li>
-                            </ul>
-                        </li>
-
+                        <li><a href="{{ route('agen.list') }}">Agen</a></li>
+                        <li><a href="{{ route('article.list') }}">Artikel</a></li>
+                        <li><a href="{{ route('faq.list') }}">Faqs</a></li>
                         <li><a href="{{ route('contact.view') }}">Contact</a></li>
                         {{-- @guest
                             <li class="d-none d-xl-none d-block d-lg-block">
