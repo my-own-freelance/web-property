@@ -65,7 +65,7 @@
                             <p>FAQ</p>
                         </a>
                     </li>
-                    <li class="nav-item ml-3 {{ $routename == 'faq' ? 'active' : '' }}">
+                    <li class="nav-item ml-3 {{ $routename == 'reason-to-choose-us' ? 'active' : '' }}">
                         <a href="{{ route('reason-to-choose-us') }}">
                             <i class="fas fa-list"></i>
                             <p>Daftar Alasan</p>

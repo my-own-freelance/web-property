@@ -238,7 +238,7 @@ class ReviewController extends Controller
 
             $image = '<div class="thumbnail">
                         <div class="thumb">
-                            <img src="' . Storage::url($item->image) . '" alt="" width="300px" height="300px" 
+                            <img src="' . Storage::url($item->image) . '" alt="" width="200px" height="200px" 
                             class="img-fluid img-thumbnail" alt="' . $item->title . '">
                         </div>
                     </div>';
