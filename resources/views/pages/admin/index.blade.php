@@ -48,11 +48,32 @@
             <div class="col-6 col-sm-6 col-md-3">
                 <div class="card card-stats card-round">
                     <div class="card-body">
+                        <a href="{{ route('reason-to-choose-us') }}">
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="icon-big text-center">
+                                        <i class="flaticon-bars-2 text-danger"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 col-stats">
+                                    <div class="numbers">
+                                        <p class="card-category">Daftar Alasan</p>
+                                        <h4 class="card-title">{{ $reasons }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
                         <a href="{{ route('review') }}">
                             <div class="row">
                                 <div class="col-5">
                                     <div class="icon-big text-center">
-                                        <i class="flaticon-chat-5 text-warning"></i>
+                                        <i class="flaticon-chat-5 text-success"></i>
                                     </div>
                                 </div>
                                 <div class="col-7 col-stats">
@@ -73,7 +94,7 @@
                             <div class="row">
                                 <div class="col-5">
                                     <div class="icon-big text-center">
-                                        <i class="flaticon-envelope-1 text-secondary"></i>
+                                        <i class="flaticon-envelope-1 text-warning"></i>
                                     </div>
                                 </div>
                                 <div class="col-7 col-stats">

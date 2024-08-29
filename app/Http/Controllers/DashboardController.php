@@ -9,6 +9,7 @@ use App\Models\Property;
 use App\Models\PropertyCertificate;
 use App\Models\PropertyTransaction;
 use App\Models\PropertyType;
+use App\Models\ReasonToChooseUs;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,6 +33,7 @@ class DashboardController extends Controller
         $agens = 0;
         $reviews = 0;
         $contacts = 0;
+        $reasons = 0;
 
         if ($user->role == "agen") {
             $propPending = Property::where('agen_id', $user->id)->where('admin_approval', 'PENDING')->count();
@@ -50,6 +52,7 @@ class DashboardController extends Controller
             $agens = User::where("role", "agen")->count();
             $reviews = Review::count();
             $contacts = Contact::count();
+            $reasons = ReasonToChooseUs::count();
 
             $propPending = Property::where('admin_approval', 'PENDING')->count();
             $propApproved = Property::where('admin_approval', 'APPROVED')->count();
@@ -59,6 +62,6 @@ class DashboardController extends Controller
         }
 
 
-        return view("pages.admin.index", compact('title', 'user', 'propTransactions', 'propTypes', 'propCertificates', 'propAll', 'propPending', 'propApproved', 'propRejected', 'propDeleted', 'articles', 'faqs', 'agens', 'reviews', 'contacts'));
+        return view("pages.admin.index", compact('title', 'user', 'propTransactions', 'propTypes', 'propCertificates', 'propAll', 'propPending', 'propApproved', 'propRejected', 'propDeleted', 'articles', 'faqs', 'agens', 'reviews', 'contacts', 'reasons'));
     }
 }
