@@ -12,6 +12,7 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyImageController;
 use App\Http\Controllers\PropertyTranscationController;
 use App\Http\Controllers\PropertyTypeController;
+use App\Http\Controllers\ReasonToChooseUsController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebAuthController;
@@ -182,6 +183,16 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
             Route::get("datatable", [ContactController::class, "dataTable"]);
             Route::get("{id}/detail", [ContactController::class, "getDetail"]);
             Route::delete("delete", [ContactController::class, "destroy"]);
+        });
+
+        // ARTICLE
+        Route::group(["prefix" => "reason"], function () {
+            Route::get("datatable", [ReasonToChooseUsController::class, "dataTable"]);
+            Route::get("{id}/detail", [ReasonToChooseUsController::class, "getDetail"]);
+            Route::post("create", [ReasonToChooseUsController::class, "create"]);
+            Route::post("update", [ReasonToChooseUsController::class, "update"]);
+            Route::post("update-status", [ReasonToChooseUsController::class, "updateStatus"]);
+            Route::delete("delete", [ReasonToChooseUsController::class, "destroy"]);
         });
 
         Route::get("/{role}/datatable", [UserController::class, "dataTable"]);

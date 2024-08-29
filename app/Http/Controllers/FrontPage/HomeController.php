@@ -10,6 +10,7 @@ use App\Models\PropertyCertificate;
 use App\Models\PropertyTransaction;
 use App\Models\PropertyType;
 use App\Models\Province;
+use App\Models\ReasonToChooseUs;
 use App\Models\Review;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -132,9 +133,18 @@ class HomeController extends Controller
             ];
         });
 
+        $reasonToChooseUs = ReasonToChooseUs::where("is_publish", "Y")
+            ->orderBy("display_order", "asc")
+            ->get()
+            ->map(function ($reason) {
+                return (object)[
+                    'id' => $reason->id,
+                    'title' => $reason->title,
+                    'icon' => url('/') . Storage::url($reason->icon),
+                    'description' => $reason->description
+                ];
+            });
 
-
-        // dd($propertiesByTrx);
         $topDistricts = DB::table('districts')
             ->leftJoin('properties', 'districts.id', '=', 'properties.district_id')
             ->select('districts.id', 'districts.name', DB::raw('COUNT(properties.id) as total_property'))
@@ -176,6 +186,6 @@ class HomeController extends Controller
 
         $provinces = Province::orderBy("name", "asc")->get();
         // dd($propertiesByTrx);
-        return view("pages.frontpage.index", compact("title", "types", "transactions", "certificates", "propertiesByTrx", "popularProperties", "topDistricts", "reviews", "articles", "provinces"));
+        return view("pages.frontpage.index", compact("title", "types", "transactions", "certificates", "propertiesByTrx", "popularProperties", "reasonToChooseUs", "topDistricts", "reviews", "articles", "provinces"));
     }
 }

@@ -390,42 +390,20 @@
                 <p>Kami memberikan layanan penuh di setiap langkah.</p>
             </div>
             <div class="row service-1">
-                <article class="col-lg-4 col-md-6 col-xs-12 serv" data-aos="zoom-in" data-aos-delay="150">
-                    <div class="serv-flex">
-                        <div class="art-1 img-13">
-                            <img src="{{ asset('frontpage/images/icons/icon-12.svg') }}" alt="">
-                            <h3>Beragam Properti</h3>
+                @forelse ($reasonToChooseUs as $reason)
+                    <article class="col-lg-4 col-md-6 col-xs-12 serv" data-aos="zoom-in" data-aos-delay="150">
+                        <div class="serv-flex">
+                            <div class="art-1 img-13">
+                                <img src="{{ $reason->icon }}" alt="{{ $reason->title }}">
+                                <h3>{{ $reason->title }}</h3>
+                            </div>
+                            <div class="service-text-p">
+                                <p class="text-center">{{ $reason->description }}</p>
+                            </div>
                         </div>
-                        <div class="service-text-p">
-                            <p class="text-center">Temukan pilihan properti terbaik dari berbagai jenis dan lokasi yang
-                                cocok untuk kebutuhan dan gaya hidup Anda.</p>
-                        </div>
-                    </div>
-                </article>
-                <article class="col-lg-4 col-md-6 col-xs-12 serv" data-aos="zoom-in" data-aos-delay="250">
-                    <div class="serv-flex">
-                        <div class="art-1 img-14">
-                            <img src="{{ asset('frontpage/images/icons/icon-13.svg') }}" alt="">
-                            <h3>Dipercaya oleh ribuan orang</h3>
-                        </div>
-                        <div class="service-text-p">
-                            <p class="text-center">Ribuan pelanggan telah mempercayai kami sebagai mitra tepercaya dalam
-                                mewujudkan impian memiliki properti.</p>
-                        </div>
-                    </div>
-                </article>
-                <article class="col-lg-4 col-md-6 col-xs-12 serv mb-0 pt" data-aos="zoom-in" data-aos-delay="350">
-                    <div class="serv-flex arrow">
-                        <div class="art-1 img-15">
-                            <img src="{{ asset('frontpage/images/icons/icon-14.svg') }}" alt="">
-                            <h3>Pembiayaan menjadi mudah</h3>
-                        </div>
-                        <div class="service-text-p">
-                            <p class="text-center">Nikmati kemudahan pembiayaan dengan berbagai opsi yang fleksibel,
-                                menjadikan kepemilikan properti lebih terjangkau.</p>
-                        </div>
-                    </div>
-                </article>
+                    </article>
+                @empty
+                @endforelse
             </div>
         </div>
     </section>

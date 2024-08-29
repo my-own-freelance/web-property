@@ -16,6 +16,7 @@ use App\Http\Controllers\PropertyCertificateController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyTranscationController;
 use App\Http\Controllers\PropertyTypeController;
+use App\Http\Controllers\ReasonToChooseUsController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebAuthController;
@@ -64,6 +65,7 @@ Route::group(["middleware" => "auth:web", "prefix" => "admin"], function () {
         Route::get('/faq', [FaqController::class, 'index'])->name("faq");
         Route::get('/review', [ReviewController::class, 'index'])->name('review');
         Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+        Route::get('/reason', [ReasonToChooseUsController::class, 'index'])->name('reason-to-choose-us');
     });
 
     Route::group(["prefix" => "property"], function () {
