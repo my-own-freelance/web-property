@@ -42,10 +42,9 @@ class HomeArticleController extends Controller
                 ];
             });
 
-        $popular = Article::orderBy("id", "desc")
+        $popular = Article::orderBy("views", "desc")
             ->limit(3)
             ->where("is_publish", "Y")
-            ->orderBy("views", "desc")
             ->get()
             ->map(function ($article) {
                 return (object)[

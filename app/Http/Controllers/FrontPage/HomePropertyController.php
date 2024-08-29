@@ -269,6 +269,7 @@ class HomePropertyController extends Controller
         $recentProperties = Property::where("is_publish", "Y")
             ->where("admin_approval", "APPROVED")
             ->where("is_available", "Y")
+            ->where("code", "!=", $code)
             ->orderBy('id', 'desc')
             ->limit(3)
             ->get()
