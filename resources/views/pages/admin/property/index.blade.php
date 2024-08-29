@@ -255,14 +255,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="fBedrooms">
                                         <div class="form-group">
                                             <label for="bedrooms">Kamar Tidur</label>
                                             <input class="form-control" id="bedrooms" type="number" name="bedrooms"
                                                 placeholder="jumlah kamar tidur" />
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="fBathrooms">
                                         <div class="form-group">
                                             <label for="bathrooms">Kamar Mandi</label>
                                             <input class="form-control" id="bathrooms" type="number" name="bathrooms"
@@ -276,21 +276,21 @@
                                                 name="land_sale_area" placeholder="luas tanah" />
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="fBuildingSaleArea">
                                         <div class="form-group">
                                             <label for="building_sale_area">L. Bangunan m<sup>2</sup></label>
                                             <input class="form-control" id="building_sale_area" type="number"
                                                 name="building_sale_area" placeholder="luas bangunan" />
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="fElectricity">
                                         <div class="form-group">
                                             <label for="electricity">Listrik (Watt)</label>
                                             <input class="form-control" id="electricity" type="number"
                                                 name="electricity" placeholder="masukkan daya listrik" />
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="fFacility">
                                         <div class="form-group">
                                             <label for="facilities">Fasilitas</label>
                                             <input class="form-control" id="facilities" type="text" name="facilities"
@@ -307,21 +307,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="fFloorMaterial">
                                         <div class="form-group">
                                             <label for="floor_material">Material Lantai</label>
                                             <input class="form-control" id="floor_material" type="text"
                                                 name="floor_material" placeholder="masukan material lantai" />
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="fBuildingMaterial">
                                         <div class="form-group">
                                             <label for="building_material">Material Bangunan</label>
                                             <input class="form-control" id="building_material" type="text"
                                                 name="building_material" placeholder="masukan material bangunan" />
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="fOrientation">
                                         <div class="form-group">
                                             <label for="orientation">Hadap</label>
                                             <input class="form-control" id="orientation" type="text"
@@ -339,7 +339,7 @@
                             </div>
                             <div class="col-md-6 col-lg-6">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="fWater">
                                         <div class="form-group">
                                             <label for="water">Sumber Air</label>
                                             <select class="form-control form-control" id="water" name="water">
@@ -351,7 +351,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="fWarranty">
                                         <div class="form-group">
                                             <label for="warranty">Garansi</label>
                                             <select class="form-control form-control" id="warranty" name="warranty">
@@ -1009,6 +1009,10 @@
         }
 
         function closeForm() {
+            // show input after hide
+            filterShowOrHideInput("show")
+            // end show input after hide
+
             $(".img-upload-preview").attr("src", "{{ asset('dashboard/img/no-image.jpg') }}");
             $("#reset").click();
             $("#formEditable").slideUp(200, function() {
@@ -1293,6 +1297,42 @@
             let value = $(this).val().replace(/[^,\d]/g, '');
             $(this).val(formatToRupiah(value));
         });
+
+        // jika properti berupa tanah, lakukan filter input apa saja yg perlu di tampilkan
+        $("#property_type_id").change(function(e) {
+            let valueProperty = $("#property_type_id option:selected").text().toLowerCase();
+            if (valueProperty.includes("tanah")) {
+                filterShowOrHideInput("hide")
+            } else {
+                filterShowOrHideInput("show")
+            }
+        })
+
+        function filterShowOrHideInput(value) {
+            if (value == "show") {
+                $("#fBedrooms").show()
+                $("#fBathrooms").show()
+                $("#fBuildingSaleArea").show()
+                $("#fElectricity").show()
+                $("#fFacility").show()
+                $("#fFloorMaterial").show()
+                $("#fBuildingMaterial").show()
+                $("#fOrientation").show()
+                $("#fWater").show()
+                $("#fWarranty").show()
+            } else {
+                $("#fBedrooms").hide()
+                $("#fBathrooms").hide()
+                $("#fBuildingSaleArea").hide()
+                $("#fElectricity").hide()
+                $("#fFacility").hide()
+                $("#fFloorMaterial").hide()
+                $("#fBuildingMaterial").hide()
+                $("#fOrientation").hide()
+                $("#fWater").hide()
+                $("#fWarranty").hide()
+            }
+        }
 
 
         $("#formEditable form").submit(function(e) {
@@ -1737,7 +1777,7 @@
                     })
 
                     if (onDetail) {
-                        $("#property_type_id").val(id);
+                        $("#property_type_id").val(id).change(); // change agar merubah status show / hide input ketika valuenya tipe "tanah"
                     }
                 },
                 error: function(err) {
