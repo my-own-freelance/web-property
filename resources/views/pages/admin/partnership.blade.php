@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5 class="text-uppercase title">Review</h5>
+                        <h5 class="text-uppercase title">partnership</h5>
 
                     </div>
                     <div class="card-header-right">
@@ -27,19 +27,17 @@
                 </div>
                 <div class="card-block">
                     <div class="table-responsive mt-3">
-                        <table class="table table-striped table-bordered nowrap dataTable" id="reviewTable">
+                        <table class="table table-striped table-bordered nowrap dataTable" id="partnershipTable">
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
                                     <th class="all">Nama</th>
-                                    <th class="all">Alamat</th>
-                                    <th class="all">Review</th>
-                                    <th class="all">Foto Reviewer</th>
+                                    <th class="all">Gambar</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td colspan="5" class="text-center"><small>Tidak Ada Data</small></td>
+                                    <td colspan="3" class="text-center"><small>Tidak Ada Data</small></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -51,7 +49,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5>Tambah / Edit Review</h5>
+                        <h5>Tambah / Edit Data</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-sm btn-warning" onclick="return closeForm(this)" id="btnCloseForm">
@@ -65,20 +63,10 @@
                         <div class="form-group">
                             <label for="name">Nama</label>
                             <input class="form-control" id="name" type="text" name="name"
-                                placeholder="nama reviewer" required />
+                                placeholder="nama partner" required />
                         </div>
                         <div class="form-group">
-                            <label for="address">Alamat</label>
-                            <input class="form-control" id="address" type="text" name="address"
-                                placeholder="alamat reviewer" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="review">Review</label>
-                            <input class="form-control" id="review" type="text" name="review"
-                                placeholder="reveiw / ulasan" />
-                        </div>
-                        <div class="form-group">
-                            <label for="image">Foto Reviewer</label>
+                            <label for="image">Gambar Partnership</label>
                             <input class="form-control" id="image" type="file" name="image"
                                 placeholder="upload gambar" required />
                         </div>
@@ -107,8 +95,8 @@
         });
 
         function dataTable() {
-            const url = "/api/admin/review/datatable";
-            dTable = $('#reviewTable').DataTable({
+            const url = "/api/admin/partnership/datatable";
+            dTable = $('#partnershipTable').DataTable({
                 searching: true,
                 ordering: true,
                 lengthChange: true,
@@ -123,16 +111,6 @@
                     data: 'action',
                 }, {
                     data: 'name',
-                },{
-                    data: 'address',
-                }, {
-                    data: 'review',
-                    "render": function(data, type, row, meta) {
-                        if (type === 'display') {
-                            return `<div class="wrap-text">${data}</div>`;
-                        }
-                        return data;
-                    }
                 }, {
                     data: 'image',
                 }],
@@ -161,7 +139,7 @@
 
         function getData(id) {
             $.ajax({
-                url: `/api/admin/review/${id}/detail`,
+                url: `/api/admin/partnership/${id}/detail`,
                 method: "GET",
                 dataType: "json",
                 success: function(response) {
@@ -172,8 +150,6 @@
                         $("#image").removeAttr("required");
                         $("#id").val(d.id);
                         $("#name").val(d.name);
-                        $("#address").val(d.address);
-                        $("#review").val(d.review);
                     })
                 },
                 error: function(err) {
@@ -191,8 +167,6 @@
             let dataToSend = new FormData()
             dataToSend.append("id", parseInt($("#id").val()));
             dataToSend.append("name", $("#name").val());
-            dataToSend.append("address", $("#address").val());
-            dataToSend.append("review", $("#review").val());
             dataToSend.append("image", image);
 
             saveData(dataToSend, $("#formEditable").attr("data-action"));
@@ -201,7 +175,7 @@
 
         function saveData(data, action) {
             $.ajax({
-                url: action == "update" ? "/api/admin/review/update" : "/api/admin/review/create",
+                url: action == "update" ? "/api/admin/partnership/update" : "/api/admin/partnership/create",
                 contentType: false,
                 processData: false,
                 method: "POST",
@@ -227,7 +201,7 @@
             let c = confirm("Anda yakin ingin menghapus data ini ?")
             if (c) {
                 $.ajax({
-                    url: '/api/admin/review/delete',
+                    url: '/api/admin/partnership/delete',
                     data: {
                         id: id,
                     },

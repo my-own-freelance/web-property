@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomTemplateController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MobAuthController;
+use App\Http\Controllers\PartnershipController;
 use App\Http\Controllers\PropertyCertificateController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyImageController;
@@ -176,6 +177,15 @@ Route::group(["middleware" => "check.auth", "prefix" => "admin"], function () {
             Route::post("create", [ReviewController::class, "create"]);
             Route::post("update", [ReviewController::class, "update"]);
             Route::delete("delete", [ReviewController::class, "destroy"]);
+        });
+
+        // REVIEW
+        Route::group(["prefix" => "partnership"], function () {
+            Route::get("datatable", [PartnershipController::class, "dataTable"]);
+            Route::get("{id}/detail", [PartnershipController::class, "getDetail"]);
+            Route::post("create", [PartnershipController::class, "create"]);
+            Route::post("update", [PartnershipController::class, "update"]);
+            Route::delete("delete", [PartnershipController::class, "destroy"]);
         });
 
         // CONTACT

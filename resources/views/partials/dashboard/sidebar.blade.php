@@ -77,6 +77,12 @@
                             <p>Review</p>
                         </a>
                     </li>
+                    <li class="nav-item ml-3 {{ $routename == 'partnership' ? 'active' : '' }}">
+                        <a href="{{ route('partnership') }}">
+                            <i class="fas fa-hand-holding-heart"></i>
+                            <p>Partnership</p>
+                        </a>
+                    </li>
                     <li class="nav-item ml-3 {{ $routename == 'contact' ? 'active' : '' }}">
                         <a href="{{ route('contact') }}">
                             <i class="fas fa-envelope"></i>

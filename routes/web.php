@@ -12,6 +12,7 @@ use App\Http\Controllers\FrontPage\HomeContactController;
 use App\Http\Controllers\FrontPage\HomeController;
 use App\Http\Controllers\FrontPage\HomeFaqController;
 use App\Http\Controllers\FrontPage\HomePropertyController;
+use App\Http\Controllers\PartnershipController;
 use App\Http\Controllers\PropertyCertificateController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyTranscationController;
@@ -64,6 +65,7 @@ Route::group(["middleware" => "auth:web", "prefix" => "admin"], function () {
         Route::get('/article', [ArticleController::class, 'index'])->name("article");
         Route::get('/faq', [FaqController::class, 'index'])->name("faq");
         Route::get('/review', [ReviewController::class, 'index'])->name('review');
+        Route::get('/partnership', [PartnershipController::class, 'index'])->name('partnership');
         Route::get('/contact', [ContactController::class, 'index'])->name('contact');
         Route::get('/reason', [ReasonToChooseUsController::class, 'index'])->name('reason-to-choose-us');
     });

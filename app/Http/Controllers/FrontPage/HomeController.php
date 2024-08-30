@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontPage;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\District;
+use App\Models\Partnership;
 use App\Models\Property;
 use App\Models\PropertyCertificate;
 use App\Models\PropertyTransaction;
@@ -184,8 +185,16 @@ class HomeController extends Controller
             ];
         });
 
+        $partnerships = Partnership::orderBy("id", "asc")->get()->map(function ($partner) {
+            return (object) [
+                'id' => $partner->id,
+                'name' => $partner->name,
+                'image' => url("/") . Storage::url($partner->image)
+            ];
+        });
+
         $provinces = Province::orderBy("name", "asc")->get();
         // dd($propertiesByTrx);
-        return view("pages.frontpage.index", compact("title", "types", "transactions", "certificates", "propertiesByTrx", "popularProperties", "reasonToChooseUs", "topDistricts", "reviews", "articles", "provinces"));
+        return view("pages.frontpage.index", compact("title", "types", "transactions", "certificates", "propertiesByTrx", "popularProperties", "reasonToChooseUs", "topDistricts", "reviews", "articles", "partnerships", "provinces"));
     }
 }

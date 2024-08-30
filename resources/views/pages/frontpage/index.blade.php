@@ -640,36 +640,12 @@
                 <p>Perusahaan Partnet Kami</p>
             </div>
             <div class="owl-carousel style2">
-                <div class="owl-item" data-aos="fade-up"><img src="{{ asset('frontpage/images/partners/11.jpg') }}"
-                        alt="">
-                </div>
-                <div class="owl-item" data-aos="fade-up"><img src="{{ asset('frontpage/images/partners/12.jpg') }}"
-                        alt="">
-                </div>
-                <div class="owl-item" data-aos="fade-up"><img src="{{ asset('frontpage/images/partners/13.jpg') }}"
-                        alt="">
-                </div>
-                <div class="owl-item" data-aos="fade-up"><img src="{{ asset('frontpage/images/partners/14.jpg') }}"
-                        alt="">
-                </div>
-                <div class="owl-item" data-aos="fade-up"><img src="{{ asset('frontpage/images/partners/15.jpg') }}"
-                        alt="">
-                </div>
-                <div class="owl-item" data-aos="fade-up"><img src="{{ asset('frontpage/images/partners/16.jpg') }}"
-                        alt="">
-                </div>
-                <div class="owl-item" data-aos="fade-up"><img src="{{ asset('frontpage/images/partners/17.jpg') }}"
-                        alt="">
-                </div>
-                <div class="owl-item" data-aos="fade-up"><img src="{{ asset('frontpage/images/partners/11.jpg') }}"
-                        alt="">
-                </div>
-                <div class="owl-item" data-aos="fade-up"><img src="{{ asset('frontpage/images/partners/12.jpg') }}"
-                        alt="">
-                </div>
-                <div class="owl-item" data-aos="fade-up"><img src="{{ asset('frontpage/images/partners/13.jpg') }}"
-                        alt="">
-                </div>
+                @forelse ($partnerships as $partner)
+                    <div class="owl-item" data-aos="fade-up">
+                        <img src="{{ $partner->image }}" alt="{{ $partner->name }}">
+                    </div>
+                @empty
+                @endforelse
             </div>
         </div>
     </div>
