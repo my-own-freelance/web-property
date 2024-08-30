@@ -239,32 +239,34 @@ class PropertyController extends Controller
                         </div>
                     </div>';
 
-                $custom_available = $item->is_available == 'Y' ? '
-                    <div class="text-center mt-1">
-                        <span class="label-switch">For Sale</span>
-                    </div>
-                    <div class="input-row">
-                        <div class="toggle_status on">
-                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Sold\', \'' . $item->admin_approval . '\');" ' . $disabled . ' />
-                            <span class="slider"></span>
-                        </div>
-                    </div>' :
-                    '<div class="text-center mt-1">
-                        <span class="label-switch">Sold Out</span>
-                    </div>
-                    <div class="input-row">
-                        <div class="toggle_status off">
-                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'ForSale\', \'' . $item->admin_approval . '\');" ' . $disabled . ' />
-                            <span class="slider"></span>
-                        </div>
-                    </div>';
-                $item['custom_status'] = $custom_status . $custom_available;
+                // $custom_available = $item->is_available == 'Y' ? '
+                //     <div class="text-center mt-1">
+                //         <span class="label-switch">For Sale</span>
+                //     </div>
+                //     <div class="input-row">
+                //         <div class="toggle_status on">
+                //             <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Sold\', \'' . $item->admin_approval . '\');" ' . $disabled . ' />
+                //             <span class="slider"></span>
+                //         </div>
+                //     </div>' :
+                //     '<div class="text-center mt-1">
+                //         <span class="label-switch">Sold Out</span>
+                //     </div>
+                //     <div class="input-row">
+                //         <div class="toggle_status off">
+                //             <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'ForSale\', \'' . $item->admin_approval . '\');" ' . $disabled . ' />
+                //             <span class="slider"></span>
+                //         </div>
+                //     </div>';
+                // $item['custom_status'] = $custom_status . $custom_available;
+                $item['custom_status'] = $custom_status;
             }
 
             if ($user->role == "owner") {
                 $custom_status = $item->is_publish == 'Y' ? '<div class="badge badge-success">Published</div>' : '<div class="badge badge-warning">Draft</div>';
-                $custom_available = $item->is_available == 'Y' ? '<div class="badge badge-success">For Sale</div>' : '<div class="badge badge-warning">Sold Out</div>';
-                $item['custom_status'] = $custom_status . '<br></br>' . $custom_available;
+                // $custom_available = $item->is_available == 'Y' ? '<div class="badge badge-success">For Sale</div>' : '<div class="badge badge-warning">Sold Out</div>';
+                // $item['custom_status'] = $custom_status . '<br></br>' . $custom_available;
+                $item['custom_status'] = $custom_status;
             }
             return $item;
         });
