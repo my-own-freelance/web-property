@@ -53,6 +53,13 @@
                                 placeholder="masukkan tipe properti" required />
                         </div>
                         <div class="form-group">
+                            <label for="name">Jenis</label>
+                            <div>
+                                <input type="checkbox" id="is_land" name="is_land">
+                                <label for="is_land">Lahan Tanah</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <button class="btn btn-sm btn-primary" type="submit" id="submit">
                                 <i class="ti-save"></i><span>Simpan</span>
                             </button>
@@ -126,6 +133,8 @@
                         let d = res.data;
                         $("#id").val(d.id);
                         $("#name").val(d.name);
+                        d.is_land == "Y" ? $("#is_land").prop('checked', true) : $("#is_land").prop(
+                            'checked', false);
                     })
                 },
                 error: function(err) {
@@ -138,9 +147,12 @@
 
         $("#formEditable form").submit(function(e) {
             e.preventDefault();
+
+            let isLandChecked = $("#is_land").is(":checked");
             let formData = new FormData();
             formData.append("id", parseInt($("#id").val()));
             formData.append("name", $("#name").val());
+            formData.append("is_land", isLandChecked ? "Y" : "N");
 
             saveData(formData, $("#formEditable").attr("data-action"));
             return false;
@@ -148,8 +160,7 @@
 
         function saveData(data, action) {
             $.ajax({
-                url: action == "update" ? "/api/admin/property-type/update" :
-                    "/api/admin/property-type/create",
+                url: action == "update" ? "/api/admin/property-type/update" : "/api/admin/property-type/create",
                 contentType: false,
                 processData: false,
                 method: "POST",

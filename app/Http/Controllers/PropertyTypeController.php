@@ -88,10 +88,12 @@ class PropertyTypeController extends Controller
             $data = $request->all();
             $rules = [
                 "name" => "required|string",
+                "is_land" => "in:Y,N",
             ];
 
             $messages = [
                 "name.required" => "Nama Transaksi harus diisi",
+                "is_land.in" => "Staus Tanah tidak valid",
             ];
 
             $validator = Validator::make($data, $rules, $messages);
@@ -123,12 +125,14 @@ class PropertyTypeController extends Controller
             $rules = [
                 "id" => "required|integer",
                 "name" => "required|string",
+                "is_land" => "in:Y,N",
             ];
 
             $messages = [
                 "id.required" => "Data ID harus diisi",
                 "id.integer" => "Type ID tidak sesuai",
                 "name.required" => "Nama Transaksi harus diisi",
+                "is_land.in" => "Staus Tanah tidak valid",
             ];
 
             $validator = Validator::make($data, $rules, $messages);

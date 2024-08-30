@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('property_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->enum('is_land', ['Y', 'N'])->default('N');
             $table->timestamps();
             $table->softDeletes();
         });

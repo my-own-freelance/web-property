@@ -1014,6 +1014,7 @@
             // end show input after hide
 
             $(".img-upload-preview").attr("src", "{{ asset('dashboard/img/no-image.jpg') }}");
+            $("#maps_preview").empty();
             $("#reset").click();
             $("#formEditable").slideUp(200, function() {
                 $("#boxTable").addClass("col-md-12").fadeIn(200);
@@ -1229,7 +1230,6 @@
 
                 // MAPS PROPERTY
                 if (data.maps_location && data.maps_preview) {
-                    console.log("ada nih")
                     $(".wrapper-maps").append(`
                             <hr>
                             <div class="col-md-6">
@@ -1300,8 +1300,8 @@
 
         // jika properti berupa tanah, lakukan filter input apa saja yg perlu di tampilkan
         $("#property_type_id").change(function(e) {
-            let valueProperty = $("#property_type_id option:selected").text().toLowerCase();
-            if (valueProperty.includes("tanah")) {
+            let tipeOption = $("#property_type_id option:selected").data('tipe')
+            if (tipeOption == "Y") {
                 filterShowOrHideInput("hide")
             } else {
                 filterShowOrHideInput("show")
@@ -1344,7 +1344,7 @@
             formData.append("price", removeRupiahFormat($('#price').val()));
 
             if (!isNaN(removeRupiahFormat($('#price_per_meter').val()))) {
-                formData.append("price_per_meter", parseInt($("#price_per_meter").val()));
+                formData.append("price_per_meter", removeRupiahFormat($("#price_per_meter").val()));
             }
             if (!isNaN(parseInt($("#bedrooms").val()))) {
                 formData.append("bedrooms", parseInt($("#bedrooms").val()));
@@ -1770,14 +1770,16 @@
                 success: function(res) {
                     // update input form
                     $("#property_type_id").empty();
-                    $('#property_type_id').append("<option value =''>Pilih</option > ");
+                    $('#property_type_id').append("<option data-tipe='' value =''>Pilih</option > ");
                     $.each(res.data, function(index, r) {
-                        $('#property_type_id').append("<option value = '" + r.id + "' > " + r
+                        $('#property_type_id').append("<option data-tipe= '" + r.is_land +
+                            "' value = '" + r.id + "' > " + r
                             .name + " </option > ");
                     })
 
                     if (onDetail) {
-                        $("#property_type_id").val(id).change(); // change agar merubah status show / hide input ketika valuenya tipe "tanah"
+                        $("#property_type_id").val(id)
+                            .change(); // change agar merubah status show / hide input ketika valuenya tipe "tanah"
                     }
                 },
                 error: function(err) {
