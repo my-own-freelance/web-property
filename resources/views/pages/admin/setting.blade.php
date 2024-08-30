@@ -42,7 +42,13 @@
                         <input type="hidden" name="id" id="id">
                         <div class="tab-pane active" id="countinformation" (role="tabpanel")>
                             <div class="row mt-3 mb-5">
-                                <div class="col-md-3"></div>
+                                <div class="col-md-3">
+                                    <div class=" mb-3" id="metaImage">
+                                        <img src="{{ asset('frontpage/images/mockup-depan.jpg') }}"
+                                            style="object-fit: cover; width: 65%" alt="Main Meta Image" class="">
+                                    </div>
+                                    <h1>Main Meta Image</h1>
+                                </div>
                                 <div class="col-md-3 logo-container">
                                     <div class="avatar avatar-xxl mb-3" id="imageLogo">
                                         <img src="{{ asset('frontpage/images/logo-purple.svg') }}" alt="Logo Full Color"
@@ -51,7 +57,8 @@
                                     <h1>Logo Full Color</h1>
                                 </div>
                                 <div class="col-md-3 logo-container">
-                                    <div class="avatar avatar-xxl mb-3" id="imageLogoWhite" style="background-color: #000; padding: 10px;">
+                                    <div class="avatar avatar-xxl mb-3" id="imageLogoWhite"
+                                        style="background-color: #000; padding: 10px;">
                                         <img src="{{ asset('frontpage/images/logo-white-1.svg') }}" alt="Logo Putih"
                                             class="avatar-img rounded-circle">
                                     </div>
@@ -105,57 +112,69 @@
                                 </div>
                             </div>
                             <div class="row mt-3">
-                                <div class="col-md-3">
-                                    <div class="form-group form-group-default">
-                                        <label>Youtube</label>
-                                        <input type="text" class="form-control" id="youtube" name="youtube"
-                                            placeholder="Link Youtube">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group form-group-default">
-                                        <label>Alamat</label>
-                                        <input type="text" class="form-control" id="address" name="address"
-                                            placeholder="Alamat">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group form-group-default">
-                                        <label>Logo (Full Color)</label>
-                                        <input class="form-control" id="web_logo" type="file" name="web_logo"
-                                            placeholder="upload logo berwarna" />
-                                        <small class="text-danger">Max ukuran 1MB</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group form-group-default">
-                                        <label>Logo (Putih)</label>
-                                        <input class="form-control" id="web_logo_white" type="file"
-                                            name="web_logo_white" placeholder="upload logo putih" />
-                                        <small class="text-danger">Max ukuran 1MB</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
                                 <div class="col-md-6">
-                                    <div class="form-group form-group-default">
-                                        <label for="location">Link Embed Google Maps (hanya masukan link https
-                                            saja)</label>
-                                        <textarea class="form-control" id="maps_location" name="maps_location style="width:100%""
-                                            placeholder="https://www.google.com/maps/embed?" rows="5"></textarea>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default">
+                                                <label>Youtube</label>
+                                                <input type="text" class="form-control" id="youtube" name="youtube"
+                                                    placeholder="Link Youtube">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default">
+                                                <label>Alamat</label>
+                                                <input type="text" class="form-control" id="address" name="address"
+                                                    placeholder="Alamat">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group form-group-default">
+                                                <label for="location">Link Embed Google Maps (hanya masukan link https
+                                                    saja)</label>
+                                                <textarea class="form-control" id="maps_location" name="maps_location style="width:100%""
+                                                    placeholder="https://www.google.com/maps/embed?" rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group form-group-default" id="maps_preview">
+        
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group form-group-default">
-                                        <label>Deskripsi Web/Aplikasi</label>
-                                        <textarea class="form-control" name="web_description" id="web_description" rows="5" style="width:100%"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md-6">
-                                    <div class="form-group form-group-default" id="maps_preview">
-
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default">
+                                                <label>Main Meta Image</label>
+                                                <input class="form-control" id="meta_image" type="file"
+                                                    name="meta_image" placeholder="upload meta image" />
+                                                <small class="text-danger">Max ukuran 1MB</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default">
+                                                <label>Logo (Full Color)</label>
+                                                <input class="form-control" id="web_logo" type="file"
+                                                    name="web_logo" placeholder="upload logo berwarna" />
+                                                <small class="text-danger">Max ukuran 1MB</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default">
+                                                <label>Logo (Putih)</label>
+                                                <input class="form-control" id="web_logo_white" type="file"
+                                                    name="web_logo_white" placeholder="upload logo putih" />
+                                                <small class="text-danger">Max ukuran 1MB</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group form-group-default">
+                                                <label>Deskripsi Web/Aplikasi</label>
+                                                <textarea class="form-control" name="web_description" id="web_description" rows="5" style="width:100%"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -193,6 +212,7 @@
             formData.append("maps_location", $("#maps_location").val());
             formData.append("web_logo", document.getElementById("web_logo").files[0]);
             formData.append("web_logo_white", document.getElementById("web_logo_white").files[0]);
+            formData.append("meta_image", document.getElementById("meta_image").files[0]);
 
             createAndUpdate(formData);
             return false;
@@ -224,6 +244,9 @@
                     }
                     if (d.web_logo_white) {
                         $('#imageLogoWhite img').attr('src', d.web_logo_white);
+                    }
+                    if (d.meta_image) {
+                        $('#metaImage img').attr('src', d.meta_image);
                     }
 
                 },

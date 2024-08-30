@@ -35,6 +35,12 @@ class CustomTemplateController extends Controller
                 $customTemplate["web_description"] = "Situs Jual Beli Properti Terbaik";
             }
 
+            if ($customTemplate->meta_image) {
+                $customTemplate['meta_image'] =  url("/") . Storage::url($customTemplate->meta_image);
+            } else {
+                $customTemplate['meta_image'] = asset('frontpage/images/mockup-depan.jpg');
+            }
+
             if ($customTemplate->web_logo) {
                 $customTemplate['web_logo'] =  url("/") . Storage::url($customTemplate->web_logo);
             } else {
@@ -67,10 +73,15 @@ class CustomTemplateController extends Controller
     {
         $data = $request->all();
         unset($data['id']);
+        unset($data["meta_image"]);
         unset($data["web_logo"]);
         unset($data["web_logo_white"]);
         $existCustomData = CustomTemplate::first();
         if (!$existCustomData) {
+            if ($request->file("meta_image")) {
+                $data["meta_image"] = $request->file("meta_image")->store("assets/setting", "public");
+            }
+
             if ($request->file("web_logo")) {
                 $data["web_logo"] = $request->file("web_logo")->store("assets/setting", "public");
             }
@@ -84,6 +95,14 @@ class CustomTemplateController extends Controller
                 "status" => 200,
                 "message" => "Setting Web berhasil diubah"
             ]);
+        }
+
+        if ($request->file("meta_image")) {
+            $oldImagePath = "public/" . $existCustomData->meta_image;
+            if (Storage::exists($oldImagePath)) {
+                Storage::delete($oldImagePath);
+            }
+            $data["meta_image"] = $request->file("meta_image")->store("assets/setting", "public");
         }
 
         if ($request->file("web_logo")) {

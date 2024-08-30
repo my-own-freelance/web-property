@@ -2,6 +2,10 @@
     $routename = request()->route()->getName();
     $template = \App\Models\CustomTemplate::first();
     $webTitle = $template && $template->web_title ? $template->web_title : 'Web Properti';
+    $metaImage =
+        $template && $template->meta_image
+            ? url('/') . Storage::url($template->meta_image)
+            : asset('frontpage/images/mockup-depan.jpg');
     $webLogo =
         $template && $template->web_logo
             ? url('/') . Storage::url($template->web_logo)
@@ -32,7 +36,7 @@
     <meta property="title" content="{{ $webTitle }}" />
     <meta name="description" content="{{ $webDesciption }}" />
     <meta name="keywords" content="{{ $webTitle }}" />
-    <meta property="og:image" content="{{ asset('frontpage/images/mockup-depan.jpg') }}" />
+    <meta property="og:image" content="{{ $metaImage }}" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta property="og:url" content="{{ request()->url() }}">
     <meta property="og:site_name" content="{{ $webTitle }}">

@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
             $table->string('youtube')->nullable();
+            $table->string('meta_image')->nullable();
             $table->longText('web_description')->nullable();
             $table->longText('maps_location')->nullable();
             $table->timestamps();
