@@ -199,7 +199,7 @@
         </div>
 
         {{-- form pengajuan properti --}}
-        <div class="col-md-10" style="display: none" data-action="update" id="formEditable">
+        <div class="col-md-12" style="display: none" data-action="update" id="formEditable">
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
@@ -214,24 +214,145 @@
                 <div class="card-block">
                     <form>
                         <input class="form-control" id="id" type="hidden" name="id" />
-                        <div class="row">
-                            <div class="col-md-6 col-lg-6">
+
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h5 id="form-title">Informasi Umum</h5>
+                            </div>
+                            <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="short_title">Judul <span class="text-danger">*</span></label>
-                                            <input class="form-control" id="short_title" type="text" name="short_title"
-                                                placeholder="masukkan judul properti" required />
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="short_title">Judul <span
+                                                            class="text-danger">*</span></label>
+                                                    <input class="form-control" id="short_title" type="text"
+                                                        name="short_title" placeholder="masukkan judul properti" required />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="long_title">Judul Panjang <span
+                                                            class="text-danger">*</span></label>
+                                                    <input class="form-control" id="long_title" type="text"
+                                                        name="long_title" placeholder="masukkan judul lengkap properti"
+                                                        required />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="long_title">Judul Panjang <span class="text-danger">*</span></label>
-                                            <input class="form-control" id="long_title" type="text" name="long_title"
-                                                placeholder="masukkan judul lengkap properti" required />
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="input-file input-file-image">
+                                                        <img class="img-upload-preview" width="200"
+                                                            src="{{ asset('dashboard/img/no-image.jpg') }}" alt="preview">
+                                                        <input type="file" class="form-control form-control-file"
+                                                            id="uploadImg2" name="uploadImg2" accept="image/*">
+                                                        <label for="uploadImg2"
+                                                            class="  label-input-file btn btn-black btn-round">
+                                                            <span class="btn-label">
+                                                                <i class="fa fa-file-image"></i>
+                                                            </span>
+                                                            Upload Gambar
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group form-group-default">
+                                                    <label for="location">Link Embed Google Maps (hanya masukan
+                                                        link https)</label>
+                                                    <textarea class="form-control" id="maps_location" name="maps_location"
+                                                        placeholder="https://www.google.com/maps/embed?" rows="10"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group form-group-default" id="maps_preview">
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h5 id="form-title">Golongan</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="property_transaction_id">Tipe Transaksi <span
+                                                    class="text-danger">*</span></label>
+                                            <select class="form-control form-control" id="property_transaction_id"
+                                                name="property_transaction_id" required>
+                                                <option value = "">Pilih</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="property_type_id">Tipe Properti <span
+                                                    class="text-danger">*</span></label>
+                                            <select class="form-control form-control" id="property_type_id"
+                                                name="property_type_id" required>
+                                                <option value = "">Pilih</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="property_certificate_id">Tipe Sertifikat <span
+                                                    class="text-danger">*</span></label>
+                                            <select class="form-control form-control" id="property_certificate_id"
+                                                name="property_certificate_id" required>
+                                                <option value = "">Pilih</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" id="fWarranty">
+                                        <div class="form-group">
+                                            <label for="warranty">Garansi</label>
+                                            <select class="form-control form-control" id="warranty" name="warranty">
+                                                <option value="">Pilih</option>
+                                                <option value="Y">Ya</option>
+                                                <option value="N">Tidak</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h5 id="form-title">Spesifikasi</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="land_sale_area">L. Tanah m<sup>2</sup></label>
+                                            <input class="form-control" id="land_sale_area" type="number"
+                                                name="land_sale_area" placeholder="luas tanah" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" id="fBuildingSaleArea">
+                                        <div class="form-group">
+                                            <label for="building_sale_area">L. Bangunan m<sup>2</sup></label>
+                                            <input class="form-control" id="building_sale_area" type="number"
+                                                name="building_sale_area" placeholder="luas bangunan" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="price">Harga <span class="text-danger">*</span></label>
                                             <div class="input-group mb-3">
@@ -243,7 +364,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="price_per_meter">Harga/M<sup>2</sup></label>
                                             <div class="input-group mb-3">
@@ -255,91 +376,56 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6" id="fBedrooms">
+                                    <div class="col-md-3" id="fBedrooms">
                                         <div class="form-group">
                                             <label for="bedrooms">Kamar Tidur</label>
                                             <input class="form-control" id="bedrooms" type="number" name="bedrooms"
                                                 placeholder="jumlah kamar tidur" />
                                         </div>
                                     </div>
-                                    <div class="col-md-6" id="fBathrooms">
+                                    <div class="col-md-3" id="fBathrooms">
                                         <div class="form-group">
                                             <label for="bathrooms">Kamar Mandi</label>
                                             <input class="form-control" id="bathrooms" type="number" name="bathrooms"
                                                 placeholder="jumlah kamar mandi" />
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="land_sale_area">L. Tanah m<sup>2</sup></label>
-                                            <input class="form-control" id="land_sale_area" type="number"
-                                                name="land_sale_area" placeholder="luas tanah" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6" id="fBuildingSaleArea">
-                                        <div class="form-group">
-                                            <label for="building_sale_area">L. Bangunan m<sup>2</sup></label>
-                                            <input class="form-control" id="building_sale_area" type="number"
-                                                name="building_sale_area" placeholder="luas bangunan" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6" id="fElectricity">
+                                    <div class="col-md-3" id="fElectricity">
                                         <div class="form-group">
                                             <label for="electricity">Listrik (Watt)</label>
                                             <input class="form-control" id="electricity" type="number"
                                                 name="electricity" placeholder="masukkan daya listrik" />
                                         </div>
                                     </div>
-                                    <div class="col-md-6" id="fFacility">
+                                    <div class="col-md-3" id="fFacility">
                                         <div class="form-group">
                                             <label for="facilities">Fasilitas</label>
                                             <input class="form-control" id="facilities" type="text" name="facilities"
                                                 placeholder="masukan fasilitas" />
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="youtube">Link Video</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control"
-                                                    placeholder="link youtube video" aria-label="link"
-                                                    aria-describedby="link-addon" id="youtube_code" name="youtube_code">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6" id="fFloorMaterial">
-                                        <div class="form-group">
-                                            <label for="floor_material">Material Lantai</label>
-                                            <input class="form-control" id="floor_material" type="text"
-                                                name="floor_material" placeholder="masukan material lantai" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6" id="fBuildingMaterial">
-                                        <div class="form-group">
-                                            <label for="building_material">Material Bangunan</label>
-                                            <input class="form-control" id="building_material" type="text"
-                                                name="building_material" placeholder="masukan material bangunan" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6" id="fOrientation">
+                                    <div class="col-md-3" id="fOrientation">
                                         <div class="form-group">
                                             <label for="orientation">Hadap</label>
                                             <input class="form-control" id="orientation" type="text"
                                                 name="orientation" placeholder="masukan arah hadap bangunan" />
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-3" id="fFloorMaterial">
                                         <div class="form-group">
-                                            <label for="address">Alamat</label>
-                                            <input class="form-control" id="address" type="text" name="address"
-                                                placeholder="masukan alamat" />
+                                            <label for="floor_material">Material Lantai</label>
+                                            <input class="form-control" id="floor_material" type="text"
+                                                name="floor_material" placeholder="masukan material lantai" />
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6">
-                                <div class="row">
-                                    <div class="col-md-6" id="fWater">
+                                    <div class="col-md-3" id="fBuildingMaterial">
+                                        <div class="form-group">
+                                            <label for="building_material">Material Bangunan</label>
+                                            <input class="form-control" id="building_material" type="text"
+                                                name="building_material" placeholder="masukan material bangunan" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" id="fWater">
                                         <div class="form-group">
                                             <label for="water">Sumber Air</label>
                                             <select class="form-control form-control" id="water" name="water">
@@ -351,47 +437,28 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6" id="fWarranty">
+                                    <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="warranty">Garansi</label>
-                                            <select class="form-control form-control" id="warranty" name="warranty">
-                                                <option value="">Pilih</option>
-                                                <option value="Y">Ya</option>
-                                                <option value="N">Tidak</option>
-                                            </select>
+                                            <label for="youtube">Link Video</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="link youtube video" aria-label="link"
+                                                    aria-describedby="link-addon" id="youtube_code" name="youtube_code">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="property_transaction_id">Tipe Transaksi <span
-                                                    class="text-danger">*</span></label>
-                                            <select class="form-control form-control" id="property_transaction_id"
-                                                name="property_transaction_id" required>
-                                                <option value = "">Pilih</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="property_type_id">Tipe Properti <span
-                                                    class="text-danger">*</span></label>
-                                            <select class="form-control form-control" id="property_type_id"
-                                                name="property_type_id" required>
-                                                <option value = "">Pilih</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="property_certificate_id">Tipe Sertifikat <span
-                                                    class="text-danger">*</span></label>
-                                            <select class="form-control form-control" id="property_certificate_id"
-                                                name="property_certificate_id" required>
-                                                <option value = "">Pilih</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h5 id="form-title">Lokasi</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="province_id">Provinsi <span class="text-danger">*</span></label>
                                             <select class="form-control form-control" id="province_id" name="province_id"
@@ -400,7 +467,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="district_id">Kabupaten <span class="text-danger">*</span></label>
                                             <select class="form-control form-control" id="district_id" name="district_id"
@@ -409,7 +476,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="sub_district_id">Kecamatan <span
                                                     class="text-danger">*</span></label>
@@ -419,46 +486,32 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div class="input-file input-file-image">
-                                                <img class="img-upload-preview" width="200"
-                                                    src="{{ asset('dashboard/img/no-image.jpg') }}" alt="preview">
-                                                <input type="file" class="form-control form-control-file"
-                                                    id="uploadImg2" name="uploadImg2" accept="image/*">
-                                                <label for="uploadImg2"
-                                                    class="  label-input-file btn btn-black btn-round">
-                                                    <span class="btn-label">
-                                                        <i class="fa fa-file-image"></i>
-                                                    </span>
-                                                    Upload Gambar
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="form-group form-group-default">
-                                            <label for="location">Link Embed Google Maps (hanya masukan link https)</label>
-                                            <textarea class="form-control" id="maps_location" name="maps_location"
-                                                placeholder="https://www.google.com/maps/embed?" rows="10"></textarea>
-                                        </div>
-                                    </div>
                                     <div class="col-md-12">
-                                        <div class="form-group form-group-default" id="maps_preview">
-
+                                        <div class="form-group">
+                                            <label for="address">Alamat</label>
+                                            <input class="form-control" id="address" type="text" name="address"
+                                                placeholder="masukan alamat" />
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
+
+
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h5 id="form-title">Deskripsi</h5>
+                            </div>
+                            <div class="card-body">
                                 <div class="form-group">
                                     <label for="description">Dekripsi</label>
                                     <div id="summernote" name="description"></div>
                                 </div>
                             </div>
                         </div>
+                        
+
                         <div class="form-group text-right mt-3">
                             <button class="btn btn-sm btn-primary" type="submit" id="submit">
                                 <i class="ti-save"></i><span>Simpan</span>
@@ -1058,7 +1111,7 @@
 
         function loadUpdate(d) {
             $("#formEditable").attr('data-action', 'update').fadeIn(200, function() {
-                $("#form-title").html("TAMBAH PENGAJUAN")
+                $("#form-title").html("EDIT PENGAJUAN")
                 $("#boxTable").slideUp(200)
 
                 $("#id").val(d.id);
