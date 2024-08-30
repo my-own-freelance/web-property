@@ -247,7 +247,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <div class="input-file input-file-image">
-                                                        <img class="img-upload-preview" width="200"
+                                                        <img class="img-upload-preview" width="100%"
                                                             src="{{ asset('dashboard/img/no-image.jpg') }}" alt="preview">
                                                         <input type="file" class="form-control form-control-file"
                                                             id="uploadImg2" name="uploadImg2" accept="image/*">
