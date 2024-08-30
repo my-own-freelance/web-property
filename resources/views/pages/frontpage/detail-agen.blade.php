@@ -52,7 +52,7 @@
                             <div class="news-item news-item-sm">
                                 <a href="agent-details.html" class="news-img-link">
                                     <div class="news-item-img homes">
-                                        <div class="homes-tag button alt featured">{{ $agen->properties_count }} Listings
+                                        <div class="homes-tag button alt featured" style="margin-top: -180px !important;">{{ $agen->properties_count }} Listings
                                         </div>
                                         <img class="resp-img" src="{{ $agen->image }}"
                                             style="width: 100%; object-fit: cover;" alt="{{ $agen->name }}">

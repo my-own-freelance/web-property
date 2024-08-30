@@ -132,7 +132,7 @@ class HomeAgenController extends Controller
         $agen['whatsapp'] = 'https://api.whatsapp.com/send/?phone='
             . preg_replace('/^08/', '628', $agen->phone_number)
             . '&text='
-            . 'Halo, saya melihat profile anda di '  . url('/')
+            . 'Halo, saya melihat profile anda di '  . url('/')  . '/cari-agen/view/' . $agen->code
             . ' dan tertarik untuk membahas lebih lanjut mengenai properti yang Anda tawarkan.'
             . '%0A%0ABisakah Anda memberikan informasi lebih lanjut tentang property-properti yang tersedia? Terima kasih.';
 
