@@ -32,7 +32,7 @@
     <meta property="title" content="{{ $webTitle }}" />
     <meta name="description" content="{{ $webDesciption }}" />
     <meta name="keywords" content="{{ $webTitle }}" />
-    <meta property="og:image" content="{{ $webLogo }}" />
+    <meta property="og:image" content="{{ asset('frontpage/images/mockup-depan.jpg') }}" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta property="og:url" content="{{ request()->url() }}">
     <meta property="og:site_name" content="{{ $webTitle }}">
