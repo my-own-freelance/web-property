@@ -2320,7 +2320,7 @@ section.portfolio {
 
 .portfolio .homes-tag.sale {
   background: #e54242 !important;
-  width: 84px !important;
+  /* width: 84px !important; */
   height: 31px;
 }
 
