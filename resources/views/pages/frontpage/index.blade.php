@@ -527,7 +527,7 @@
                     </div>
                 </div>
                 <div class="text-center mt-4">
-                    <a class="btn btn-yellow" href="{{ route('property.list') }}">Semua Properti</a>
+                    <a class="btn btn-yellow" href="{{ route('property.list') }}">Lihat Semua</a>
                 </div>
             </div>
         @empty
