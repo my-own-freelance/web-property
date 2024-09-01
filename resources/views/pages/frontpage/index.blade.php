@@ -412,7 +412,7 @@
     <!-- START SECTION PROPERTIES FOR RENT -->
     <section class="featured portfolio bg-white-2 rec-pro">
         @forelse ($propertiesByTrx as $propByTrx)
-            <div class="container-fluid my-5">
+            <div class="container-fluid" style="margin-bottom: 50px !important;">
                 <div class="sec-title">
                     <h2><span>Properti </span>{{ $propByTrx->transaction }}</h2>
                     <p>Kami memberikan layanan penuh di setiap langkah..</p>
@@ -525,6 +525,9 @@
                         @empty
                         @endforelse
                     </div>
+                </div>
+                <div class="text-center mt-4">
+                    <a class="btn btn-yellow" href="{{ route('property.list') }}">Semua Properti</a>
                 </div>
             </div>
         @empty
