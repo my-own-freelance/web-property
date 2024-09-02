@@ -145,6 +145,7 @@ class PropertyController extends Controller
             $action_soft_delete = !$item->deleted_at && ($user->id == $item->agen_id && $user->role == "agen" || $user->role == "owner") ? "<a class='dropdown-item' onclick='return softDelete(\"{$item->id}\", \"" . strtolower($item->admin_approval) . "\", \"deleted\");' href='javascript:void(0)' title='Hapus Sementara'>Hapus</a>" : "";
             $action_hard_delete = $item->deleted_at != null && ($user->id == $item->agen_id && $user->role == "agen" || $user->role == "owner") ? "<a class='dropdown-item' onclick='return hardDelete(\"{$item->id}\", \"deleted\");' href='javascript:void(0)' title='Hapus Permanen'>Hapus Permanen</a>" : "";
             $action_restore_soft_delete = $item->deleted_at != null && ($user->id == $item->agen_id && $user->role == "agen" || $user->role == "owner") ? "<a class='dropdown-item' onclick='return restoreData(\"{$item->id}\", \"deleted\",  \"" . strtolower($item->admin_approval) . "\");' href='javascript:void(0)' title='Hapus'>Restore</a>" : "";
+            $action_detail_rejected = !$item->deleted_at && ($user->id == $item->agen_id && $user->role == "agen" || $user->role == "owner") && $item->admin_approval == "REJECTED" ? "<a class='dropdown-item' onclick='return getData(\"{$item->id}\",\"detail-rejected\");' href='javascript:void(0)' title='Alasan Ditolak'>Alasan Ditolak</a>" : "";
 
             $action = " <div class='dropdown-primary dropdown open'>
                             <button class='btn btn-sm btn-primary dropdown-toggle waves-effect waves-light' id='dropdown-{$item->id}' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
@@ -152,6 +153,7 @@ class PropertyController extends Controller
                             </button>
                             <div class='dropdown-menu' aria-labelledby='dropdown-{$item->id}' data-dropdown-out='fadeOut'>
                                 <a class='dropdown-item' onclick='return getData(\"{$item->id}\", \"detail\");' href='javascript:void(0);' title='Edit'>Detail</a>
+                                " . $action_detail_rejected . "
                                 " . $action_edit . "
                                 " . $action_approve . "
                                 " . $action_reject . "
@@ -780,6 +782,7 @@ class PropertyController extends Controller
             $rules = [
                 "id" => "required|integer",
                 "admin_approval" => "required|in:pending,approved,rejected",
+                "admin_reason" => "required_if:admin_approval,rejected|string",
             ];
 
             $messages = [
@@ -787,6 +790,7 @@ class PropertyController extends Controller
                 "id.integer" => "Type ID tidak sesuai",
                 "admin_approval.required" => "Approve status harus diisi",
                 "admin_approval.in" => "Approve status tidak valid",
+                "admin_reason.required_if" => "Alasan pengajuan ditolak harus diisi",
             ];
 
             $validator = Validator::make($data, $rules, $messages);
@@ -808,6 +812,10 @@ class PropertyController extends Controller
             if ($data["admin_approval"] == "APPROVED") {
                 $data["listed_on"] = Date::now();
                 $data["is_publish"] = "Y";
+            }
+
+            if ($data["admin_approval"] != "REJECTED") {
+                $data["admin_reason"] = NULL;
             }
 
             $property->update($data);

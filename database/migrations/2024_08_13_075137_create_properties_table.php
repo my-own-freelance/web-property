@@ -39,6 +39,7 @@ return new class extends Migration
             $table->integer('views')->default(0);
             $table->longText('maps_location')->nullable();
             $table->string('image');
+            $table->longText('admin_reason')->nullable();
             $table->unsignedBigInteger('agen_id');
             $table->unsignedBigInteger('property_transaction_id');
             $table->unsignedBigInteger('property_type_id');

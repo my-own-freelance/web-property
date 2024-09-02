@@ -510,7 +510,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
 
                         <div class="form-group text-right mt-3">
                             <button class="btn btn-sm btn-primary" type="submit" id="submit">
@@ -669,6 +669,50 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- FORM REASON REJECTED MODAL --}}
+        <div class="modal fade" id="formReasonRejectModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <input type="hidden" id="rejected-reason-id">
+                                <input type="hidden" id="rejected-reason-oldStatus">
+                                <input type="hidden" id="rejected-reason-newStatus">
+                                <label for="admin-reason" class="col-form-label">Alasan Pengajuan Ditolak</label>
+                                <textarea class="form-control" id="admin_reason" rows="5"
+                                    placeholder="tulis alasan mengapa pengajuan properti di tolak"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="submitRejectedReason()">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- DETAIL REASON REJECTED MODAL --}}
+        <div class="modal fade" id="detailRejectedModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Alasana Pengajuan Ditolak</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Nama Properti : <strong id="rejected-property-name"></strong>
+                        <br>
+                        Alasan Ditolak : <small id="rejected-property-reason"></small>
                     </div>
                 </div>
             </div>
@@ -1100,6 +1144,10 @@
                         loadDetail(d)
                     }
 
+                    if (action === "detail-rejected") {
+                        loadDetailRejected(d)
+                    }
+
                 },
                 error: function(err) {
                     console.log("error :", err);
@@ -1152,6 +1200,12 @@
                 $("#uploadImg2").attr("required", false);
                 $(".img-upload-preview").attr("src", d.image);
             })
+        }
+
+        function loadDetailRejected(data) {
+            $("#rejected-property-name").html(`${data.short_title}`);
+            $("#rejected-property-reason").html(data.admin_reason);
+            $("#detailRejectedModal").modal('show');
         }
 
         function loadDetail(data) {
@@ -1520,34 +1574,62 @@
         }
 
         function updateApproval(id, oldStatus, newStatus) {
+            if (newStatus == "rejected") {
+                loadFormRejected(id, oldStatus, newStatus);
+                return;
+            }
+
             let c = confirm(`Anda yakin ingin mengubah approval ke ${newStatus.toUpperCase()} ?`)
 
             if (c) {
                 let dataToSend = new FormData();
                 dataToSend.append("id", id);
                 dataToSend.append("admin_approval", newStatus);
-
-                $.ajax({
-                    url: "/api/admin/property/approve-status",
-                    contentType: false,
-                    processData: false,
-                    method: "POST",
-                    data: dataToSend,
-                    beforeSend: function() {
-                        console.log("Loading...")
-                    },
-                    success: function(res) {
-                        showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
-                        refreshData(oldStatus);
-                        refreshData(newStatus);
-                    },
-                    error: function(err) {
-                        console.log("error :", err);
-                        showMessage("danger", "flaticon-error", "Peringatan", err.message || err.responseJSON
-                            ?.message);
-                    }
-                })
+                sendApproveStatus(dataToSend, oldStatus, newStatus);
             }
+        }
+
+        function loadFormRejected(id, oldStatus, newStatus) {
+            $("#formReasonRejectModal").modal('show');
+            $("#admin_reason").focus();
+            $("#rejected-reason-id").val(id)
+            $("#rejected-reason-oldStatus").val(oldStatus)
+            $("#rejected-reason-newStatus").val(newStatus)
+        }
+
+        function submitRejectedReason() {
+            let dataToSend = new FormData();
+            dataToSend.append("id", parseInt($("#rejected-reason-id").val()));
+            dataToSend.append("admin_approval", "rejected");
+            dataToSend.append("admin_reason", $("#admin_reason").val());
+            sendApproveStatus(dataToSend, $("#rejected-reason-oldStatus").val(), $("#rejected-reason-newStatus").val())
+            return false;
+        }
+
+        function sendApproveStatus(data, oldStatus, newStatus) {
+            $.ajax({
+                url: "/api/admin/property/approve-status",
+                contentType: false,
+                processData: false,
+                method: "POST",
+                data: data,
+                beforeSend: function() {
+                    console.log("Loading...")
+                },
+                success: function(res) {
+                    if (newStatus == "rejected") {
+                        $("#formReasonRejectModal").modal('hide');
+                    }
+                    showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
+                    refreshData(oldStatus);
+                    refreshData(newStatus);
+                },
+                error: function(err) {
+                    console.log("error :", err);
+                    showMessage("danger", "flaticon-error", "Peringatan", err.message || err.responseJSON
+                        ?.message);
+                }
+            })
         }
         // END CRUD DATA PROPERTY
 
