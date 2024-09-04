@@ -187,12 +187,14 @@ class PropertyController extends Controller
                 "";
             unset($item['Agen']);
 
+            $rejectionReason = $item->admin_reason && $item->admin_reason != "" ? '<strong>Ditolak </strong> : ' . $item->admin_reason : '';
             $customInfo = '<small>
                                 ' . $infoAgen . '
                                 <strong>Code </strong>: ' . $item->code . '
                                 <br>
                                 <strong>Judul</strong> : ' . $item->short_title . '
                                 <br>
+                                ' . $rejectionReason . '
                             </small>';
 
             $customPrice = '<small>
