@@ -42,13 +42,13 @@
                     <div class="row">
                         <div class="col-md-12 col-xs-12">
                             <div class="news-item details no-mb2">
-                                <a href="blog-details.html" class="news-img-link">
+                                <a href="" class="news-img-link">
                                     <div class="news-item-img">
                                         <img class="img-responsive" src="{{ $article->image }}" alt="{{ $article->title }}">
                                     </div>
                                 </a>
                                 <div class="news-item-text details pb-0 px-3">
-                                    <a href="blog-details.html">
+                                    <a href="">
                                         <h3>{{ $article->title }}</h3>
                                     </a>
                                     <div class="dates">

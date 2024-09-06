@@ -327,7 +327,7 @@
                                     <div class="project-inner project-head">
                                         <div class="homes">
                                             <!-- homes img -->
-                                            <a href="single-property-1.html" class="homes-img">
+                                            <a href="{{ $simProp->url }}" class="homes-img">
                                                 <div class="homes-tag button alt featured">{{ $simProp->type }}</div>
                                                 <div class="homes-tag button alt sale">{{ $simProp->transaction }}</div>
                                                 <img src="{{ $simProp->image }}" alt="{{ $simProp->short_title }}"
