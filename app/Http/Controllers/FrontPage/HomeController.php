@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FrontPage;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\CustomTemplate;
 use App\Models\District;
 use App\Models\Partnership;
 use App\Models\Property;
@@ -23,6 +24,10 @@ class HomeController extends Controller
     public function index()
     {
         $title = "Situs Jual Beli Property Terbaik";
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
 
         $types = PropertyType::all();
         $transactions = PropertyTransaction::all();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomTemplate;
 use App\Models\ReasonToChooseUs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -12,6 +13,10 @@ class ReasonToChooseUsController extends Controller
     public function index()
     {
         $title = "Alasan Memilih Kami";
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         return view("pages.admin.reason-to-choose-us", compact("title"));
     }
 

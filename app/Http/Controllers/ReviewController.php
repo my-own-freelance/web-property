@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomTemplate;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -12,6 +13,10 @@ class ReviewController extends Controller
     public function index()
     {
         $title = "Review";
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         return view("pages.admin.review", compact("title"));
     }
 

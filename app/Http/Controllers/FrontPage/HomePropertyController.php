@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FrontPage;
 
 use App\Http\Controllers\Controller;
+use App\Models\CustomTemplate;
 use App\Models\Property;
 use App\Models\PropertyCertificate;
 use App\Models\PropertyTransaction;
@@ -18,6 +19,10 @@ class HomePropertyController extends Controller
     public function list(Request $request)
     {
         $title = 'List Properti';
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         $provinces = Province::orderBy("name", "asc")->get();
         $types = PropertyType::all();
         $transactions = PropertyTransaction::all();
@@ -287,6 +292,10 @@ class HomePropertyController extends Controller
 
         // dd($property);
         $title = $property->short_title;
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         return view("pages.frontpage.detail-properti", compact("title", "property", "similarProperties", "recentProperties"));
     }
 }

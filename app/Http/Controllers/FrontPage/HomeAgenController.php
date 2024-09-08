@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FrontPage;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\CustomTemplate;
 use App\Models\Property;
 use App\Models\User;
 use Carbon\Carbon;
@@ -15,6 +16,10 @@ class HomeAgenController extends Controller
     public function list(Request $request)
     {
         $title = 'List Agen';
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         $query = User::withCount(['Properties' => function ($query) {
             $query->where('is_available', 'Y')
                 ->where('is_publish', 'Y')
@@ -218,6 +223,10 @@ class HomeAgenController extends Controller
                 ];
             });
 
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         return view("pages.frontpage.detail-agen", compact("title", "agen", "recenAgenProperty", "recentProperties", "recentArticles"));
     }
 }

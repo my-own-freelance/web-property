@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomTemplate;
 use App\Models\Partnership;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -12,6 +13,10 @@ class PartnershipController extends Controller
     public function index()
     {
         $title = "Partnership";
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         return view("pages.admin.partnership", compact("title"));
     }
 

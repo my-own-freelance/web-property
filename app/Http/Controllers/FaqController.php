@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomTemplate;
 use App\Models\Faq;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -11,6 +12,10 @@ class FaqController extends Controller
     public function index()
     {
         $title = "FAQ";
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         return view("pages.admin.faq", compact("title"));
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomTemplate;
 use App\Models\Property;
 use App\Models\PropertyTransaction;
 use Illuminate\Http\Request;
@@ -12,6 +13,10 @@ class PropertyTranscationController extends Controller
     public function index()
     {
         $title = "Transaksi Properti";
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         return view("pages.admin.prop-transaction", compact("title"));
     }
 

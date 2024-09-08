@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Contact;
+use App\Models\CustomTemplate;
 use App\Models\Faq;
 use App\Models\Property;
 use App\Models\PropertyCertificate;
@@ -61,6 +62,10 @@ class DashboardController extends Controller
             $propAll = $propPending + $propApproved + $propRejected + $propDeleted;
         }
 
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
 
         return view("pages.admin.index", compact('title', 'user', 'propTransactions', 'propTypes', 'propCertificates', 'propAll', 'propPending', 'propApproved', 'propRejected', 'propDeleted', 'articles', 'faqs', 'agens', 'reviews', 'contacts', 'reasons'));
     }

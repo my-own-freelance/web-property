@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\CustomTemplate;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -12,6 +13,10 @@ class ContactController extends Controller
     public function index()
     {
         $title = "Pesan Masuk";
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         return view("pages.admin.contact", compact("title"));
     }
 

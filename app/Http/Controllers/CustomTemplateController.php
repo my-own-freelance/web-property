@@ -12,6 +12,10 @@ class CustomTemplateController extends Controller
     public function index()
     {
         $title = "Setting Website";
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         return view('pages.admin.setting', compact('title'));
     }
 

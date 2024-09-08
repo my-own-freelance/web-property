@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomTemplate;
 use App\Models\Property;
 use App\Models\PropertyCertificate;
 use Illuminate\Http\Request;
@@ -12,6 +13,10 @@ class PropertyCertificateController extends Controller
     public function index()
     {
         $title = "Sertifikat Properti";
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         return view("pages.admin.prop-certificate", compact("title"));
     }
 

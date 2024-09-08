@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomTemplate;
 use App\Models\District;
 use App\Models\Property;
 use App\Models\PropertyCertificate;
@@ -21,6 +22,10 @@ class PropertyController extends Controller
     public function index()
     {
         $title = "Properti";
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         return view("pages.admin.property.index", compact("title"));
     }
 

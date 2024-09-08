@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\UserService;
+use App\Models\CustomTemplate;
 use App\Models\District;
 use App\Models\Province;
 use App\Models\SubDistrict;
@@ -20,6 +21,10 @@ class UserController extends Controller
     {
         $title = "Data Agen";
         $user = Auth()->user();
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         return view("pages.admin.agen", compact('title'));
     }
 

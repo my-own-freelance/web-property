@@ -22,10 +22,13 @@ class WebAuthController extends Controller
     public function login(Request $request)
     {
         $title = "Kelola Akses";
+        $webTitle = "DASHBOARD PROPERTY";
         $setting = CustomTemplate::first();
         $description = "Situs Jual Beli Properti Terbaik";
-        if ($setting && $setting->web_description) {
+        if ($setting) {
             $description = $setting->web_description;
+            $title = $setting->web_title;
+            
         }
         return view("pages.auth.index", compact("title", 'description'));
     }

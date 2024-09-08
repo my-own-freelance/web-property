@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomTemplate;
 use App\Models\District;
 use App\Models\Province;
 use App\Models\SubDistrict;
@@ -17,6 +18,10 @@ class AccountController extends Controller
     {
         $title = "Kelola Akun";
         $user = auth()->user();
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         if ($user->role == "owner") {
             return view("pages.admin.account.owner", compact("title"));
         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FrontPage;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\CustomTemplate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -13,6 +14,10 @@ class HomeArticleController extends Controller
     public function list(Request $request)
     {
         $title = 'List Artikel';
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         $query = Article::query();
 
         if ($request->query("search") && $request->query("search") != "") {
@@ -92,6 +97,10 @@ class HomeArticleController extends Controller
                 ];
             });
 
+        $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         return view("pages.frontpage.detail-article", compact("title", "article", "recentArticles"));
     }
 }

@@ -12,6 +12,9 @@ class HomeContactController extends Controller
     {
         $title = "Contact Us";
         $setting = CustomTemplate::first();
+        if ($setting) {
+            $title = $setting->web_title;
+        }
         if ($setting['maps_location'] && $setting['maps_location'] != "") {
             $setting['maps_preview'] = "<iframe src='" . $setting["maps_location"] . "' allowfullscreen class='w-100' height='500'></iframe>";
         }

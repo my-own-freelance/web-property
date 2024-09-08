@@ -123,7 +123,7 @@
                     </li>
                 @endif
                 <li class="nav-item ml-3">
-                    <a href="{{ route('home') }}">
+                    <a href="{{ route('home') }}" target="__blank">
                         <i class="fas fa-arrow-left"></i>
                         <p>Website Page</p>
                     </a>
