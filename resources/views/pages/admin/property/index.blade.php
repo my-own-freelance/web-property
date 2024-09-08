@@ -571,7 +571,7 @@
                                             <small class="text-danger">Max ukuran 1MB</small>
                                         </div>
                                         <div class="form-group">
-                                            <button class="btn btn-sm btn-primary" type="submit" id="submit">
+                                            <button class="btn btn-sm btn-primary" type="submit" id="submitImage">
                                                 <i class="ti-save"></i><span>Simpan</span>
                                             </button>
                                             <button class="btn btn-sm btn-default" id="resetImage" type="reset"
@@ -1516,8 +1516,10 @@
                 data: data,
                 beforeSend: function() {
                     console.log("Loading...")
+                    $("#submit").attr("disabled", true)
                 },
                 success: function(res) {
+                    $("#submit").attr("disabled", false)
                     closeForm();
                     showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
                     if (action == "update") {
@@ -1530,6 +1532,7 @@
 
                 },
                 error: function(err) {
+                    $("#submit").attr("disabled", false)
                     console.log("error :", err);
                     showMessage("danger", "flaticon-error", "Peringatan", err.message || err.responseJSON
                         ?.message);
