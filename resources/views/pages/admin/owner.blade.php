@@ -235,13 +235,16 @@
                 data: data,
                 beforeSend: function() {
                     console.log("Loading...")
+                    $("#submit").attr("disabled", true)
                 },
                 success: function(res) {
+                    $("#submit").attr("disabled", false)
                     closeForm();
                     showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
                     refreshData();
                 },
                 error: function(err) {
+                    $("#submit").attr("disabled", false)
                     console.log("error :", err);
                     showMessage("danger", "flaticon-error", "Peringatan", err.message || err.responseJSON
                         ?.message);

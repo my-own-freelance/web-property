@@ -117,6 +117,8 @@ class UserController extends Controller
     public function createAgen(Request $request)
     {
         try {
+            $data = $request->all();
+            $data["phone_number"] = preg_replace('/^08/', '628', $data['phone_number']);
             $rules = [
                 "name" => "required|string",
                 "username" => "required|string|unique:users",
@@ -172,7 +174,7 @@ class UserController extends Controller
                 "description.required" => "Deskripsi harus diisi"
             ];
 
-            $validator = Validator::make($request->all(), $rules, $messages);
+            $validator = Validator::make($data, $rules, $messages);
             if ($validator->fails()) {
                 return response()->json([
                     "status" => "error",
@@ -207,10 +209,8 @@ class UserController extends Controller
                 ], 400);
             }
 
-            $data = $request->all();
             $data["password"] = Hash::make($request->password);
             $data["role"] = "agen";
-            $data["phone_number"] = preg_replace('/^08/', '628', $data['phone_number']);
             $data["code"] = strtoupper(Str::random(10));
 
             if ($request->file('image')) {
@@ -409,6 +409,9 @@ class UserController extends Controller
     public function createUser(Request $request)
     {
         try {
+            $data = $request->all();
+            $data["phone_number"] = preg_replace('/^08/', '628', $data['phone_number']);
+
             $rules = [
                 "name" => "required|string",
                 "username" => "required|string|unique:users",
@@ -438,7 +441,7 @@ class UserController extends Controller
                 "is_active.in" => "Status tidak sesuai",
             ];
 
-            $validator = Validator::make($request->all(), $rules, $messages);
+            $validator = Validator::make($data, $rules, $messages);
             if ($validator->fails()) {
                 return response()->json([
                     "status" => "error",
@@ -446,10 +449,8 @@ class UserController extends Controller
                 ], 400);
             }
 
-            $data = $request->all();
             $data["password"] = Hash::make($request->password);
             $data["role"] = "owner";
-            $data["phone_number"] = preg_replace('/^08/', '628', $data['phone_number']);
             $data["code"] = strtoupper(Str::random(10));
             User::create($data);
 
