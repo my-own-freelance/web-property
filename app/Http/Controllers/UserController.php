@@ -37,7 +37,7 @@ class UserController extends Controller
     // HANDLER API
     public function dataTable(Request $request, $role)
     {
-        $query = User::select("id", "name", "username", "email", "phone_number", "role", "is_active")
+        $query = User::select("id", "name", "username", "email", "phone_number", "role", "is_active", "code")
             ->where("role", $role);
 
         if ($request->query('search')) {
@@ -46,6 +46,7 @@ class UserController extends Controller
                 $query->where('name', 'like', '%' . $searchValue . '%')
                     ->orWhere('username', 'like', '%' . $searchValue . '%')
                     ->orWhere('email', 'like', '%' . $searchValue . '%')
+                    ->orWhere('code', 'like', '%' . $searchValue . '%')
                     ->orWhere('phone_number', 'like', '%' . $searchValue . '%');
             });
         }

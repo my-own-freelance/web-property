@@ -32,6 +32,11 @@
                                     placeholder="email">
                             </div>
                             <div class="form-group form-group-default">
+                                <label>Kode Agen</label>
+                                <input type="text" class="form-control" id="code" name="code" disabled
+                                    placeholder="kode">
+                            </div>
+                            <div class="form-group form-group-default">
                                 <label>Password</label>
                                 <input type="text" class="form-control" id="password" name="password"
                                     placeholder="ubah password">
@@ -170,6 +175,7 @@
                     $("#name").val(d.name);
                     $("#email").val(d.email);
                     $("#username").val(d.username);
+                    $("#code").val(d.code);
                     $("#phone_number").val(d.phone_number);
                     $("#position").val(d.position);
                     $("#caption").val(d.caption);

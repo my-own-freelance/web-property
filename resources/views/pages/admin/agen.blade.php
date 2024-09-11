@@ -25,6 +25,7 @@
                                     <th class="all">Nama Agen</th>
                                     <th class="all">Username</th>
                                     <th class="all">Email</th>
+                                    <th class="all">Kode</th>
                                     <th class="all">Level</th>
                                     <th class="all">Phone</th>
                                     <th class="all">Status</th>
@@ -252,6 +253,8 @@
                 }, {
                     data: "email"
                 }, {
+                    data: "code"
+                },{
                     data: "role"
                 }, {
                     data: "phone_number"
