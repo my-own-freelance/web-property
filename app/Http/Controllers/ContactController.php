@@ -21,9 +21,26 @@ class ContactController extends Controller
     }
 
     // HANDLER API
+    function validateCaptcha($captchaResponse)
+    {
+        $secretKey = env('recaptcha2.secret');
+        $verifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
+
+        $response = file_get_contents($verifyUrl . '?secret=' . $secretKey . '&response=' . $captchaResponse);
+        $responseKeys = json_decode($response, true);
+        return $responseKeys;
+        return isset($responseKeys["success"]) && $responseKeys["success"] === true;
+    }
+
     public function create(Request $request)
     {
         try {
+            $captchaResponse = $request->input('g-recaptcha-response');
+
+            if (!$this->validateCaptcha($captchaResponse)) {
+                return response()->json(['message' => 'Captcha tidak valid.'], 422);
+            }
+
             $data = $request->all();
             $rules = [
                 "name" => "required|string",
@@ -46,6 +63,7 @@ class ContactController extends Controller
                     "message" => $validator->errors()->first(),
                 ], 400);
             }
+            unset($data['g-recaptcha-response']);
             Contact::create($data);
 
             return response()->json([

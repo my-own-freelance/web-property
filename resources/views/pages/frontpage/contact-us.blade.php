@@ -51,6 +51,9 @@
                         <div class="form-group">
                             <textarea class="form-control textarea-custom input-full" id="message" required rows="8" placeholder="Message"></textarea>
                         </div>
+                        <div class="form-group">
+                            <div class="g-recaptcha" data-sitekey="{{ env('recaptcha2.key') }}"></div>
+                        </div>
                         <button class="btn btn-primary btn-lg" type="submit" id="sendMessage">Kirim</button>
                     </form>
                 </div>
@@ -100,15 +103,27 @@
 @endsection
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         $('#formContact').submit(function(e) {
             e.preventDefault();
+            let captchaResponse = grecaptcha.getResponse();
+            if (!captchaResponse) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Silahkan selesaikan reCAPTCHA',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
 
             let dataToSend = new FormData();
             dataToSend.append("name", $("#name").val());
             dataToSend.append("email", $("#email").val());
             dataToSend.append("subject", $("#subject").val());
             dataToSend.append("message", $("#message").val());
+            dataToSend.append("g-recaptcha-response", captchaResponse);
 
             saveData(dataToSend);
         });
@@ -135,6 +150,7 @@
                     });
 
                     $('#formContact')[0].reset();
+                    grecaptcha.reset();
                 },
                 error: function(xhr, status, error) {
                     $("#sendMessage").attr("disabled", false);
