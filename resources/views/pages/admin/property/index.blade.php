@@ -567,7 +567,7 @@
                                         <div class="form-group">
                                             <label for="property_image">Gambar</label>
                                             <input class="form-control" id="property_image" type="file"
-                                                name="property_image" placeholder="upload gambar" required />
+                                                name="property_image[]" multiple placeholder="upload gambar" required />
                                             <small class="text-danger">Max ukuran 1MB</small>
                                         </div>
                                         <div class="form-group">
@@ -1663,7 +1663,10 @@
             e.preventDefault();
             let formData = new FormData();
             formData.append("property_id", $("#property_id").val());
-            formData.append("image", document.getElementById("property_image").files[0]);
+            let files = document.getElementById("property_image").files;
+            for (let i = 0; i < files.length; i++) {
+                formData.append("images[]", files[i]);
+            }
             savePropertyImage(formData);
             return false;
         });

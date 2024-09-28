@@ -34,18 +34,21 @@ class PropertyImageController extends Controller
 
     public function create(Request $request)
     {
+        $uploadedImages = [];
+
         try {
             $data = $request->all();
             $validator = Validator::make($data, [
                 "property_id" => "required|integer",
-                "image" => "required|image|max:1024|mimes:giv,svg,jpeg,png,jpg"
+                "images" => "required",
+                "images.*" => "image|max:1024|mimes:gif,svg,jpeg,png,jpg"
             ], [
                 "property_id.required" => "ID Property harus diisi",
                 "property_id.integer" => "Type ID Property tidak valid",
-                "image.required" => "Gambar harus diisi",
-                "image.image" => "Gambar yang di upload tidak valid",
-                "image.max" => "Ukuran gambar maximal 1MB",
-                "image.mimes" => "Format gambar harus giv/svg/jpeg/png/jpg"
+                "images.required" => "Gambar harus diisi",
+                "images.*.image" => "Gambar yang di upload tidak valid",
+                "images.*.max" => "Ukuran gambar maksimal 1MB per gambar",
+                "images.*.mimes" => "Format gambar harus gif/svg/jpeg/png/jpg"
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -62,17 +65,27 @@ class PropertyImageController extends Controller
                 ], 404);
             }
 
-            $data["image"] = $request->file("image")->store("assets/property-image", "public");
-            PropertyImage::create($data);
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $image) {
+                    $imagePath = $image->store("assets/property-image", "public");
+                    array_push($uploadedImages, $imagePath);
+
+                    // Buat data PropertyImage untuk setiap gambar yang diupload
+                    PropertyImage::create([
+                        'property_id' => $data['property_id'],
+                        'image' => $imagePath
+                    ]);
+                }
+            }
+
             return response()->json([
                 "status" => "success",
                 "message" => "Data berhasil dibuat"
             ]);
         } catch (\Exception $err) {
-            if ($request->file("image")) {
-                $uploadedImg = "public/assets/property-image" . $request->image->hashName();
-                if (Storage::exists($uploadedImg)) {
-                    Storage::delete($uploadedImg);
+            foreach ($uploadedImages as $imagePath) {
+                if (Storage::exists("public/" . $imagePath)) {
+                    Storage::delete("public/" . $imagePath);
                 }
             }
             return response()->json([
