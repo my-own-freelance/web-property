@@ -19,7 +19,7 @@
                         <div class="tab-pane active" id="countinformation" (role="tabpanel")>
                             <div class="form-group form-group-default">
                                 <label>Nama</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="nama">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="nama" disabled>
                             </div>
                             <div class="form-group form-group-default">
                                 <label>Username</label>
@@ -29,7 +29,7 @@
                             <div class="form-group form-group-default">
                                 <label>Email</label>
                                 <input type="email" class="form-control" id="email" name="email"
-                                    placeholder="email">
+                                    placeholder="email" disabled>
                             </div>
                             <div class="form-group form-group-default">
                                 <label>Kode Agen</label>
@@ -44,7 +44,7 @@
                             <div class="form-group form-group-default">
                                 <label>Nomor Telpon</label>
                                 <input type="text" class="form-control" id="phone_number" name="phone_number"
-                                    placeholder="nama">
+                                    placeholder="nama" disabled>
                             </div>
                             <div class="form-group form-group-default">
                                 <label>Jabatan</label>

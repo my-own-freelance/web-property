@@ -148,9 +148,9 @@ class AccountController extends Controller
             $data = $request->all();
             $rules = [
                 "id" => "required|integer",
-                "name" => "required|string",
-                "email" => "required|string|email",
-                "phone_number" => "required|string|digits_between:10,15",
+                // "name" => "required|string",
+                // "email" => "required|string|email",
+                // "phone_number" => "required|string|digits_between:10,15",
                 "password" => "nullable",
                 "position" => "required|string",
                 "caption" => "required|string",
@@ -176,11 +176,11 @@ class AccountController extends Controller
             $messages = [
                 "id.required" => "Data ID harus diisi",
                 "id.integer" => "Type ID tidak sesuai",
-                "name.required" => "Nama harus diisi",
-                "email.required" => "Email harus diisi",
-                "email.email" => "Email tidak valid",
-                "phone_number.required" => "Nomor telepon harus diisi",
-                "phone_number.digits_between" => "Nomor telepon harus memiliki panjang antara 10 hingga 15 karakter",
+                // "name.required" => "Nama harus diisi",
+                // "email.required" => "Email harus diisi",
+                // "email.email" => "Email tidak valid",
+                // "phone_number.required" => "Nomor telepon harus diisi",
+                // "phone_number.digits_between" => "Nomor telepon harus memiliki panjang antara 10 hingga 15 karakter",
                 "password.min" => "Password minimal 5 karakter",
                 "position.required" => "Jabatan harus diisi",
                 "caption.required" => "Caption harus diisi",
@@ -253,30 +253,33 @@ class AccountController extends Controller
 
             // agar username tidak bisa diganti
             unset($data['username']);
+            unset($data['name']);
+            unset($data['email']);
+            unset($data['phone_number']);
 
             // jika email di update
-            if ($data['email'] != $user->email) {
-                $existingEmail = User::where("email", $data['email'])->where('id', '!=', $user->id)->first();
-                if ($existingEmail) {
-                    return response()->json([
-                        "status" => "error",
-                        "message" => "Email sudah digunakan"
-                    ], 404);
-                }
-            }
+            // if ($data['email'] != $user->email) {
+            //     $existingEmail = User::where("email", $data['email'])->where('id', '!=', $user->id)->first();
+            //     if ($existingEmail) {
+            //         return response()->json([
+            //             "status" => "error",
+            //             "message" => "Email sudah digunakan"
+            //         ], 404);
+            //     }
+            // }
 
             // jika nomor telpon di update
-            if ($data['phone_number'] != $user->phone_number) {
-                $existingPhoneNumber = User::where("phone_number", preg_replace('/^08/', '628', $data['phone_number']))->where('id', '!=', $user->id)->first();
-                if ($existingPhoneNumber) {
-                    return response()->json([
-                        "status" => "error",
-                        "message" => "Nomor Telpon sudah digunakan"
-                    ], 404);
-                } else {
-                    $data['phone_number'] = preg_replace('/^08/', '628', $data['phone_number']);
-                }
-            }
+            // if ($data['phone_number'] != $user->phone_number) {
+            //     $existingPhoneNumber = User::where("phone_number", preg_replace('/^08/', '628', $data['phone_number']))->where('id', '!=', $user->id)->first();
+            //     if ($existingPhoneNumber) {
+            //         return response()->json([
+            //             "status" => "error",
+            //             "message" => "Nomor Telpon sudah digunakan"
+            //         ], 404);
+            //     } else {
+            //         $data['phone_number'] = preg_replace('/^08/', '628', $data['phone_number']);
+            //     }
+            // }
 
             // delete undefined data image
             unset($data["image"]);
